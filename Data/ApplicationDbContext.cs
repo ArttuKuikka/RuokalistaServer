@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RuokalistaServer.Models;
 
 namespace RuokalistaServer.Data
 {
@@ -9,5 +10,6 @@ namespace RuokalistaServer.Data
             : base(options)
         {
         }
+        public DbSet<RuokalistaServer.Models.Ruokalista> Ruokalista { get; set; }
     }
 }

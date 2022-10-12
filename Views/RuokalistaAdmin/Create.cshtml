@@ -1,0 +1,61 @@
+﻿@model RuokalistaServer.Models.Ruokalista
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Ruokalista</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WeekId" class="control-label"></label>
+                <input asp-for="WeekId" class="form-control" />
+                <span asp-validation-for="WeekId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Maanantai" class="control-label"></label>
+                <input asp-for="Maanantai" class="form-control" />
+                <span asp-validation-for="Maanantai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tiistai" class="control-label"></label>
+                <input asp-for="Tiistai" class="form-control" />
+                <span asp-validation-for="Tiistai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Keskiviikko" class="control-label"></label>
+                <input asp-for="Keskiviikko" class="form-control" />
+                <span asp-validation-for="Keskiviikko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Torstai" class="control-label"></label>
+                <input asp-for="Torstai" class="form-control" />
+                <span asp-validation-for="Torstai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Perjantai" class="control-label"></label>
+                <input asp-for="Perjantai" class="form-control" />
+                <span asp-validation-for="Perjantai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<RuokalistaServer.Models.Ruokalista>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Maanantai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tiistai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Keskiviikko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Torstai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perjantai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maanantai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tiistai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Keskiviikko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Torstai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perjantai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
