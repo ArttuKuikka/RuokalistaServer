@@ -24,14 +24,7 @@ namespace RuokalistaServer.Controllers
         }
 
 
-        [HttpGet]
-        [Route("api/v1/Ruokalista/test")]
-        public async Task<IActionResult> test()
-        {
-
-
-            return Ok("testiin");
-        }
+       
 
         // GET: Ruokalista
         [AllowAnonymous]

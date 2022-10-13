@@ -45,7 +45,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = "MultiAuthSchemes";
     options.DefaultChallengeScheme = "MultiAuthSchemes";
     options.DefaultScheme = "MultiAuthSchemes";
-}).AddPolicyScheme("MultiAuthSchemes", "Identity.Application", options =>
+}).AddPolicyScheme("MultiAuthSchemes", "Bearer", options =>
 {
     options.ForwardDefaultSelector = context =>
     {
