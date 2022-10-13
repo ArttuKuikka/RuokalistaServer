@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace RuokalistaServer.Auth
 {
     public class LoginModel
     {
+        [JsonIgnore]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "User Name is required")]
