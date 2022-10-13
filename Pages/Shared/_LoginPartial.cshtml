@@ -6,8 +6,11 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="nav-link " style="color: white" href="/RuokalistaAdmin" title="Admin">Admin</a>
+            <a class="nav-link " style="color: white" href="/RuokalistaAdmin" title="Ruoka-Admin">Ruoka-Admin</a>
     </li>
+        <li class="nav-item">
+            <a class="nav-link " style="color: white" href="/UserAdmin" title="User-Admin">User-Admin</a>
+        </li>
     <li class="nav-item">
             <a class="nav-link " style="color: white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
     </li>

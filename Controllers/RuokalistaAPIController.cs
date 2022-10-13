@@ -48,7 +48,7 @@ namespace RuokalistaServer.Controllers
         //GET: Ruokalista/Details/5
         [HttpGet]
         [AllowAnonymous]
-        [Route("api/v1/Ruokalista/Details/{year}/{week}")]
+        [Route("api/v1/Ruokalista/{year}/{week}")]
         public async Task<IActionResult> Details(int? year, int? week)
         {
             if (year == null || _context.Ruokalista == null || week == null)
