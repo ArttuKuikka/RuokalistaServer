@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Ruokalista";
+}
+
+<div class="text-center">
+
+    @{
+      if(ViewBag.RuokaOlemassa)
+      {
+            <h1 class="display-4">Tämän viikon ruokalista</h1>
+
+            RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
+
+            <h3>Maanantai</h3>
+            <h4>@ruoka.Maanantai</h4>
+            <br />
+            <h3>Tiistai</h3>
+            <h4>@ruoka.Tiistai</h4>
+            <br />
+            <h3>Keskiviikko</h3>
+            <h4>@ruoka.Keskiviikko</h4>
+            <br />
+            <h3>Torstai</h3>
+            <h4>@ruoka.Torstai</h4>
+            <br />
+            <h3>Maanantai</h3>
+            <h4>@ruoka.Perjantai</h4>
+            <br />
+      }
+      else
+      {
+            <h1 class="display-4">Tämän viikon ruokalistaa ei vielä ole</h1>
+      }
+
+}
+</div>
+

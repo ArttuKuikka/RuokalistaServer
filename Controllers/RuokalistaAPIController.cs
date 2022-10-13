@@ -42,7 +42,16 @@ namespace RuokalistaServer.Controllers
             var ruokalista = await _context.Ruokalista
               .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
 
-            return Json(ruokalista);
+            if(ruokalista == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Json(ruokalista);
+            }
+
+            
         }
 
         //GET: Ruokalista/Details/5
