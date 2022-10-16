@@ -13,6 +13,7 @@ namespace RuokalistaServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class AuthenticateController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -26,7 +27,7 @@ namespace RuokalistaServer.Controllers
             _userManager = userManager;
             _configuration = configuration;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -56,6 +57,12 @@ namespace RuokalistaServer.Controllers
                 });
             }
             return Unauthorized();
+        }
+
+        [Route("ValidateToken")]
+        public IActionResult validate()
+        {
+            return Ok("Valid");
         }
 
        
