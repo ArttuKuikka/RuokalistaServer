@@ -60,13 +60,14 @@ namespace RuokalistaServer.Controllers
         }
 
         [Route("ValidateToken")]
-        public IActionResult validate()
+        [HttpGet]
+        public async Task<IActionResult> validate()
         {
             return Ok("Valid");
         }
 
-       
-       
+
+
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             
