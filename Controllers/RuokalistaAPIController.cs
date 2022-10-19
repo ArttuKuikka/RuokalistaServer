@@ -75,6 +75,19 @@ namespace RuokalistaServer.Controllers
             return Json(ruokalista);
         }
 
+         [HttpGet]
+        [Route("api/v1/Ruokalista/Get/{amount}")]
+        public async Task<IActionResult> GetLatest(int amount)
+        {
+            if (_context.Ruokalista == null)
+            {
+                return NotFound();
+            }
+
+            return Json(_context.Ruokalista.Take(amount));
+        }
+
+
         // GET: Ruokalista/Create
         //[HttpGet]
         //[Route("api/v1/Ruokalista/Create")]
