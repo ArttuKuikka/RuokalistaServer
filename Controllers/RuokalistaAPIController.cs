@@ -161,37 +161,39 @@ namespace RuokalistaServer.Controllers
         //    return View(ruokalista);
         //}
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("api/v1/Ruokalista/GetId/{year}/{week}")]
-        public async Task<IActionResult> GetId(int? year, int? week)
-        {
+        //[HttpGet]
+        //[AllowAnonymous]
+        //[Route("api/v1/Ruokalista/GetId/{year}/{week}")]
+        //public async Task<IActionResult> GetId(int? year, int? week)
+        //{
 
-            if (year == null || _context.Ruokalista == null || week == null)
-            {
-                return NotFound();
-            }
+        //    if (year == null || _context.Ruokalista == null || week == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var ruokalista = await _context.Ruokalista
-                .Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
-            if (ruokalista == null)
-            {
-                return NotFound();
-            }
+        //    var ruokalista = await _context.Ruokalista
+        //        .Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
+        //    if (ruokalista == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Json(ruokalista.Id);
-        }
+        //    return Json(ruokalista.Id);
+        //}
 
 
         // POST: Ruokalista/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Route("api/v1/Ruokalista/Edit/{id}")]
+        [Route("api/v1/Ruokalista/Edit/{year}/{week}")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+        public async Task<IActionResult> Edit(int? year, int? week, [Bind("WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
         {
-            if (id != ruokalista.Id)
+            var rk = await _context.Ruokalista
+                .Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
+            if (rk == null)
             {
                 return NotFound();
             }
@@ -216,7 +218,7 @@ namespace RuokalistaServer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ruokalista);
+            return Ok(); 
         }
 
 
