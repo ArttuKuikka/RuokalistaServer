@@ -179,7 +179,7 @@ namespace RuokalistaServer.Controllers
                 return NotFound();
             }
 
-            return Json(ruokalista.Id);
+            return Ok(ruokalista.Id);
         }
 
 
