@@ -216,6 +216,29 @@ namespace RuokalistaServer.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Route("api/v1/Ruokalista/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Ruokalista == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Ruokalista'  is null.");
+            }
+            var ruokalista = await _context.Ruokalista.FindAsync(id);
+            if (ruokalista != null)
+            {
+                _context.Ruokalista.Remove(ruokalista);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok("Ok");
+        }
+
 
 
         private bool RuokalistaExists(int id)
