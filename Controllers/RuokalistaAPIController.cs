@@ -207,7 +207,7 @@ namespace RuokalistaServer.Controllers
                 {
                     if (!RuokalistaExists(ruokalista.Id))
                     {
-                        return BadRequest();
+                        return NotFound();
                     }
                     else
                     {
