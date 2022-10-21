@@ -191,10 +191,7 @@ namespace RuokalistaServer.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
         {
-            if (id != ruokalista.Id)
-            {
-                return NotFound();
-            }
+            ruokalista.Id = id;
 
             if (ModelState.IsValid)
             {
