@@ -198,6 +198,8 @@ namespace RuokalistaServer.Controllers
                 return NotFound();
             }
 
+            ruokalista.Id = rk.Id;
+
             if (ModelState.IsValid)
             {
                 try
