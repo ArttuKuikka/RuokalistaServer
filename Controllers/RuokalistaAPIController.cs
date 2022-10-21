@@ -189,7 +189,7 @@ namespace RuokalistaServer.Controllers
         [HttpPost]
         [Route("api/v1/Ruokalista/Edit/{id}")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+        public async Task<IActionResult> Edit(int id, [Bind("id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
         {
             if (id != ruokalista.Id)
             {
