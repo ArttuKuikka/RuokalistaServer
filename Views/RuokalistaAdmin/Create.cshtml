@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now).ToString();
+    var vuosi = DateTime.Now.Year.ToString();
 }
 
 <h1>Create</h1>
@@ -14,12 +16,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="WeekId" class="control-label"></label>
-                <input asp-for="WeekId" class="form-control" />
+                <input asp-for="WeekId" class="form-control" value="@viikko" />
                 <span asp-validation-for="WeekId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
+                <input asp-for="Year" class="form-control" value="@vuosi" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
