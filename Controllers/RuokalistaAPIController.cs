@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace RuokalistaServer.Controllers
 {
@@ -24,7 +26,7 @@ namespace RuokalistaServer.Controllers
         }
 
 
-       
+
 
         // GET: Ruokalista
         [AllowAnonymous]
@@ -42,7 +44,7 @@ namespace RuokalistaServer.Controllers
             var ruokalista = await _context.Ruokalista
               .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
 
-            if(ruokalista == null)
+            if (ruokalista == null)
             {
                 return NotFound();
             }
@@ -51,7 +53,7 @@ namespace RuokalistaServer.Controllers
                 return Json(ruokalista);
             }
 
-            
+
         }
 
         //GET: Ruokalista/Details/5
@@ -75,7 +77,7 @@ namespace RuokalistaServer.Controllers
             return Json(ruokalista);
         }
 
-         [HttpGet]
+        [HttpGet]
         [Route("api/v1/Ruokalista/Get/{amount}")]
         public async Task<IActionResult> GetLatest(int amount)
         {
@@ -239,7 +241,65 @@ namespace RuokalistaServer.Controllers
             return Ok("Ok");
         }
 
+        [HttpPost]
+        [Route("api/v1/Ruokalista/ProcessImage")]
+        public async Task<IActionResult> ProcessImage(ImageModel model)
+        {
 
+            if (ModelState.IsValid)
+            {
+                if(model.base64Image == null)
+                {
+                    return BadRequest();
+                }
+                var ImageBytes = Convert.FromBase64String(model.base64Image);
+
+                MemoryStream ms = new MemoryStream();
+                using (Image image = Image.Load(ImageBytes))
+                {
+                    int width = image.Width / 2;
+                    int height = image.Height / 2;
+                    image.Mutate(x => x.Resize(width, height));
+
+                    image.SaveAsJpeg(ms);
+                }
+                ms.Position = 0;
+                var base64String = Convert.ToBase64String(ms.ToArray());
+
+                var content = "";
+                using (var client = new HttpClient())
+                {
+                    var url = "http://api.ocr.space/parse/image";
+
+                    client.DefaultRequestHeaders.Add("apikey", "K89075064488957");
+
+                    var body = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("language", "fin"),
+            new KeyValuePair<string, string>("isTable", "true"),
+            new KeyValuePair<string, string>("base64Image", "data:image/jpg;base64," + base64String)
+        };
+
+                    var response = await client.PostAsync(url, new FormUrlEncodedContent(body));
+                    if (response.IsSuccessStatusCode)
+                    {
+                        content = await response.Content.ReadAsStringAsync();
+                       
+                    }
+                    else
+                    {
+                        throw new Exception("httpclient error " + response.ReasonPhrase);
+                    }
+                }
+
+                return Json(content);
+            }
+            else
+            {
+                return BadRequest();
+            }
+           
+        }
 
         private bool RuokalistaExists(int id)
         {
