@@ -179,7 +179,7 @@ namespace RuokalistaServer.Controllers
                 return NotFound();
             }
 
-            return Json(ruokalista.Id);
+            return Ok(ruokalista.Id);
         }
 
 
@@ -189,12 +189,9 @@ namespace RuokalistaServer.Controllers
         [HttpPost]
         [Route("api/v1/Ruokalista/Edit/{id}")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+        public async Task<IActionResult> Edit(int id, [Bind("id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
         {
-            if (id != ruokalista.Id)
-            {
-                return NotFound();
-            }
+            ruokalista.Id = id;
 
             if (ModelState.IsValid)
             {
@@ -214,9 +211,32 @@ namespace RuokalistaServer.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Ok("Ok");
             }
-            return View(ruokalista);
+            return BadRequest();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Route("api/v1/Ruokalista/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Ruokalista == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Ruokalista'  is null.");
+            }
+            var ruokalista = await _context.Ruokalista.FindAsync(id);
+            if (ruokalista != null)
+            {
+                _context.Ruokalista.Remove(ruokalista);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok("Ok");
         }
 
 
