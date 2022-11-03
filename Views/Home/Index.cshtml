@@ -8,24 +8,74 @@
     @{
       if(ViewBag.RuokaOlemassa)
       {
-            <h1 class="display-4">Tämän viikon ruokalista</h1>
+            <h1 class="display-4">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
 
             RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
-            <h3>Maanantai</h3>
-            <h4>@ruoka.Maanantai</h4>
+            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday){
+                <h3 style="color:orange">Maanantai</h3>
+                <h4 style ="color:orange">@ruoka.Maanantai</h4>
+            }
+            else
+            {
+                <h3>Maanantai</h3>
+                <h4>@ruoka.Maanantai</h4>
+            }
+           
             <br />
-            <h3>Tiistai</h3>
-            <h4>@ruoka.Tiistai</h4>
+
+
+            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
+            {
+                <h3 style="color:orange">Tiistai</h3>
+                <h4 style="color:orange">@ruoka.Tiistai</h4>
+            }
+            else
+            {
+                <h3>Tiistai</h3>
+                <h4>@ruoka.Tiistai</h4>
+            }
+          
             <br />
-            <h3>Keskiviikko</h3>
-            <h4>@ruoka.Keskiviikko</h4>
+
+
+            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
+            {
+                <h3 style="color:orange">Keskiviikko</h3>
+                <h4 style="color:orange">@ruoka.Keskiviikko</h4>
+            }
+            else
+            {
+                <h3>Keskiviikko</h3>
+                <h4>@ruoka.Keskiviikko</h4>
+            }
+
             <br />
-            <h3>Torstai</h3>
-            <h4>@ruoka.Torstai</h4>
+
+            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
+            {
+                <h3 style="color:orange">Torstai</h3>
+                <h4 style="color:orange">@ruoka.Torstai</h4>
+            }
+            else
+            {
+                <h3>Torstai</h3>
+                <h4>@ruoka.Torstai</h4>
+            }
+
             <br />
-            <h3>Perjantai</h3>
-            <h4>@ruoka.Perjantai</h4>
+
+            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+            {
+                <h3 style="color:orange">Perjantai</h3>
+                <h4 style="color:orange">@ruoka.Perjantai</h4>
+            }
+            else
+            {
+                <h3>Perjantai</h3>
+                <h4>@ruoka.Perjantai</h4>
+            }
+
             <br />
       }
       else

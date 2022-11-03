@@ -16,11 +16,21 @@ namespace RuokalistaServer.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.RuokaOlemassa = false;
+            ViewBag.Nykyinenviikko = false;
             var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+          
+            ViewBag.viikko = viikko;
 
             var ruokalista = db.Ruokalista
               .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko).GetAwaiter().GetResult();
+
+            if(ruokalista != null)
+            {
+                if (ruokalista.WeekId == viikko)
+                {
+                    ViewBag.Nykyinenviikko = true;
+                }
+            }
 
             if(ruokalista != null) { ViewBag.RuokaOlemassa = true; }
             ViewBag.ruokalista = ruokalista;
