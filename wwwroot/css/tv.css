@@ -1,0 +1,32 @@
+﻿
+.very-specific-design {
+    width: 600px;
+    height: 600px;
+    padding: 50px;
+    text-align: center;
+    background: white;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+}
+
+.scaleable-wrapper {
+    
+    resize: both;
+    position:relative;
+    background: #666;
+    height: 100%;
+}
+
+.ui-resizable-se {
+    width: 10px;
+    height: 10px;
+    background: orange;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
