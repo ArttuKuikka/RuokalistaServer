@@ -6,24 +6,25 @@
     
 </head>
 <body style="background-color: #282828">
-    <div style="height:100vh; width:100vw; background-color: #282828; text-align:center; color:white; font-size:1.5vw; font-family:'Segoe UI'">
+    
+    <div style=" background-color: #282828; text-align:center; color:white; font-size:1.5vw; font-family:'Segoe UI'">
 
         @{
             if (ViewBag.RuokaOlemassa)
             {
-                                    <h1 style="font-size:2.5vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+                                                    <h1 style="font-size:2.5vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
 
                 RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
                 if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
                 {
-                            <h3 style="color:orange;">Maanantai</h3>
-                            <h4 style="color:orange;">@ruoka.Maanantai</h4>
+                                            <h3 style="color:orange;">Maanantai</h3>
+                                            <h4 style="color:orange;">@ruoka.Maanantai</h4>
                 }
                 else
                 {
-                            <h3 >Maanantai</h3>
-                            <h4 >@ruoka.Maanantai</h4>
+                                            <h3 >Maanantai</h3>
+                                            <h4 >@ruoka.Maanantai</h4>
                 }
 
                                 //br
@@ -31,13 +32,13 @@
 
                 if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
                 {
-                                        <h3 style="color:orange">Tiistai</h3>
-                                        <h4 style="color:orange">@ruoka.Tiistai</h4>
+                                                        <h3 style="color:orange">Tiistai</h3>
+                                                        <h4 style="color:orange">@ruoka.Tiistai</h4>
                 }
                 else
                 {
-                                        <h3>Tiistai</h3>
-                                        <h4>@ruoka.Tiistai</h4>
+                                                        <h3>Tiistai</h3>
+                                                        <h4>@ruoka.Tiistai</h4>
                 }
 
                                 //br
@@ -45,49 +46,50 @@
 
                 if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
                 {
-                                        <h3 style="color:orange">Keskiviikko</h3>
-                                        <h4 style="color:orange">@ruoka.Keskiviikko</h4>
+                                                        <h3 style="color:orange">Keskiviikko</h3>
+                                                        <h4 style="color:orange">@ruoka.Keskiviikko</h4>
                 }
                 else
                 {
-                                        <h3>Keskiviikko</h3>
-                                        <h4>@ruoka.Keskiviikko</h4>
+                                                        <h3>Keskiviikko</h3>
+                                                        <h4>@ruoka.Keskiviikko</h4>
                 }
 
                                 //br
 
                 if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
                 {
-                                        <h3 style="color:orange">Torstai</h3>
-                                        <h4 style="color:orange">@ruoka.Torstai</h4>
+                                                        <h3 style="color:orange">Torstai</h3>
+                                                        <h4 style="color:orange">@ruoka.Torstai</h4>
                 }
                 else
                 {
-                                        <h3>Torstai</h3>
-                                        <h4>@ruoka.Torstai</h4>
+                                                        <h3>Torstai</h3>
+                                                        <h4>@ruoka.Torstai</h4>
                 }
 
                                 //br
 
                 if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
                 {
-                                        <h3 style="color:orange">Perjantai</h3>
-                                        <h4 style="color:orange">@ruoka.Perjantai</h4>
+                                                        <h3 style="color:orange">Perjantai</h3>
+                                                        <h4 style="color:orange">@ruoka.Perjantai</h4>
                 }
                 else
                 {
-                                        <h3>Perjantai</h3>
-                                        <h4>@ruoka.Perjantai</h4>
+                                                        <h3>Perjantai</h3>
+                                                        <h4>@ruoka.Perjantai</h4>
                 }
 
                                 //br
             }
             else
             {
-                    <h1 style="font-size:2.5vw">Tämän viikon ruokalistaa ei vielä ole</h1>
+                                    <h1 style="font-size:2.5vw">Tämän viikon ruokalistaa ei vielä ole</h1>
             }
 
         }
     </div>
+    <img src="~/mainos3.png" style="width:26vw; height:35vw; position:absolute; bottom:0px; right:10px;" />
 </body>
 
