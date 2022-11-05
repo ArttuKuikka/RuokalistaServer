@@ -16,6 +16,7 @@ namespace RuokalistaServer.Controllers
         public IActionResult Index()
         {
             ViewBag.Nykyinenviikko = false;
+            ViewBag.RuokaOlemassa = false;
             var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 
             ViewBag.viikko = viikko;
