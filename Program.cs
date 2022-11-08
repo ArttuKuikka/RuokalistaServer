@@ -54,7 +54,7 @@ builder.Services.AddAuthentication(options =>
         {
             var token = authorization.Substring("Bearer ".Length).Trim();
             var jwtHandler = new JwtSecurityTokenHandler();
-            return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals("https://localhost:7208/"))
+            return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals("https://ruokalista.arttukuikka.fi/"))
                 ? JwtBearerDefaults.AuthenticationScheme : "Bearer";
         }
         return "Identity.Application";
