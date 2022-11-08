@@ -28,6 +28,10 @@ namespace RuokalistaServer.Controllers
 
         public async Task<IActionResult> PoistaKayttaja(string id)
         {
+            if(_userManager.Users.Count() <= 1)
+            {
+                return BadRequest("Et voi poistaa viimeistä käyttäjää");
+            }
             var user = await _userManager.FindByIdAsync(id);
             var result = await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
