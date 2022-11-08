@@ -24,7 +24,9 @@ namespace RuokalistaServer.Controllers
         // GET: RuokalistaAdmin
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Ruokalista.ToListAsync());
+            var lista = await _context.Ruokalista.ToListAsync();
+            lista = lista.OrderBy(x => x.Year).ThenBy(y => y.WeekId).Reverse().ToList();
+            return View(lista);
         }
 
         // GET: RuokalistaAdmin/Details/5
@@ -58,6 +60,13 @@ namespace RuokalistaServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
         {
+            foreach (var item in _context.Ruokalista)
+            {
+                if (item.Year == ruokalista.Year && item.WeekId == ruokalista.WeekId)
+                {
+                    return BadRequest("Tämän viikon ruokalista on jo olemassa");
+                }
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(ruokalista);

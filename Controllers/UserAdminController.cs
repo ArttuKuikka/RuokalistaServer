@@ -28,6 +28,10 @@ namespace RuokalistaServer.Controllers
 
         public async Task<IActionResult> PoistaKayttaja(string id)
         {
+            if(_userManager.Users.Count() <= 1)
+            {
+                return BadRequest("Et voi poistaa viimeistä käyttäjää");
+            }
             var user = await _userManager.FindByIdAsync(id);
             var result = await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
@@ -36,9 +40,11 @@ namespace RuokalistaServer.Controllers
         public async Task<IActionResult> PalautaSalasana(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            var result = await _userManager.RemovePasswordAsync(user);
-            var r2 = await _userManager.AddPasswordAsync(user, "Y0yB0ogYs5!");
-            return Ok("Käyttäjän salasana on nyt 'Y0yB0ogYs5!'");
+            var salasana = RandomString(12);
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, salasana);
+            await _userManager.UpdateAsync(user);
+            
+            return Ok("Käyttäjän salasana on nyt " + salasana);
         }
 
         [HttpPost]
@@ -49,6 +55,15 @@ namespace RuokalistaServer.Controllers
 
 
             return RedirectToAction("Index");
+        }
+
+        public static string RandomString(int length)
+        {
+            Random rand = new Random();
+            string charbase = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            return new string(Enumerable.Range(0, length)
+                   .Select(_ => charbase[rand.Next(charbase.Length)])
+                   .ToArray());
         }
     }
 }

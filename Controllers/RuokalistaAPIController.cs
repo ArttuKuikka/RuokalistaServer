@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -83,8 +84,9 @@ namespace RuokalistaServer.Controllers
             {
                 return NotFound();
             }
+            var lista = _context.Ruokalista.OrderBy(x => x.Year).ThenBy(y => y.WeekId).Reverse().ToList();
 
-            return Json(_context.Ruokalista.Take(amount));
+            return Json(lista.Take(amount));
         }
 
 
