@@ -7,12 +7,12 @@
 </head>
 <body style="background-color: #282828">
 
-	<div style=" background-color: #282828; text-align:center; color:white; font-size:2vw; font-family:'Segoe UI'">
+	<div style=" background-color: #282828; text-align:center; color:white; font-size:2.5vw; font-family:'Segoe UI'">
 
 		@{
 			if (ViewBag.RuokaOlemassa)
 			{
-				<h1 style="font-size:3vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+				<h1 style="font-size:3.5vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
 
 				RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
@@ -90,6 +90,6 @@
 
 		}
 	</div>
-	<img src="~/mainos3.png" style="width:24vw; height:32vw; position:absolute; bottom:0px; right:10px;" />
+	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:0px; right:10px;" />
 </body>
 
