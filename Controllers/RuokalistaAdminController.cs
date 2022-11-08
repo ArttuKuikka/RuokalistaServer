@@ -24,7 +24,9 @@ namespace RuokalistaServer.Controllers
         // GET: RuokalistaAdmin
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Ruokalista.ToListAsync());
+            var lista = await _context.Ruokalista.ToListAsync();
+            lista = lista.OrderBy(x => x.Year).ThenBy(y => y.WeekId).Reverse().ToList();
+            return View(lista);
         }
 
         // GET: RuokalistaAdmin/Details/5
