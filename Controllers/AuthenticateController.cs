@@ -59,12 +59,7 @@ namespace RuokalistaServer.Controllers
             return Unauthorized();
         }
 
-        [Route("ValidateToken")]
-        [HttpGet]
-        public async Task<IActionResult> validate()
-        {
-            return Ok("Valid");
-        }
+       
 
 
 
