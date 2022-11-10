@@ -52,7 +52,10 @@ namespace RuokalistaServer.Controllers
         {
             var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
             var result = await _userManager.CreateAsync(user, password);
-
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
 
             return RedirectToAction("Index");
         }
