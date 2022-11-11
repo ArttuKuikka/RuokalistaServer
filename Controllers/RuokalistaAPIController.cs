@@ -115,22 +115,22 @@ namespace RuokalistaServer.Controllers
             {
                 if (item.Year == ruokalista.Year && item.WeekId == ruokalista.WeekId)
                 {
-                    return Json(new { Status = "Error", Message = "Already exist" });
+                    return BadRequest(new { Status = "Error", Message = "Already exist" });
                 }
             }
             if (ruokalista.Year! < 2020)
             {
-                return Json(new { Status = "Error", Message = "Year must be higher than 2020" });
+                return BadRequest(new { Status = "Error", Message = "Year must be higher than 2020" });
 
             }
             if (ruokalista.WeekId == 0)
             {
-                return Json(new { Status = "Error", Message = "WeekId cannot be 0" });
+                return BadRequest(new { Status = "Error", Message = "WeekId cannot be 0" });
             }
 
             if (ruokalista.Id != 0)
             {
-                return Json(new { Status = "Error", Message = "ID must always be 0" });
+                return BadRequest(new { Status = "Error", Message = "ID must always be 0" });
             }
             if (ModelState.IsValid)
             {
@@ -141,7 +141,7 @@ namespace RuokalistaServer.Controllers
             }
             else
             {
-                return Json(new { Status = "Error" });
+                return BadRequest(new { Status = "Error" });
             }
 
         }
