@@ -62,6 +62,14 @@ namespace RuokalistaServer.Controllers
         {
             foreach (var item in _context.Ruokalista)
             {
+                if(ruokalista.Year < 2020)
+                {
+                    return BadRequest("Virheellinen vuosiluku");
+                }
+                if (ruokalista.WeekId <= 0)
+                {
+                    return BadRequest("Virheellinen viikko");
+                }
                 if (item.Year == ruokalista.Year && item.WeekId == ruokalista.WeekId)
                 {
                     return BadRequest("Tämän viikon ruokalista on jo olemassa");
