@@ -35,5 +35,5 @@ jobs:
       - run: sudo systemctl start ruokalista.service
       
       
-      #- run: sleep 15
-      #- run: sudo systemctl status ruokalista.service -n50
+      - run: sleep 15
+      - run: sudo systemctl status ruokalistadev.service -n50
