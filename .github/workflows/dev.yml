@@ -25,13 +25,15 @@ jobs:
       - uses: actions/checkout@v2
 
       
+      - run: sudo systemctl stop ruokalistadev.service
       
       
+      - run: dotnet publish /home/administrator/actions-runner-ruokalista/_work/RuokalistaServer/RuokalistaServer/RuokalistaServer.csproj -o /services/ruokalistadev
       
-      - run: dotnet publish /home/administrator/actions-runner-ruokalista/_work/RuokalistaServer/RuokalistaServer/RuokalistaServer.csproj
+      - run: cp /services/ruokalistadev_temp/appsettings.json /services/ruokalistadev
       
-      
+      - run: sudo systemctl start ruokalistadev.service
       
       
       #- run: sleep 15
-      #- run: sudo systemctl status ruokalista.service -n50
+      #- run: sudo systemctl status ruokalistadev.service -n50
