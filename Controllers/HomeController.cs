@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RuokalistaServer.Data;
+using RuokalistaServer.Models;
 
 namespace RuokalistaServer.Controllers
 {
@@ -22,8 +23,15 @@ namespace RuokalistaServer.Controllers
           
             ViewBag.viikko = viikko;
 
-            var ruokalista = db.Ruokalista
-              .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko).GetAwaiter().GetResult();
+            Ruokalista ruokalista = null;
+            try
+            {
+              ruokalista = db.Ruokalista
+             .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko).GetAwaiter().GetResult();
+            }catch(Exception ex) {
+                ViewBag.RuokaOlemass = false;
+                return View();
+            }
 
             if(ruokalista != null)
             {
