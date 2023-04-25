@@ -15,35 +15,59 @@ namespace RuokalistaServer.Controllers
             this.db = db;
         }
 
-        public IActionResult Index()
+        [HttpGet("/")]
+        public async Task <IActionResult> Index(int? weekId, int? Year)
         {
             ViewBag.Nykyinenviikko = false;
             ViewBag.RuokaOlemassa = false;
-            var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+            var viikko = weekId ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+            var vuosi = Year ?? DateTime.Now.Year;
+            if (weekId== null)
+            {
+                if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    ViewBag.NytOnSeuraavaViikko = true;
+                    viikko += 1;
+                }
+                if(DateTime.Today.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour > 12)
+                {
+                    if(db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1) != null)
+                    {
+                        ViewBag.NytOnSeuraavaViikko = true;
+                        viikko+= 1;
+                    }
+                }
+            }
           
             ViewBag.viikko = viikko;
 
-            Ruokalista ruokalista = null;
-            try
-            {
-              ruokalista = db.Ruokalista
-             .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko).GetAwaiter().GetResult();
-            }catch(Exception ex) {
-                ViewBag.RuokaOlemass = false;
-                return View();
-            }
+            var ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+           
 
             if(ruokalista != null)
             {
-                if (ruokalista.WeekId == viikko)
+                if (ruokalista.WeekId == System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now))
                 {
                     ViewBag.Nykyinenviikko = true;
+                    ViewBag.SeuraavaViikko = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
                 }
+                ViewBag.RuokaOlemassa = true;
             }
 
-            if(ruokalista != null) { ViewBag.RuokaOlemassa = true; }
+
+            ViewBag.SeuraavaViikkoNumero = viikko + 1;
+            
             ViewBag.ruokalista = ruokalista;
             return View();
+        }
+
+        [HttpGet("Listaa")]
+        public async Task<IActionResult> Listaa()
+        {
+            var ruokalista = db.Ruokalista?.ToList();
+            ruokalista.Reverse();
+
+            return View(ruokalista);
         }
     }
 }
