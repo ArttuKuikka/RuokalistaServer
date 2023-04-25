@@ -9,7 +9,7 @@ if(@ViewBag.SeuraavaViikko != null){
 }
 }
 else{
-    <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
+    <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
 }
 <div class="text-center">
 

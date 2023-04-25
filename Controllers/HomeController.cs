@@ -52,6 +52,7 @@ namespace RuokalistaServer.Controllers
                     ViewBag.SeuraavaViikko = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
                 }
                 ViewBag.RuokaOlemassa = true;
+                ViewBag.Vuosi = ruokalista.Year;
             }
 
 
