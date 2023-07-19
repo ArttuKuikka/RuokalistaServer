@@ -80,6 +80,19 @@
 			left: 385px;
 		}
 	</style>
+
+	<script>
+		function showPreview(event) {
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function () {
+				var image = document.getElementById('bg');
+				image.src = reader.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	</script>
+
 </head>
 
 @{
@@ -88,7 +101,7 @@
 
 	<div class="container">
 
-		<img src="/sample_bg.jpg" alt="Image 1" class="image1">
+		<img src="/sample_bg.jpg" alt="Image 1" id="bg" class="image1" width="1080" height="1080" style="object-fit: cover">
 		<img src="/pohja.png" alt="Image 2" class="image2">
 		<p class="viikkotxt">@ViewBag.Viikko</p>
 			<p class="viikkonpaivattxt">@ViewBag.Paivat</p>
@@ -118,6 +131,11 @@
 
 
 	</div>
+		<input type="file" title="Lataa taustakuva" accept="image/*" onchange="showPreview(event)" style="
+		position: fixed;
+		top: 20px;
+		left: 1100px;
+	">
 
 </body>
 }
