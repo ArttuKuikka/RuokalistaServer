@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.container {
+		}
+
+		.image1 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+		}
+
+		.image2 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+		}
+
+		.viikkotxt {
+			position: fixed;
+			top: -20px;
+			left: 10px;
+			z-index: 3;
+			font-size: 12em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.viikkonpaivattxt {
+			position: fixed;
+			top: 60px;
+			left: 220px;
+			z-index: 3;
+			font-size: 1.8em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.ruokatekstit {
+			position: fixed;
+			top: 175px;
+			left: 380px;
+			z-index: 4;
+			font-size: 3.2em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+			max-width: 700px;
+		}
+
+		.viikonpaiva {
+			position: fixed;
+			max-width: 700px;
+		}
+
+		.maanantai {
+			top: 130px;
+			left: 385px;
+		}
+
+		.tiistai {
+			top: 300px;
+			left: 385px;
+		}
+
+		.keskiviikko {
+			top: 470px;
+			left: 385px;
+		}
+
+		.torstai {
+			top: 660px;
+			left: 385px;
+		}
+
+		.perjantai {
+			top: 860px;
+			left: 385px;
+		}
+	</style>
+</head>
+
+@{
+	RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
+<body>
+
+	<div class="container">
+
+		<img src="/sample_bg.jpg" alt="Image 1" class="image1">
+		<img src="/pohja.png" alt="Image 2" class="image2">
+		<p class="viikkotxt">@ViewBag.Viikko</p>
+			<p class="viikkonpaivattxt">@ViewBag.Paivat</p>
+
+		<div class="ruokatekstit">
+			<div class="viikonpaiva maanantai">
+				<p class="ruokatext">@ruoka.Maanantai</p>
+			</div>
+
+			<div class="viikonpaiva tiistai">
+				<p class="ruokatext">@ruoka.Tiistai</p>
+			</div>
+
+			<div class="viikonpaiva keskiviikko">
+				<p class="ruokatext">@ruoka.Keskiviikko</p>
+			</div>
+
+			<div class="viikonpaiva torstai">
+				<p class="ruokatext">@ruoka.Torstai</p>
+			</div>
+
+			<div class="viikonpaiva perjantai">
+				<p class="ruokatext">@ruoka.Perjantai</p>
+			</div>
+		</div>
+
+
+
+	</div>
+
+</body>
+}
+
+</html>
