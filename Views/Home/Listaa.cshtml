@@ -1,0 +1,24 @@
+﻿@model List<RuokalistaServer.Models.Ruokalista>
+@{
+    ViewData["Title"] = "Listaa ruokalistat";
+
+}
+
+<h1>Kaikki ruokalistat</h1>
+
+ <table class="table" style="color:white;">
+  <tr>
+    <th>Viikko ja vuosi</th>
+    <th></th>
+  </tr>
+    @foreach(var viikko in Model)
+    {
+     <tr>
+        <td><h3>@viikko.WeekId</h3> <p>@viikko.Year</p></td>
+        <td><a class="btn btn-primary" onclick="window.location = '/?weekId=@viikko.WeekId&Year=@viikko.Year';">Näytä</a></td>
+      
+      </tr>
+    }
+
+  
+</table> 

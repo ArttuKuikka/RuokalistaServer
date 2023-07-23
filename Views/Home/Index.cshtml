@@ -2,15 +2,34 @@
 @{
     ViewData["Title"] = "Ruokalista";
 }
-
+<a class="btn btn-primary" onclick="window.location = '/Listaa';" style="margin: 0em 1em 0.5em 0em">Edellisten viikkojen ruokalistat</a>
+@if(@ViewBag.Nykyinenviikko){
+if(@ViewBag.SeuraavaViikko != null){
+<a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
+}
+}
+else{
+    <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
+}
 <div class="text-center">
 
     @{
-      if(ViewBag.RuokaOlemassa)
-      {
-            <h1 class="display-4">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+        if(ViewBag.RuokaOlemassa ?? false)
+        {
+            @if (ViewBag.NykyinenViikko ?? false)
+            {
+                <h1 class="display-4">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+            }
+            else if (ViewBag.NytOnSeuraavaViikko ?? false)
+            {
+                <h1 class="display-4">Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
+            }
+            else
+            {
+                <h1 class="display-4">Viikon(@ViewBag.viikko) ruokalista</h1>
+            }
 
-            RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
+        RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday){
                 <h3 style="color:orange">Maanantai</h3>

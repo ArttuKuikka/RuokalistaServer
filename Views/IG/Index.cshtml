@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.container {
+		}
+
+		.image1 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+		}
+
+		.image2 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+		}
+
+		.viikkotxt {
+			position: fixed;
+			top: -50px;
+			left: 10px;
+			z-index: 3;
+			font-size: 12em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.viikkonpaivattxt {
+			position: fixed;
+			top: 60px;
+			left: 220px;
+			z-index: 3;
+			font-size: 1.8em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.ruokatekstit {
+			position: fixed;
+			top: 170px;
+			left: 380px;
+			z-index: 4;
+			font-size: 3.2em;
+			margin: 0px;
+			font-family: 'Open Sans', sans-serif;
+			max-width: 700px;
+		}
+
+		.viikonpaiva {
+			position: fixed;
+			max-width: 700px;
+		}
+
+		.maanantai {
+			top: 110px;
+			left: 385px;
+		}
+
+		.tiistai {
+			top: 280px;
+			left: 385px;
+		}
+
+		.keskiviikko {
+			top: 450px;
+			left: 385px;
+		}
+
+		.torstai {
+			top: 640px;
+			left: 385px;
+		}
+
+		.perjantai {
+			top: 840px;
+			left: 385px;
+		}
+	</style>
+
+	<script>
+		function showPreview(event) {
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function () {
+				var image = document.getElementById('bg');
+				image.src = reader.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	</script>
+
+</head>
+
+@{
+	RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
+<body>
+
+	<div class="container">
+
+		<img src="/sample_bg.jpg" alt="Image 1" id="bg" class="image1" width="1080" height="1080" style="object-fit: cover">
+		<img src="/pohja.png" alt="Image 2" class="image2">
+		<p class="viikkotxt">@ViewBag.Viikko</p>
+			<p class="viikkonpaivattxt">@ViewBag.Paivat</p>
+
+		<div class="ruokatekstit">
+			<div class="viikonpaiva maanantai">
+				<p class="ruokatext">@ruoka.Maanantai</p>
+			</div>
+
+			<div class="viikonpaiva tiistai">
+				<p class="ruokatext">@ruoka.Tiistai</p>
+			</div>
+
+			<div class="viikonpaiva keskiviikko">
+				<p class="ruokatext">@ruoka.Keskiviikko</p>
+			</div>
+
+			<div class="viikonpaiva torstai">
+				<p class="ruokatext">@ruoka.Torstai</p>
+			</div>
+
+			<div class="viikonpaiva perjantai">
+				<p class="ruokatext">@ruoka.Perjantai</p>
+			</div>
+		</div>
+
+
+
+	</div>
+		<input type="file" title="Lataa taustakuva" accept="image/*" onchange="showPreview(event)" style="
+		position: fixed;
+		top: 20px;
+		left: 1100px;
+	">
+
+		<p  style="
+			position: fixed;
+			top: 40px;
+			left: 1100px;
+				">Viikon @ViewBag.Viikko ruokalista #isokyrö #kyrönmaanlukio #ruokalista #isokyröruokalista</p>
+
+</body>
+}
+
+</html>

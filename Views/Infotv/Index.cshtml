@@ -12,7 +12,15 @@
 		@{
 			if (ViewBag.RuokaOlemassa)
 			{
-				<h1 style="font-size:3.2vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+				@if (ViewBag.NytOnSeuraavaViikko ?? false)
+				{
+					<h1 style="font-size:3.2vw">Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
+				}
+				else
+				{
+					<h1 style="font-size:3.2vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+				}
+				
 
 				RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
