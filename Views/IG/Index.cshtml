@@ -119,7 +119,25 @@
 			resizeText({
 				elements: document.querySelectorAll('.ruokatext'),
 				step: 0.5
-			})
+			});
+
+			fetch('/infotv/GetBgForWeek?week=@ViewBag.Viikko')
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log('Bg url = ' + data.fileName);
+					document.getElementById('bg').src = data.fileName;
+
+
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+
 		});
 
 	</script>
