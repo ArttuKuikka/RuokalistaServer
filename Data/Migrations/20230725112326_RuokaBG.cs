@@ -11,7 +11,7 @@ namespace RuokalistaServer.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BackroundForWeek",
+                name: "BackgroundForWeek",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace RuokalistaServer.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BackroundForWeek", x => x.Id);
+                    table.PrimaryKey("PK_BackgroundForWeek", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace RuokalistaServer.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BackroundForWeek");
+                name: "BackgroundForWeek");
         }
     }
 }

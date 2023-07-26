@@ -1,6 +1,6 @@
 ﻿namespace RuokalistaServer.Models
 {
-	public class BackroundForWeek
+	public class BackgroundForWeek
 	{
 		public int? Id { get; set; }
 		public int WeekId { get; set; }

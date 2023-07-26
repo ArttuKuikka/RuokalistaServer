@@ -227,7 +227,7 @@ namespace RuokalistaServer.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RuokalistaServer.Models.BackroundForWeek", b =>
+            modelBuilder.Entity("RuokalistaServer.Models.BackgroundForWeek", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,7 +244,7 @@ namespace RuokalistaServer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BackroundForWeek");
+                    b.ToTable("BackgroundForWeek");
                 });
 
             modelBuilder.Entity("RuokalistaServer.Models.Ruokalista", b =>

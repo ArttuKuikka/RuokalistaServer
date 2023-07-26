@@ -103,7 +103,7 @@ namespace RuokalistaServer.Controllers
         {
             
 
-            var bg = db.BackroundForWeek.FirstOrDefault(x => x.WeekId == week);
+            var bg = db.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week);
             if(bg == null)
             {
                 if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
@@ -134,13 +134,13 @@ namespace RuokalistaServer.Controllers
                     throw new Exception("Error while picking new random backround picture, element is null at index");
                 }
 
-                bg = new BackroundForWeek
+                bg = new BackgroundForWeek
                 {
                     FileName = System.Web.HttpUtility.HtmlEncode(newImage),
                     WeekId = week
                 };
 
-                await db.BackroundForWeek.AddAsync(bg);
+                await db.BackgroundForWeek.AddAsync(bg);
                 await db.SaveChangesAsync();
                 
 

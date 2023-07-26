@@ -38,7 +38,7 @@ namespace RuokalistaServer.Controllers
 
             var week = ruokalista.WeekId;
 
-			var bg = _context.BackroundForWeek.FirstOrDefault(x => x.WeekId == week);
+			var bg = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week);
 			if (bg == null)
 			{
 				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
@@ -69,13 +69,13 @@ namespace RuokalistaServer.Controllers
 					throw new Exception("Error while picking new random backround picture, element is null at index");
 				}
 
-				bg = new BackroundForWeek
+				bg = new BackgroundForWeek
 				{
 					FileName = System.Web.HttpUtility.HtmlEncode(newImage),
 					WeekId = week
 				};
 
-				await _context.BackroundForWeek.AddAsync(bg);
+				await _context.BackgroundForWeek.AddAsync(bg);
 				await _context.SaveChangesAsync();
 
 
@@ -112,7 +112,7 @@ namespace RuokalistaServer.Controllers
 
                 bg.FileName = System.Web.HttpUtility.HtmlEncode(newImage);
 
-				_context.BackroundForWeek.Update(bg);
+				_context.BackgroundForWeek.Update(bg);
 				await _context.SaveChangesAsync();
 			}
 			bg.FileName = "/infotv/GetBgByFilename?filename=" + System.Web.HttpUtility.HtmlEncode(bg.FileName);
@@ -133,14 +133,14 @@ namespace RuokalistaServer.Controllers
 			}
 
 
-            var TaustaObject = _context.BackroundForWeek.First(x => x.WeekId == ruokalista.WeekId);
+            var TaustaObject = _context.BackgroundForWeek.First(x => x.WeekId == ruokalista.WeekId);
 			return View(TaustaObject); 
         }
 
         [HttpPost]
-		public async Task<IActionResult> SetBG(BackroundForWeek model)
+		public async Task<IActionResult> SetBG(BackgroundForWeek model)
         {
-            var bg = await _context.BackroundForWeek.FindAsync(model.Id);
+            var bg = await _context.BackgroundForWeek.FindAsync(model.Id);
             if (bg == null)
             {
                 return BadRequest("invalid id in model");
