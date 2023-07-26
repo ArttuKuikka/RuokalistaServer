@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 
@@ -21,8 +22,137 @@ namespace RuokalistaServer.Controllers
             _context = context;
         }
 
-        // GET: RuokalistaAdmin
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> NewRandomBG(int? id)
+        {
+			if (id == null || id == 0)
+			{
+				throw new ArgumentException("Invalid id number (0 or NULL)");
+			}
+
+            var ruokalista = await _context.Ruokalista.FindAsync(id);
+            if( ruokalista == null)
+            {
+                throw new Exception("Ruokalista is null");
+            }
+
+            var week = ruokalista.WeekId;
+
+			var bg = _context.BackroundForWeek.FirstOrDefault(x => x.WeekId == week);
+			if (bg == null)
+			{
+				if (Environment.GetEnvironmentVariable("BackroundsPath").IsNullOrEmpty())
+				{
+					throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+
+				}
+
+				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackroundsPath"));
+
+
+
+				var imageFiles = files?.Where(x => x.EndsWith(".jpg") || x.EndsWith(".png"));
+				var imageFileCount = imageFiles?.Count() ?? 0;
+
+				if (imageFileCount.Equals(0))
+				{
+					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+				}
+
+				Random random = new Random();
+				int randomNumber = random.Next(0, imageFileCount);
+				var newImage = imageFiles.ElementAtOrDefault(randomNumber);
+				newImage = Path.GetFileName(newImage);
+
+				if (newImage == null)
+				{
+					throw new Exception("Error while picking new random backround picture, element is null at index");
+				}
+
+				bg = new BackroundForWeek
+				{
+					FileName = System.Web.HttpUtility.HtmlEncode(newImage),
+					WeekId = week
+				};
+
+				await _context.BackroundForWeek.AddAsync(bg);
+				await _context.SaveChangesAsync();
+
+
+            }
+            else
+            {
+				if (Environment.GetEnvironmentVariable("BackroundsPath").IsNullOrEmpty())
+				{
+					throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+
+				}
+
+				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackroundsPath"));
+
+
+
+				var imageFiles = files?.Where(x => x.EndsWith(".jpg") || x.EndsWith(".png"));
+				var imageFileCount = imageFiles?.Count() ?? 0;
+
+				if (imageFileCount.Equals(0))
+				{
+					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+				}
+
+				Random random = new Random();
+				int randomNumber = random.Next(0, imageFileCount);
+				var newImage = imageFiles.ElementAtOrDefault(randomNumber);
+				newImage = Path.GetFileName(newImage);
+
+				if (newImage == null)
+				{
+					throw new Exception("Error while picking new random backround picture, element is null at index");
+				}
+
+                bg.FileName = System.Web.HttpUtility.HtmlEncode(newImage);
+
+				_context.BackroundForWeek.Update(bg);
+				await _context.SaveChangesAsync();
+			}
+			bg.FileName = "/infotv/GetBgByFilename?filename=" + System.Web.HttpUtility.HtmlEncode(bg.FileName);
+			return Ok(bg);
+		}
+
+		public async Task<IActionResult> SetBG(int? ruokalistaId)
+        {
+			if (ruokalistaId == null || ruokalistaId == 0)
+			{
+				throw new ArgumentException("Invalid id number (0 or NULL)");
+			}
+
+			var ruokalista = await _context.Ruokalista.FindAsync(ruokalistaId);
+			if (ruokalista == null)
+			{
+				throw new Exception("Ruokalista is null");
+			}
+
+
+            var TaustaObject = _context.BackroundForWeek.First(x => x.WeekId == ruokalista.WeekId);
+			return View(TaustaObject); 
+        }
+
+        [HttpPost]
+		public async Task<IActionResult> SetBG(BackroundForWeek model)
+        {
+            var bg = await _context.BackroundForWeek.FindAsync(model.Id);
+            if (bg == null)
+            {
+                return BadRequest("invalid id in model");
+            }
+            bg.FileName = model.FileName;
+            await _context.SaveChangesAsync();
+
+
+            return Redirect("/RuokalistaAdmin");
+        }
+		// GET: RuokalistaAdmin
+		public async Task<IActionResult> Index()
         {
             var lista = await _context.Ruokalista.ToListAsync();
             lista = lista.OrderBy(x => x.Year).ThenBy(y => y.WeekId).Reverse().ToList();

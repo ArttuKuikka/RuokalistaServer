@@ -7,7 +7,7 @@
 <h1>Admin</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
 <table class="table" style="color: white">
     <thead>
@@ -60,10 +60,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Perjantai)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td style="text-align:center">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@item.Id">Uusi taustakuva</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">Valitse taustakuva</a>
             </td>
         </tr>
 }
