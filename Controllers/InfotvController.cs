@@ -106,13 +106,13 @@ namespace RuokalistaServer.Controllers
             var bg = db.BackroundForWeek.FirstOrDefault(x => x.WeekId == week);
             if(bg == null)
             {
-                if (Environment.GetEnvironmentVariable("BackroundsPath").IsNullOrEmpty())
+                if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
                 {
-                    throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+                    throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
                     
                 }
 
-				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackroundsPath"));
+				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackgroundsPath"));
 
                 
 
@@ -121,7 +121,7 @@ namespace RuokalistaServer.Controllers
 
                 if (imageFileCount.Equals(0))
                 {
-                    throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+                    throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
                 }
 
 				Random random = new Random();
@@ -156,10 +156,10 @@ namespace RuokalistaServer.Controllers
                 return BadRequest("Wrong extension type");
             }
 
-            var path = Environment.GetEnvironmentVariable("BackroundsPath");
+            var path = Environment.GetEnvironmentVariable("BackgroundsPath");
             if (path.IsNullOrEmpty())
             {
-				throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+				throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
 			}
 
 
@@ -170,7 +170,7 @@ namespace RuokalistaServer.Controllers
 
 			if (imageFileCount.Equals(0))
 			{
-				throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+				throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
 			}
 
             var returnFile = imageFiles.FirstOrDefault(x => Path.GetFileName(x) == System.Web.HttpUtility.HtmlDecode(filename));

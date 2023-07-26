@@ -41,13 +41,13 @@ namespace RuokalistaServer.Controllers
 			var bg = _context.BackroundForWeek.FirstOrDefault(x => x.WeekId == week);
 			if (bg == null)
 			{
-				if (Environment.GetEnvironmentVariable("BackroundsPath").IsNullOrEmpty())
+				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
 				{
-					throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
 
 				}
 
-				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackroundsPath"));
+				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackgroundsPath"));
 
 
 
@@ -56,7 +56,7 @@ namespace RuokalistaServer.Controllers
 
 				if (imageFileCount.Equals(0))
 				{
-					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
 				}
 
 				Random random = new Random();
@@ -82,13 +82,13 @@ namespace RuokalistaServer.Controllers
             }
             else
             {
-				if (Environment.GetEnvironmentVariable("BackroundsPath").IsNullOrEmpty())
+				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
 				{
-					throw new Exception("The 'BackroundsPath' Environment variable is Null or empty");
+					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
 
 				}
 
-				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackroundsPath"));
+				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackgroundsPath"));
 
 
 
@@ -97,7 +97,7 @@ namespace RuokalistaServer.Controllers
 
 				if (imageFileCount.Equals(0))
 				{
-					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackroundsPath', {files.Count()} files overall");
+					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
 				}
 
 				Random random = new Random();
