@@ -2,94 +2,157 @@
 	ViewData["Title"] = "Info-Tv näkymä";
 }
 <head>
+	<style>
+		.infotv_bg {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			z-index: 1;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 
+		.template {
+			height: 100%;
+			width: 100%;
+			object-fit: fill;
+			z-index: 2;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0.85;
+		}
+
+		.ruokacontainer {
+			
+			z-index: 3;
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			bottom: 10px;
+			width: 73.5%;
+		}
+		.daytitle{
+			font-weight: bold;
+			font-size: 2.5vw;
+		}
+
+		.ruokateksti{
+			font-size: 2.3vw;
+			margin-bottom: 10px;
+		}
+
+
+	</style>
+
+	<script>
+		fetch('/infotv/GetBgForWeek?week=@ViewBag.viikko')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log('Bg url = ' + data.fileName);
+				document.getElementById('Background-image').src = data.fileName;
+
+
+			})
+			.catch(error => {
+				console.error('There was a problem with the fetch operation:', error);
+			});
+
+	</script>
 
 </head>
-<body style="background-color: #282828">
-
-	<div style=" background-color: #282828; text-align:center; color:white; font-size:2.2vw; font-family:'Segoe UI'">
+<body style="background-color: #2c2f33">
+	<img id="Background-image" class="infotv_bg" src="~/samplebg_infotv.jpg" />
+	<img class="template" src="~/infotv_template_bk.png" />
+	<div class="ruokacontainer" style=" text-align:center; color:white; font-family:'Segoe UI'">
 
 		@{
 			if (ViewBag.RuokaOlemassa)
 			{
 				@if (ViewBag.NytOnSeuraavaViikko ?? false)
 				{
-					<h1 style="font-size:3.2vw">Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
+					<div style="font-size:3vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
 				}
 				else
 				{
-					<h1 style="font-size:3.2vw">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+					<div style="font-size:3vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
 				}
-				
+
 
 				RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
 				{
-					<h3 style="color:orange; margin: -1vw 0px -2vw 0px;">Maanantai</h3>
-					<h4 style="color:orange;">@ruoka.Maanantai</h4>
+					<div class="daytitle" style="color:orange;">Maanantai</div>
+					<div class="ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
 				}
 				else
 				{
-					<h3 style=" margin: -20px 0px -2vw 0px;">Maanantai</h3>
-					<h4>@ruoka.Maanantai</h4>
+					<div class="daytitle">Maanantai</div>
+					<div class="ruokateksti">@ruoka.Maanantai</div>
 				}
 
-				//br
+				
 
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
 				{
-					<h3 style="color:orange;  margin: 0px 0px -2vw 0px;">Tiistai</h3>
-					<h4 style="color:orange">@ruoka.Tiistai</h4>
+					<div class="daytitle" style="color:orange;">Tiistai</div>
+					<div class="ruokateksti" style="color:orange">@ruoka.Tiistai</div>
 				}
 				else
 				{
-					<h3 style="margin: 0px 0px -2vw 0px">Tiistai</h3>
-					<h4>@ruoka.Tiistai</h4>
+					<div class="daytitle">Tiistai</div>
+					<div class="ruokateksti">@ruoka.Tiistai</div>
 				}
 
-				//br
+				
 
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
 				{
-					<h3 style="color:orange;  margin: 0px 0px -2vw 0px;">Keskiviikko</h3>
-					<h4 style="color:orange">@ruoka.Keskiviikko</h4>
+					<div class="daytitle" style="color:orange;">Keskiviikko</div>
+					<div class="ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
 				}
 				else
 				{
-					<h3 style="margin: 0px 0px -2vw 0px">Keskiviikko</h3>
-					<h4>@ruoka.Keskiviikko</h4>
+					<div class="daytitle">Keskiviikko</div>
+					<div class="ruokateksti">@ruoka.Keskiviikko</div>
 				}
 
-				//br
+				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
 				{
-					<h3 style="color:orange; margin: 0px 0px -2vw 0px;">Torstai</h3>
-					<h4 style="color:orange">@ruoka.Torstai</h4>
+					<div class="daytitle" style="color:orange;">Torstai</div>
+					<div class="ruokateksti" style="color:orange">@ruoka.Torstai</div>
 				}
 				else
 				{
-					<h3 style="margin: 0px 0px -2vw 0px">Torstai</h3>
-					<h4>@ruoka.Torstai</h4>
+					<div class="daytitle">Torstai</div>
+					<div class="ruokateksti">@ruoka.Torstai</div>
 				}
 
-				//br
+				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
 				{
-					<h3 style="color:orange; margin: 0px 0px -2vw 0px;">Perjantai</h3>
-					<h4 style="color:orange">@ruoka.Perjantai</h4>
+					<div class="daytitle" style="color:orange;">Perjantai</div>
+					<div class="ruokateksti" style="color:orange">@ruoka.Perjantai</div>
 				}
 				else
 				{
-					<h3 style="margin: 0px 0px -2vw 0px">Perjantai</h3>
-					<h4>@ruoka.Perjantai</h4>
+					<div class="daytitle">Perjantai</div>
+					<div class="ruokateksti">@ruoka.Perjantai</div>
 				}
 
-				//br
+				
 			}
 			else
 			{
@@ -98,6 +161,6 @@
 
 		}
 	</div>
-	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:0px; right:10px;" />
+	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:0px; right:10px; z-index:4" />
 </body>
 
