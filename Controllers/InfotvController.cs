@@ -180,11 +180,11 @@ namespace RuokalistaServer.Controllers
             {
                 if (returnFile.EndsWith(".png"))
                 {
-					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open), "image/png");
+					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open, FileAccess.Read), "image/png");
 				}
                 else
                 {
-					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open), "image/jpeg");
+					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open, FileAccess.Read), "image/jpeg");
 				}
                 
             }
