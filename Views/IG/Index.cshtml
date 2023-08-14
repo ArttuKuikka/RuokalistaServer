@@ -52,31 +52,34 @@
 
 		.viikonpaiva {
 			position: fixed;
-			max-width: 700px;
+			width: 680px;
+			height: 150px;
+			display: block;
+			
 		}
 
 		.maanantai {
-			top: 110px;
+			top: 185px;
 			left: 385px;
 		}
 
 		.tiistai {
-			top: 280px;
+			top: 360px;
 			left: 385px;
 		}
 
 		.keskiviikko {
-			top: 450px;
+			top: 540px;
 			left: 385px;
 		}
 
 		.torstai {
-			top: 640px;
+			top: 720px;
 			left: 385px;
 		}
 
 		.perjantai {
-			top: 840px;
+			top: 900px;
 			left: 385px;
 		}
 	</style>
@@ -91,6 +94,52 @@
 			};
 			reader.readAsDataURL(input.files[0]);
 		}
+
+		const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
+		const resizeText = ({ element, elements, minSize = 10, maxSize = 50, step = 1, unit = 'px' }) => {
+			(elements || [element]).forEach(el => {
+				let i = minSize
+				let overflow = false
+
+				const parent = el.parentNode
+
+				while (!overflow && i < maxSize) {
+					el.style.fontSize = `${i}${unit}`
+					overflow = isOverflown(parent)
+
+					if (!overflow) i += step
+				}
+
+				// revert to last state where no overflow happened
+				el.style.fontSize = `${i - step}${unit}`
+			})
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			resizeText({
+				elements: document.querySelectorAll('.ruokatext'),
+				step: 0.5
+			});
+
+			fetch('/infotv/GetBgForWeek?week=@ViewBag.Viikko')
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log('Bg url = ' + data.fileName);
+					document.getElementById('bg').src = data.fileName;
+
+
+				})
+				.catch(error => {
+					console.error('There was a problem with the fetch operation:', error);
+				});
+
+		});
+
 	</script>
 
 </head>
@@ -108,23 +157,23 @@
 
 		<div class="ruokatekstit">
 			<div class="viikonpaiva maanantai">
-				<p class="ruokatext">@ruoka.Maanantai</p>
+				<div class="ruokatext">@ruoka.Maanantai</div>
 			</div>
 
 			<div class="viikonpaiva tiistai">
-				<p class="ruokatext">@ruoka.Tiistai</p>
+				<div class="ruokatext">@ruoka.Tiistai</div>
 			</div>
 
 			<div class="viikonpaiva keskiviikko">
-				<p class="ruokatext">@ruoka.Keskiviikko</p>
+				<div class="ruokatext">@ruoka.Keskiviikko</div>
 			</div>
 
 			<div class="viikonpaiva torstai">
-				<p class="ruokatext">@ruoka.Torstai</p>
+				<div class="ruokatext">@ruoka.Torstai</div>
 			</div>
 
 			<div class="viikonpaiva perjantai">
-				<p class="ruokatext">@ruoka.Perjantai</p>
+				<div class="ruokatext">@ruoka.Perjantai</div>
 			</div>
 		</div>
 
