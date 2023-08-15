@@ -15,12 +15,12 @@ namespace RuokalistaServer.Controllers
             this.db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? weekId, int? Year)
         {
 			ViewBag.Nykyinenviikko = false;
 			ViewBag.RuokaOlemassa = false;
-			var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
-			var vuosi = DateTime.Now.Year;
+			var viikko = weekId ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+			var vuosi = Year ?? DateTime.Now.Year;
 			if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
 			{
 				ViewBag.NytOnSeuraavaViikko = true;
@@ -180,11 +180,11 @@ namespace RuokalistaServer.Controllers
             {
                 if (returnFile.EndsWith(".png"))
                 {
-					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open), "image/png");
+					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open, FileAccess.Read), "image/png");
 				}
                 else
                 {
-					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open), "image/jpeg");
+					return new FileStreamResult(new FileStream(Path.Combine(path, returnFile), FileMode.Open, FileAccess.Read), "image/jpeg");
 				}
                 
             }
