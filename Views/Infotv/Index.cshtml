@@ -64,6 +64,45 @@
 				console.error('There was a problem with the fetch operation:', error);
 			});
 
+
+		function showPreview(event) {
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function () {
+				var image = document.getElementById('bg');
+				image.src = reader.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+
+		const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
+		const resizeText = ({ element, elements, minSize = 40, maxSize = 65, step = 1, unit = 'px' }) => {
+			(elements || [element]).forEach(el => {
+				let i = minSize
+				let overflow = false
+
+				const parent = el.parentNode
+
+				while (!overflow && i < maxSize) {
+					el.style.fontSize = `${i}${unit}`
+					overflow = isOverflown(parent)
+
+					if (!overflow) i += step
+				}
+
+				// revert to last state where no overflow happened
+				el.style.fontSize = `${i - step}${unit}`
+			})
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			resizeText({
+				elements: document.querySelectorAll('.autosize'),
+				step: 0.5
+			});
+
+		});
+
 	</script>
 
 </head>
@@ -77,11 +116,11 @@
 			{
 				@if (ViewBag.NytOnSeuraavaViikko ?? false)
 				{
-					<div style="font-size:3vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+					<div style="font-size:4vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
 				}
 				else
 				{
-					<div style="font-size:3vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
+					<div style="font-size:4vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
 				}
 
 
@@ -89,13 +128,13 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
 				{
-					<div class="daytitle" style="color:orange;">Maanantai</div>
-					<div class="ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
+					<div class="autosize daytitle" style="color:orange;">Maanantai</div>
+					<div class="autosize ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
 				}
 				else
 				{
-					<div class="daytitle">Maanantai</div>
-					<div class="ruokateksti">@ruoka.Maanantai</div>
+					<div class="autosize daytitle">Maanantai</div>
+					<div class="autosize ruokateksti">@ruoka.Maanantai</div>
 				}
 
 				
@@ -103,13 +142,13 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
 				{
-					<div class="daytitle" style="color:orange;">Tiistai</div>
-					<div class="ruokateksti" style="color:orange">@ruoka.Tiistai</div>
+					<div class="autosize daytitle" style="color:orange;">Tiistai</div>
+					<div class="autosize ruokateksti" style="color:orange">@ruoka.Tiistai</div>
 				}
 				else
 				{
-					<div class="daytitle">Tiistai</div>
-					<div class="ruokateksti">@ruoka.Tiistai</div>
+					<div class="autosize daytitle">Tiistai</div>
+					<div class="autosize ruokateksti">@ruoka.Tiistai</div>
 				}
 
 				
@@ -117,46 +156,46 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
 				{
-					<div class="daytitle" style="color:orange;">Keskiviikko</div>
-					<div class="ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
+					<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
+					<div class="autosize ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
 				}
 				else
 				{
-					<div class="daytitle">Keskiviikko</div>
-					<div class="ruokateksti">@ruoka.Keskiviikko</div>
+					<div class="autosize daytitle">Keskiviikko</div>
+					<div class="autosize ruokateksti">@ruoka.Keskiviikko</div>
 				}
 
 				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
 				{
-					<div class="daytitle" style="color:orange;">Torstai</div>
-					<div class="ruokateksti" style="color:orange">@ruoka.Torstai</div>
+					<div class="autosize daytitle" style="color:orange;">Torstai</div>
+					<div class="autosize ruokateksti" style="color:orange">@ruoka.Torstai</div>
 				}
 				else
 				{
-					<div class="daytitle">Torstai</div>
-					<div class="ruokateksti">@ruoka.Torstai</div>
+					<div class="autosize daytitle">Torstai</div>
+					<div class="autosize ruokateksti">@ruoka.Torstai</div>
 				}
 
 				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
 				{
-					<div class="daytitle" style="color:orange;">Perjantai</div>
-					<div class="ruokateksti" style="color:orange">@ruoka.Perjantai</div>
+					<div class="autosize daytitle" style="color:orange;">Perjantai</div>
+					<div class="autosize ruokateksti" style="color:orange">@ruoka.Perjantai</div>
 				}
 				else
 				{
-					<div class="daytitle">Perjantai</div>
-					<div class="ruokateksti">@ruoka.Perjantai</div>
+					<div class="autosize daytitle">Perjantai</div>
+					<div class="autosize ruokateksti">@ruoka.Perjantai</div>
 				}
 
 				
 			}
 			else
 			{
-				<h1 style="font-size:3vw">Tämän viikon ruokalistaa ei vielä ole</h1>
+				<h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
 			}
 
 		}
