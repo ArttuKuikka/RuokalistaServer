@@ -76,7 +76,7 @@
 		}
 
 		const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
-		const resizeText = ({ element, elements, minSize = 50, maxSize = 65, step = 1, unit = 'px' }) => {
+		const resizeText = ({ element, elements, minSize = 1.2, maxSize = 3.3, step = 1, unit = 'vw' }) => {
 			(elements || [element]).forEach(el => {
 				let i = minSize
 				let overflow = false
@@ -95,10 +95,19 @@
 			})
 		}
 
+		window.addEventListener("resize", function () {
+			console.log("resizing");
+			resizeText({
+				elements: document.querySelectorAll('.autosize'),
+				step: 0.1
+			});
+			
+		});
+
 		document.addEventListener("DOMContentLoaded", function () {
 			resizeText({
 				elements: document.querySelectorAll('.autosize'),
-				step: 1
+				step: 0.1
 			});
 
 		});
