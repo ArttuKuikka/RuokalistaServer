@@ -11,22 +11,22 @@ if(@ViewBag.SeuraavaViikko != null){
 else{
     <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
 }
-<div class="text-center">
+<div class="text-center" style="font-family:'Segoe UI';">
 
     @{
         if(ViewBag.RuokaOlemassa ?? false)
         {
             @if (ViewBag.NykyinenViikko ?? false)
             {
-                <h1 class="display-4">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+                <h1>Tämän viikon(@ViewBag.viikko) ruokalista</h1>
             }
             else if (ViewBag.NytOnSeuraavaViikko ?? false)
             {
-                <h1 class="display-4">Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
+                <h1>Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
             }
             else
             {
-                <h1 class="display-4">Viikon(@ViewBag.viikko) ruokalista</h1>
+                <h1>Viikon(@ViewBag.viikko) ruokalista</h1>
             }
 
         RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
