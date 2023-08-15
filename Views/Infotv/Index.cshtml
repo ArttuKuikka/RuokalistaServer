@@ -76,7 +76,7 @@
 		}
 
 		const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
-		const resizeText = ({ element, elements, minSize = 40, maxSize = 65, step = 1, unit = 'px' }) => {
+		const resizeText = ({ element, elements, minSize = 50, maxSize = 65, step = 1, unit = 'px' }) => {
 			(elements || [element]).forEach(el => {
 				let i = minSize
 				let overflow = false
@@ -98,7 +98,7 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			resizeText({
 				elements: document.querySelectorAll('.autosize'),
-				step: 0.5
+				step: 1
 			});
 
 		});
@@ -116,11 +116,11 @@
 			{
 				@if (ViewBag.NytOnSeuraavaViikko ?? false)
 				{
-					<div style="font-size:4vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
 				}
 				else
 				{
-					<div style="font-size:4vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
+					<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
 				}
 
 
