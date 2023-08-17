@@ -16,3 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.siteTitle {
+    font-size: 3em
+}
+
+.dayTitle {
+    font-size: 2em
+}
+
+.ruokaText {
+    font-size: 1.9em
+}
