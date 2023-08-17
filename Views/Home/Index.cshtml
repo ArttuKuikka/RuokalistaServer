@@ -11,34 +11,34 @@ if(@ViewBag.SeuraavaViikko != null){
 else{
     <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
 }
-<div class="text-center">
+<div class="text-center" style="font-family:'Segoe UI';">
 
     @{
         if(ViewBag.RuokaOlemassa ?? false)
         {
             @if (ViewBag.NykyinenViikko ?? false)
             {
-                <h1 class="display-4">Tämän viikon(@ViewBag.viikko) ruokalista</h1>
+                <div class="siteTitle">Tämän viikon(@ViewBag.viikko) ruokalista</div>
             }
             else if (ViewBag.NytOnSeuraavaViikko ?? false)
             {
-                <h1 class="display-4">Seuraavan viikon(@ViewBag.viikko) ruokalista</h1>
+                <div class="siteTitle">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
             }
             else
             {
-                <h1 class="display-4">Viikon(@ViewBag.viikko) ruokalista</h1>
+                <div class="siteTitle">Viikon(@ViewBag.viikko) ruokalista</div>
             }
 
         RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday){
-                <h3 style="color:orange">Maanantai</h3>
-                <h4 style ="color:orange">@ruoka.Maanantai</h4>
+                <div class="dayTitle" style="color:orange">Maanantai</div>
+                <div class="ruokaText" style ="color:orange">@ruoka.Maanantai</div>
             }
             else
             {
-                <h3>Maanantai</h3>
-                <h4>@ruoka.Maanantai</h4>
+                <div class="dayTitle">Maanantai</div>
+                <div class="ruokaText">@ruoka.Maanantai</div>
             }
            
             <br />
@@ -46,13 +46,13 @@ else{
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
             {
-                <h3 style="color:orange">Tiistai</h3>
-                <h4 style="color:orange">@ruoka.Tiistai</h4>
+                <div class="dayTitle" style="color:orange">Tiistai</div>
+                <div class="ruokaText" style="color:orange">@ruoka.Tiistai</div>
             }
             else
             {
-                <h3>Tiistai</h3>
-                <h4>@ruoka.Tiistai</h4>
+                <div class="dayTitle">Tiistai</div>
+                <div class="ruokaText">@ruoka.Tiistai</div>
             }
           
             <br />
@@ -60,46 +60,46 @@ else{
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
             {
-                <h3 style="color:orange">Keskiviikko</h3>
-                <h4 style="color:orange">@ruoka.Keskiviikko</h4>
+                <div class="dayTitle" style="color:orange">Keskiviikko</div>
+                <div class="ruokaText" style="color:orange">@ruoka.Keskiviikko</div>
             }
             else
             {
-                <h3>Keskiviikko</h3>
-                <h4>@ruoka.Keskiviikko</h4>
+                <div class="dayTitle">Keskiviikko</div>
+                <div class="ruokaText">@ruoka.Keskiviikko</div>
             }
 
             <br />
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
             {
-                <h3 style="color:orange">Torstai</h3>
-                <h4 style="color:orange">@ruoka.Torstai</h4>
+                <div class="dayTitle" style="color:orange">Torstai</div>
+                <div class="ruokaText" style="color:orange">@ruoka.Torstai</div>
             }
             else
             {
-                <h3>Torstai</h3>
-                <h4>@ruoka.Torstai</h4>
+                <div class="dayTitle">Torstai</div>
+                <div class="ruokaText">@ruoka.Torstai</div>
             }
 
             <br />
 
             if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
             {
-                <h3 style="color:orange">Perjantai</h3>
-                <h4 style="color:orange">@ruoka.Perjantai</h4>
+                <div class="dayTitle" style="color:orange">Perjantai</div>
+                <div class="ruokaText" style="color:orange">@ruoka.Perjantai</div>
             }
             else
             {
-                <h3>Perjantai</h3>
-                <h4>@ruoka.Perjantai</h4>
+                <div class="dayTitle">Perjantai</div>
+                <div class="ruokaText">@ruoka.Perjantai</div>
             }
 
             <br />
       }
       else
       {
-            <h1 class="display-4">Tämän viikon ruokalistaa ei vielä ole</h1>
+            <div class="siteTitle">Tämän viikon ruokalistaa ei vielä ole</div>
       }
 
 }
