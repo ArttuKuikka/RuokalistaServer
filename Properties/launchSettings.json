@@ -5,7 +5,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "BackgroundsPath": "C:\\Users\\arttu\\Pictures\\Kuvat"
+        "BackgroundsPath": "V:\\RuokalistaBG"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7254;http://localhost:5254"
