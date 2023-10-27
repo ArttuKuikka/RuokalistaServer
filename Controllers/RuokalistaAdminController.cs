@@ -59,12 +59,31 @@ namespace RuokalistaServer.Controllers
 					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
 				}
 
-				Random random = new Random();
-				int randomNumber = random.Next(0, imageFileCount);
-				var newImage = imageFiles.ElementAtOrDefault(randomNumber);
-				newImage = Path.GetFileName(newImage);
 
-				if (newImage == null)
+                string currentMonthString = DateTime.Today.Month.ToString();
+                if (currentMonthString.Length == 1)
+                {
+                    currentMonthString = "0" + currentMonthString;
+                }
+
+
+                var thisMonthsImageFiles = imageFiles?.Where(x => (Path.GetFileName(x)[4].ToString() + Path.GetFileName(x)[5].ToString()) == currentMonthString);
+
+                if (!(thisMonthsImageFiles?.Any() ?? false))
+                {
+                    //jos tässä kuussa ei oo kuvia ota vaan jotai randomilla
+                    thisMonthsImageFiles = imageFiles;
+                }
+
+                var thisMonthsImageFileCount = thisMonthsImageFiles?.Count() ?? 0;
+
+
+                Random random = new Random();
+                int randomNumber = random.Next(0, thisMonthsImageFileCount);
+                var newImage = thisMonthsImageFiles?.ElementAtOrDefault(randomNumber);
+                newImage = Path.GetFileName(newImage);
+
+                if (newImage == null)
 				{
 					throw new Exception("Error while picking new random backround picture, element is null at index");
 				}
@@ -100,12 +119,33 @@ namespace RuokalistaServer.Controllers
 					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
 				}
 
-				Random random = new Random();
-				int randomNumber = random.Next(0, imageFileCount);
-				var newImage = imageFiles.ElementAtOrDefault(randomNumber);
-				newImage = Path.GetFileName(newImage);
 
-				if (newImage == null)
+
+                string currentMonthString = DateTime.Today.Month.ToString();
+                if (currentMonthString.Length == 1)
+                {
+                    currentMonthString = "0" + currentMonthString;
+                }
+
+
+                var thisMonthsImageFiles = imageFiles?.Where(x => (Path.GetFileName(x)[4].ToString() + Path.GetFileName(x)[5].ToString()) == currentMonthString);
+
+                if (!(thisMonthsImageFiles?.Any() ?? false))
+                {
+                    //jos tässä kuussa ei oo kuvia ota vaan jotai randomilla
+                    thisMonthsImageFiles = imageFiles;
+                }
+
+                var thisMonthsImageFileCount = thisMonthsImageFiles?.Count() ?? 0;
+
+
+                Random random = new Random();
+                int randomNumber = random.Next(0, thisMonthsImageFileCount);
+                var newImage = thisMonthsImageFiles?.ElementAtOrDefault(randomNumber);
+                newImage = Path.GetFileName(newImage);
+
+
+                if (newImage == null)
 				{
 					throw new Exception("Error while picking new random backround picture, element is null at index");
 				}
