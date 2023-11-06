@@ -112,6 +112,27 @@
 
 		});
 
+
+		//testi js roskaa POISTA
+		try{
+			function updateTime() {
+				const now = new Date();
+				const hours = now.getHours().toString().padStart(2, '0');
+				const minutes = now.getMinutes().toString().padStart(2, '0');
+				const seconds = now.getSeconds().toString().padStart(2, '0');
+				const timeString = `${hours}:${minutes}:${seconds}`;
+				document.getElementById('testp').textContent = timeString;
+			}
+
+
+
+			// Update the time every second
+			setInterval(updateTime, 2000);
+		} catch(error){
+			console.log(error);
+		}
+		
+
 	</script>
 
 </head>
@@ -211,5 +232,6 @@
 	</div>
 	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:50px; right:10px; z-index:4" />
 	<img src="~/ig.png" style="width:19vw; height:3vw; position:absolute; bottom:0px; right:10px; z-index:4" />
+	<p id="testp" style="z-index:5;position:fixed; bottom:0; left:0; font-size:1.2em; ">00:00</p>
 </body>
 
