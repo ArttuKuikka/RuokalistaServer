@@ -17,11 +17,16 @@ namespace RuokalistaServer.Controllers
 		{
 			this.db = db;
 		}
+		public IActionResult Tulokset()
+		{
+			return View();
+		}
+
 
 
 		[HttpGet]
 		[Route("api/v1/Aanestys/Tulokset")]
-		public async Task<IActionResult> ApiTulokset(int? start, int take)
+		public IActionResult ApiTulokset(int? start, int take)
 		{
 			if (start == null)
 			{
@@ -46,7 +51,7 @@ namespace RuokalistaServer.Controllers
 
 		[HttpGet]
 		[Route("api/v1/Aanestys/Tulos")]
-		public async Task<IActionResult> ApiTulos(int weekId, int Year)
+		public IActionResult ApiTulos(int weekId, int Year)
 		{
 
 			var ruokalistaObject = db.Ruokalista.Where(x => x.Year == Year).FirstOrDefault(x => x.WeekId == weekId);

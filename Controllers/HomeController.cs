@@ -5,7 +5,8 @@ using RuokalistaServer.Models;
 
 namespace RuokalistaServer.Controllers
 {
-    public class HomeController : Controller
+	[ApiExplorerSettings(IgnoreApi = true)]
+	public class HomeController : Controller
     {
 
         private ApplicationDbContext db;
