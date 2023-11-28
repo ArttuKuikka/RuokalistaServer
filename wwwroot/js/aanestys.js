@@ -73,6 +73,10 @@ function CreateAanestysBox(data, body) {
         barDiv.appendChild(document.createElement('br'));
         barDiv.appendChild(document.createElement('br'));
         createProcentageBar(10, 10, 10, 10, barDiv);
+
+        barDiv.appendChild(document.createElement('br'));
+        barDiv.appendChild(document.createElement('br'));
+        createProcentageBar(60, 30, 40, 63, barDiv);
         
         mainDiv.appendChild(barDiv);
     }
@@ -128,7 +132,7 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     var bar2 = document.createElement('div');
     bar2.classList.add('color-segment');
     bar2.classList.add('color-' + listOfProcentages[1].level);
-    bar2.style.width = (listOfProcentages[1].procentage - listOfProcentages[0].procentage).toString() + '%';
+    bar2.style.width = listOfProcentages[1].procentage + '%';
 
     var bar2text = document.createElement('p');
     bar2text.className = 'prosentage-' + listOfProcentages[1].level;
@@ -140,7 +144,9 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     var bar3 = document.createElement('div');
     bar3.classList.add('color-segment');
     bar3.classList.add('color-' + listOfProcentages[2].level);
-    bar3.style.width = (listOfProcentages[2].procentage - (listOfProcentages[1].procentage - listOfProcentages[0].procentage)).toString() + '%';
+    bar3.style.width = listOfProcentages[2].procentage + '%';
+
+    console.log('roskaa: ' + (listOfProcentages[2].procentage - (listOfProcentages[1].procentage)))
 
     var bar3text = document.createElement('p');
     bar3text.className = 'prosentage-' + listOfProcentages[2].level;
@@ -152,7 +158,7 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     var bar4 = document.createElement('div');
     bar4.classList.add('color-segment');
     bar4.classList.add('color-' + listOfProcentages[3].level);
-    bar4.style.width = (listOfProcentages[3].procentage - (listOfProcentages[2].procentage - listOfProcentages[1].procentage - listOfProcentages[0].procentage)).toString() + '%';
+    bar4.style.width = listOfProcentages[3].procentage + '%';
 
     var bar4text = document.createElement('p');
     bar4text.className = 'prosentage-' + listOfProcentages[3].level;
@@ -161,18 +167,18 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     colorbardiv.appendChild(bar4);
 
     //base bar
-    var bar5 = document.createElement('div');
-    bar5.classList.add('color-segment');
-    bar5.classList.add('color-base');
-    bar5.style.borderRadius = '0px 10px 10px 0px';
-    bar5.style.width = (100 - (parseInt(bar1.style.width.replace('%', '')) + parseInt(bar2.style.width.replace('%', '')) + parseInt(bar3.style.width.replace('%', '')) + parseInt(bar4.style.width.replace('%', '')))).toString() + '%';
+    //var bar5 = document.createElement('div');
+    //bar5.classList.add('color-segment');
+    //bar5.classList.add('color-base');
+    //bar5.style.borderRadius = '0px 10px 10px 0px';
+    //bar5.style.width = (100 - (parseInt(bar1.style.width.replace('%', '')) + parseInt(bar2.style.width.replace('%', '')) + parseInt(bar3.style.width.replace('%', '')) + parseInt(bar4.style.width.replace('%', '')))).toString() + '%';
 
 
-    var bar5text = document.createElement('p');
-    bar5text.className = 'prosentage-base';
-    bar5text.textContent = sumOfAllVotes_maanantai + " ääntä"
-    bar5.appendChild(bar5text);
-    colorbardiv.appendChild(bar5);
+    //var bar5text = document.createElement('p');
+    //bar5text.className = 'prosentage-base';
+    //bar5text.textContent = sumOfAllVotes_maanantai + " ääntä"
+    //bar5.appendChild(bar5text);
+    //colorbardiv.appendChild(bar5);
 
     body.appendChild(colorbardiv);
 

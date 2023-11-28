@@ -8,7 +8,7 @@
         "BackgroundsPath": "V:\\RuokalistaBG"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7254;http://localhost:5254"
+      "applicationUrl": "https://0.0.0.0:7254;http://0.0.0.0:5254"
     },
     "IIS Express": {
       "commandName": "IISExpress",
