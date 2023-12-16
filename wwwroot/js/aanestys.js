@@ -62,21 +62,7 @@ function CreateAanestysBox(data, body) {
         createProcentageBar(data['votes']['level1_votes_maanantai'], data['votes']['level2_votes_maanantai'], data['votes']['level3_votes_maanantai'], data['votes']['level4_votes_maanantai'], barDiv);
         barDiv.appendChild(document.createElement('br'));
         barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(1, 1, 1, 1, barDiv);
-        barDiv.appendChild(document.createElement('br'));
-        barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(1, 2, 3, 4, barDiv);
-        barDiv.appendChild(document.createElement('br'));
-        barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(4, 3, 2, 1, barDiv);
-
-        barDiv.appendChild(document.createElement('br'));
-        barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(10, 10, 10, 10, barDiv);
-
-        barDiv.appendChild(document.createElement('br'));
-        barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(60, 30, 40, 63, barDiv);
+        createProcentageBar(data['votes']['level1_votes_tiistai'], data['votes']['level2_votes_tiistai'], data['votes']['level3_votes_tiistai'], data['votes']['level4_votes_tiistai'], barDiv);
         
         mainDiv.appendChild(barDiv);
     }
