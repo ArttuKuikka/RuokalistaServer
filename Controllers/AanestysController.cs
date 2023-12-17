@@ -94,7 +94,7 @@ namespace RuokalistaServer.Controllers
 			
 			int viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 			int vuosi = DateTime.Now.Year;
-			int viikonPäiva = (int)DateTime.Today.DayOfWeek;
+			int viikonPäiva = 1;//(int)DateTime.Today.DayOfWeek;
 
 			var ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
 
