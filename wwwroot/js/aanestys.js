@@ -51,19 +51,16 @@ function CreateAanestysBox(data, body) {
     var barDiv = document.createElement('div');
 
     if (data['votes'] !== null) {
-        //ruokateksti maanantai
-        var ruokaTeksti = document.createElement('p');
-        ruokaTeksti.className = 'dayTitle';
-        ruokaTeksti.textContent = 'Maanantai: ' + data["ruokalista"]["Maanantai"];
-
-        //add elements to bar div and bar div to maindiv
-        barDiv.appendChild(ruokaTeksti);
-
-        createProcentageBar(data['votes']['level1_votes_maanantai'], data['votes']['level2_votes_maanantai'], data['votes']['level3_votes_maanantai'], data['votes']['level4_votes_maanantai'], barDiv);
+        createFullBar("Maanantai", data["ruokalista"]["Maanantai"], [data['votes']['level1_votes_maanantai'], data['votes']['level2_votes_maanantai'], data['votes']['level3_votes_maanantai'], data['votes']['level4_votes_maanantai']], barDiv)
         barDiv.appendChild(document.createElement('br'));
+        createFullBar("Tiistai", data["ruokalista"]["Tiistai"], [data['votes']['level1_votes_tiistai'], data['votes']['level2_votes_tiistai'], data['votes']['level3_votes_tiistai'], data['votes']['level4_votes_tiistai']], barDiv)
         barDiv.appendChild(document.createElement('br'));
-        createProcentageBar(data['votes']['level1_votes_tiistai'], data['votes']['level2_votes_tiistai'], data['votes']['level3_votes_tiistai'], data['votes']['level4_votes_tiistai'], barDiv);
-        
+        createFullBar("Keskiviikko", data["ruokalista"]["Keskiviikko"], [data['votes']['level1_votes_keskiviikko'], data['votes']['level2_votes_keskiviikko'], data['votes']['level3_votes_keskiviikko'], data['votes']['level4_votes_keskiviikko']], barDiv)
+        barDiv.appendChild(document.createElement('br'));
+        createFullBar("Torstai", data["ruokalista"]["Torstai"], [data['votes']['level1_votes_torstai'], data['votes']['level2_votes_torstai'], data['votes']['level3_votes_torstai'], data['votes']['level4_votes_torstai']], barDiv)
+        barDiv.appendChild(document.createElement('br'));
+        createFullBar("Perjantai", data["ruokalista"]["Perjantai"], [data['votes']['level1_votes_perjantai'], data['votes']['level2_votes_perjantai'], data['votes']['level3_votes_perjantai'], data['votes']['level4_votes_perjantai']], barDiv)
+
         mainDiv.appendChild(barDiv);
     }
     else {
@@ -79,6 +76,37 @@ function CreateAanestysBox(data, body) {
     body.appendChild(mainDiv);
 }
 
+function createFullBar(day, food, votes, body) {
+    //ruokateksti
+    var ruokaTeksti = document.createElement('p');
+    ruokaTeksti.className = 'dayTitle';
+    ruokaTeksti.textContent = day + ": " + food;
+
+    //add elements to bar div 
+    body.appendChild(ruokaTeksti);
+
+
+    //VOTECOUNT
+    
+
+    sumOfAllVotes = 0;
+    for (let i = 0; i < votes.length; i++) {
+        sumOfAllVotes += votes[i]
+    }
+
+    var voteText = document.createElement('p');
+    voteText.className = 'voteCountTitle';
+    voteText.textContent = sumOfAllVotes + " ääntä";
+
+    //add elements to bar div 
+    body.appendChild(voteText);
+
+    createProcentageBar(votes[0], votes[1], votes[2], votes[3], body);
+
+   
+   
+}
+
 function createProcentageBar(level1, level2, level3, level4, body) {
 
     //color-bar-div
@@ -86,19 +114,35 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     colorbardiv.className = 'color-bar';
 
     //5 different color segments
-    var sumOfAllVotes_maanantai = level1 + level2 + level3 + level4;
-    var level1Procentage_maanantai = Math.round((level1 / sumOfAllVotes_maanantai) * 100);
-    var level2Procentage_maanantai = Math.round((level2 / sumOfAllVotes_maanantai) * 100);
-    var level3Procentage_maanantai = Math.round((level3 / sumOfAllVotes_maanantai) * 100);
-    var level4Procentage_maanantai = Math.round((level4 / sumOfAllVotes_maanantai) * 100);
+    var sumOfAllVotes = level1 + level2 + level3 + level4;
+
+
+    var level1Procentage = Math.round((level1 / sumOfAllVotes) * 100);
+    var level2Procentage = Math.round((level2 / sumOfAllVotes) * 100);
+    var level3Procentage = Math.round((level3 / sumOfAllVotes) * 100);
+    var level4Procentage = Math.round((level4 / sumOfAllVotes) * 100);
+
+
+    if (sumOfAllVotes === 0) {
+        //add white bar if no votes
+        var whiteBar = document.createElement('div');
+        whiteBar.classList.add('color-segment');
+        whiteBar.classList.add('color-base');
+        whiteBar.style.borderRadius = '10px 10px 10px 10px';
+        whiteBar.style.width = '100%';
+
+       
+        colorbardiv.appendChild(whiteBar);
+        body.appendChild(colorbardiv);
+
+        return;
+    }
 
 
 
-
-
-    var listOfProcentages = [{ 'procentage': level1Procentage_maanantai, level: 1 }, { 'procentage': level2Procentage_maanantai, level: 2 }, { 'procentage': level3Procentage_maanantai, level: 3 }, { 'procentage': level4Procentage_maanantai, level: 4 }]
-    listOfProcentages = listOfProcentages.sort((a, b) => b.procentage - a.procentage);
-    listOfProcentages = listOfProcentages.reverse();
+    
+    var listOfProcentages = [{ 'procentage': level1Procentage, level: 1 }, { 'procentage': level2Procentage, level: 2 }, { 'procentage': level3Procentage, level: 3 }, { 'procentage': level4Procentage, level: 4 }]
+    listOfProcentages = listOfProcentages.reverse()
     console.log(listOfProcentages)
 
     //first bar
@@ -109,7 +153,7 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     bar1.style.width = listOfProcentages[0].procentage.toString() + '%';
 
     var bar1text = document.createElement('p');
-    bar1text.className = 'prosentage-' + listOfProcentages[0].level;
+    bar1text.classList.add('prosentage-' + listOfProcentages[0].level);
     bar1text.textContent = listOfProcentages[0].procentage + '%';
     bar1.appendChild(bar1text);
     colorbardiv.appendChild(bar1);
@@ -121,7 +165,7 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     bar2.style.width = listOfProcentages[1].procentage + '%';
 
     var bar2text = document.createElement('p');
-    bar2text.className = 'prosentage-' + listOfProcentages[1].level;
+    bar2text.classList.add('prosentage-' + listOfProcentages[1].level);
     bar2text.textContent = listOfProcentages[1].procentage + '%';
     bar2.appendChild(bar2text);
     colorbardiv.appendChild(bar2);
@@ -132,10 +176,10 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     bar3.classList.add('color-' + listOfProcentages[2].level);
     bar3.style.width = listOfProcentages[2].procentage + '%';
 
-    console.log('roskaa: ' + (listOfProcentages[2].procentage - (listOfProcentages[1].procentage)))
+   
 
     var bar3text = document.createElement('p');
-    bar3text.className = 'prosentage-' + listOfProcentages[2].level;
+    bar3text.classList.add('prosentage-' + listOfProcentages[2].level);
     bar3text.textContent = listOfProcentages[2].procentage + '%';
     bar3.appendChild(bar3text);
     colorbardiv.appendChild(bar3);
@@ -147,24 +191,12 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     bar4.style.width = listOfProcentages[3].procentage + '%';
 
     var bar4text = document.createElement('p');
-    bar4text.className = 'prosentage-' + listOfProcentages[3].level;
+    bar4text.classList.add('prosentage-' + listOfProcentages[3].level);
     bar4text.textContent = listOfProcentages[3].procentage + '%';
+    bar4.style.borderRadius = '0px 10px 10px 0px';
     bar4.appendChild(bar4text);
     colorbardiv.appendChild(bar4);
 
-    //base bar
-    //var bar5 = document.createElement('div');
-    //bar5.classList.add('color-segment');
-    //bar5.classList.add('color-base');
-    //bar5.style.borderRadius = '0px 10px 10px 0px';
-    //bar5.style.width = (100 - (parseInt(bar1.style.width.replace('%', '')) + parseInt(bar2.style.width.replace('%', '')) + parseInt(bar3.style.width.replace('%', '')) + parseInt(bar4.style.width.replace('%', '')))).toString() + '%';
-
-
-    //var bar5text = document.createElement('p');
-    //bar5text.className = 'prosentage-base';
-    //bar5text.textContent = sumOfAllVotes_maanantai + " ääntä"
-    //bar5.appendChild(bar5text);
-    //colorbardiv.appendChild(bar5);
 
     body.appendChild(colorbardiv);
 
