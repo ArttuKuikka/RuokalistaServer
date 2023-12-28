@@ -143,7 +143,6 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     
     var listOfProcentages = [{ 'procentage': level1Procentage, level: 1 }, { 'procentage': level2Procentage, level: 2 }, { 'procentage': level3Procentage, level: 3 }, { 'procentage': level4Procentage, level: 4 }]
     listOfProcentages = listOfProcentages.reverse()
-    console.log(listOfProcentages)
 
     //first bar
     var bar1 = document.createElement('div');
