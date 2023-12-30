@@ -45,6 +45,8 @@
 
 
 	</style>
+	<script src="/js/aanestys.js"></script>
+	<link rel="stylesheet" href="/css/aanestys.css">
 
 	<script>
 		fetch('/infotv/GetBgForWeek?week=@ViewBag.viikko')
@@ -112,6 +114,46 @@
 
 		});
 
+		//luo votebar
+		document.addEventListener("DOMContentLoaded", function () {
+			const aanestysbox = document.getElementById("aanestysbox");
+			const currentDate = new Date();
+			const currentDayOfWeek = 1;//currentDate.getDay();
+			var showBool = true;//@Html.Raw(ViewBag.nykyinenviikko?.ToString()?.ToLower());
+
+			if (showBool) {
+				fetch(`/api/v1/Aanestys/Tulos?weekid=@ViewBag.viikko&year=@ViewBag.Vuosi`)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.json();
+					})
+					.then(data => {
+						try {
+										const dayNames = ['sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'];
+										const dayOfWeekName = dayNames[currentDayOfWeek];
+										const voteData = [];
+										for (let i = 1; i < 5; i++) {
+											var searchStr = "level" + i.toString() + "_votes_" + dayOfWeekName;
+													voteData.push(data['votes'][searchStr])
+										} 
+
+										createProcentageBar(voteData[0], voteData[1],voteData[2], voteData[3], aanestysbox);
+						} catch (err) {
+							aanestysbox.remove();
+							throw err;
+						}
+					})
+					.catch(error => {
+						aanestysbox.remove();
+						console.error(error);
+					});
+			} else {
+				aanestysbox.remove();
+			}
+});
+
 
 		
 
@@ -126,13 +168,13 @@
 		@{
 			if (ViewBag.RuokaOlemassa)
 			{
-				@if (ViewBag.NytOnSeuraavaViikko ?? false)
+								@if (ViewBag.NytOnSeuraavaViikko ?? false)
 				{
-					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+									<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
 				}
 				else
 				{
-					<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
+									<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
 				}
 
 
@@ -140,13 +182,13 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
 				{
-					<div class="autosize daytitle" style="color:orange;">Maanantai</div>
-					<div class="autosize ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
+									<div class="autosize daytitle" style="color:orange;">Maanantai</div>
+									<div class="autosize ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
 				}
 				else
 				{
-					<div class="autosize daytitle">Maanantai</div>
-					<div class="autosize ruokateksti">@ruoka.Maanantai</div>
+									<div class="autosize daytitle">Maanantai</div>
+									<div class="autosize ruokateksti">@ruoka.Maanantai</div>
 				}
 
 				
@@ -154,13 +196,13 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
 				{
-					<div class="autosize daytitle" style="color:orange;">Tiistai</div>
-					<div class="autosize ruokateksti" style="color:orange">@ruoka.Tiistai</div>
+									<div class="autosize daytitle" style="color:orange;">Tiistai</div>
+									<div class="autosize ruokateksti" style="color:orange">@ruoka.Tiistai</div>
 				}
 				else
 				{
-					<div class="autosize daytitle">Tiistai</div>
-					<div class="autosize ruokateksti">@ruoka.Tiistai</div>
+									<div class="autosize daytitle">Tiistai</div>
+									<div class="autosize ruokateksti">@ruoka.Tiistai</div>
 				}
 
 				
@@ -168,51 +210,55 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
 				{
-					<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
-					<div class="autosize ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
+									<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
+									<div class="autosize ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
 				}
 				else
 				{
-					<div class="autosize daytitle">Keskiviikko</div>
-					<div class="autosize ruokateksti">@ruoka.Keskiviikko</div>
+									<div class="autosize daytitle">Keskiviikko</div>
+									<div class="autosize ruokateksti">@ruoka.Keskiviikko</div>
 				}
 
 				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
 				{
-					<div class="autosize daytitle" style="color:orange;">Torstai</div>
-					<div class="autosize ruokateksti" style="color:orange">@ruoka.Torstai</div>
+									<div class="autosize daytitle" style="color:orange;">Torstai</div>
+									<div class="autosize ruokateksti" style="color:orange">@ruoka.Torstai</div>
 				}
 				else
 				{
-					<div class="autosize daytitle">Torstai</div>
-					<div class="autosize ruokateksti">@ruoka.Torstai</div>
+									<div class="autosize daytitle">Torstai</div>
+									<div class="autosize ruokateksti">@ruoka.Torstai</div>
 				}
 
 				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
 				{
-					<div class="autosize daytitle" style="color:orange;">Perjantai</div>
-					<div class="autosize ruokateksti" style="color:orange">@ruoka.Perjantai</div>
+									<div class="autosize daytitle" style="color:orange;">Perjantai</div>
+									<div class="autosize ruokateksti" style="color:orange">@ruoka.Perjantai</div>
 				}
 				else
 				{
-					<div class="autosize daytitle">Perjantai</div>
-					<div class="autosize ruokateksti">@ruoka.Perjantai</div>
+									<div class="autosize daytitle">Perjantai</div>
+									<div class="autosize ruokateksti">@ruoka.Perjantai</div>
 				}
 
 				
 			}
 			else
 			{
-				<h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
+								<h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
 			}
 
 		}
 	</div>
 	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:50px; right:10px; z-index:4" />
 	<img src="~/ig.png" style="width:19vw; height:3vw; position:absolute; bottom:0px; right:10px; z-index:4" />
+
+	<div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:25vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%;">
+		
+	</div>
 </body>
 

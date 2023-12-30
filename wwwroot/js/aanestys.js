@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+function main(){
+    document.addEventListener("DOMContentLoaded", function () {
     const contentBody = document.getElementById('aanestysDiv')
 
     fetch('/api/v1/Aanestys/Tulokset?take=10')
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             contentBody.appendChild(errorElement);
         });
 });
+}
 
 
 function CreateAanestysBox(data, body) {
@@ -200,3 +202,5 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     body.appendChild(colorbardiv);
 
 }
+
+

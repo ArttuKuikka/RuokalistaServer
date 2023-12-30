@@ -36,6 +36,7 @@ namespace RuokalistaServer.Controllers
 			}
 
 			ViewBag.viikko = viikko;
+			ViewBag.Vuosi = vuosi;
 
 			var ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
 
