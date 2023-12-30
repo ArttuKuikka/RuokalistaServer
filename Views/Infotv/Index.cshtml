@@ -139,10 +139,19 @@
 													voteData.push(data['votes'][searchStr])
 										} 
 
+										var sumOfVotes = (voteData[0] + voteData[1] + voteData[2] + voteData[3]);
+
+										//jos alle 5 votee älä näytä
+										if(sumOfVotes <= 5){
+											aanestysbox.remove();
+											console.log("alle 5 votea");
+											return;
+										}
+
 										createPercentageBar(voteData[0], voteData[1],voteData[2], voteData[3], aanestysbox);
 
 										var voteCounter = document.getElementById("voteCounter");
-										voteCounter.innerText = (voteData[0] + voteData[1] + voteData[2] + voteData[3]).toString() + " ääntä"
+										voteCounter.innerText = sumOfVotes.toString() + " ääntä"
 						} catch (err) {
 							aanestysbox.remove();
 							throw err;
