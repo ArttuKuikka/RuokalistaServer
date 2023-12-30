@@ -22,7 +22,7 @@ namespace RuokalistaServer.Controllers
 			string layout = "_Layout";
 			if (isApp == "true")
 			{
-				layout = "";
+				layout = "_LayoutApp";
 			}
 			ViewBag.Layout = layout;
 			return View();
