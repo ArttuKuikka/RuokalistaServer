@@ -118,8 +118,8 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			const aanestysbox = document.getElementById("aanestysbox");
 			const currentDate = new Date();
-			const currentDayOfWeek = 1;//currentDate.getDay();
-			var showBool = true;//@Html.Raw(ViewBag.nykyinenviikko?.ToString()?.ToLower());
+			const currentDayOfWeek = currentDate.getDay();
+			var showBool = @Html.Raw(ViewBag.nykyinenviikko?.ToString()?.ToLower());
 
 			if (showBool) {
 				fetch(`/api/v1/Aanestys/Tulos?weekid=@ViewBag.viikko&year=@ViewBag.Vuosi`)
@@ -139,7 +139,10 @@
 													voteData.push(data['votes'][searchStr])
 										} 
 
-										createProcentageBar(voteData[0], voteData[1],voteData[2], voteData[3], aanestysbox);
+										createPercentageBar(voteData[0], voteData[1],voteData[2], voteData[3], aanestysbox);
+
+										var voteCounter = document.getElementById("voteCounter");
+										voteCounter.innerText = (voteData[0] + voteData[1] + voteData[2] + voteData[3]).toString() + " ääntä"
 						} catch (err) {
 							aanestysbox.remove();
 							throw err;
@@ -257,8 +260,9 @@
 	<img src="~/mainos3.png" style="width:19vw; height:25vw; position:absolute; bottom:50px; right:10px; z-index:4" />
 	<img src="~/ig.png" style="width:19vw; height:3vw; position:absolute; bottom:0px; right:10px; z-index:4" />
 
-	<div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:25vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%;">
-		
+	<div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 9vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
+		<h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
+		<h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
 	</div>
 </body>
 

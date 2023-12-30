@@ -103,13 +103,13 @@ function createFullBar(day, food, votes, body) {
     //add elements to bar div 
     body.appendChild(voteText);
 
-    createProcentageBar(votes[0], votes[1], votes[2], votes[3], body);
+    createPercentageBar(votes[0], votes[1], votes[2], votes[3], body);
 
    
    
 }
 
-function createProcentageBar(level1, level2, level3, level4, body) {
+function createPercentageBar(level1, level2, level3, level4, body) {
 
     //color-bar-div
     var colorbardiv = document.createElement('div');
@@ -119,10 +119,10 @@ function createProcentageBar(level1, level2, level3, level4, body) {
     var sumOfAllVotes = level1 + level2 + level3 + level4;
 
 
-    var level1Procentage = Math.round((level1 / sumOfAllVotes) * 100);
-    var level2Procentage = Math.round((level2 / sumOfAllVotes) * 100);
-    var level3Procentage = Math.round((level3 / sumOfAllVotes) * 100);
-    var level4Procentage = Math.round((level4 / sumOfAllVotes) * 100);
+    var level1Percentage = Math.round((level1 / sumOfAllVotes) * 100);
+    var level2Percentage = Math.round((level2 / sumOfAllVotes) * 100);
+    var level3Percentage = Math.round((level3 / sumOfAllVotes) * 100);
+    var level4Percentage = Math.round((level4 / sumOfAllVotes) * 100);
 
 
     if (sumOfAllVotes === 0) {
@@ -143,57 +143,57 @@ function createProcentageBar(level1, level2, level3, level4, body) {
 
 
     
-    var listOfProcentages = [{ 'procentage': level1Procentage, level: 1 }, { 'procentage': level2Procentage, level: 2 }, { 'procentage': level3Procentage, level: 3 }, { 'procentage': level4Procentage, level: 4 }]
-    listOfProcentages = listOfProcentages.reverse()
+    var listOfPercentages = [{ 'procentage': level1Percentage, level: 1 }, { 'procentage': level2Percentage, level: 2 }, { 'procentage': level3Percentage, level: 3 }, { 'procentage': level4Percentage, level: 4 }]
+    listOfPercentages = listOfPercentages.reverse()
 
     //first bar
     var bar1 = document.createElement('div');
     bar1.classList.add('color-segment');
-    bar1.classList.add('color-' + listOfProcentages[0].level);
+    bar1.classList.add('color-' + listOfPercentages[0].level);
     bar1.style.borderRadius = '10px 0px 0px 10px';
-    bar1.style.width = listOfProcentages[0].procentage.toString() + '%';
+    bar1.style.width = listOfPercentages[0].procentage.toString() + '%';
 
     var bar1text = document.createElement('p');
-    bar1text.classList.add('prosentage-' + listOfProcentages[0].level);
-    bar1text.textContent = listOfProcentages[0].procentage + '%';
+    bar1text.classList.add('percentage-' + listOfPercentages[0].level);
+    bar1text.textContent = listOfPercentages[0].procentage + '%';
     bar1.appendChild(bar1text);
     colorbardiv.appendChild(bar1);
 
     //second bar
     var bar2 = document.createElement('div');
     bar2.classList.add('color-segment');
-    bar2.classList.add('color-' + listOfProcentages[1].level);
-    bar2.style.width = listOfProcentages[1].procentage + '%';
+    bar2.classList.add('color-' + listOfPercentages[1].level);
+    bar2.style.width = listOfPercentages[1].procentage + '%';
 
     var bar2text = document.createElement('p');
-    bar2text.classList.add('prosentage-' + listOfProcentages[1].level);
-    bar2text.textContent = listOfProcentages[1].procentage + '%';
+    bar2text.classList.add('percentage-' + listOfPercentages[1].level);
+    bar2text.textContent = listOfPercentages[1].procentage + '%';
     bar2.appendChild(bar2text);
     colorbardiv.appendChild(bar2);
 
     //third bar
     var bar3 = document.createElement('div');
     bar3.classList.add('color-segment');
-    bar3.classList.add('color-' + listOfProcentages[2].level);
-    bar3.style.width = listOfProcentages[2].procentage + '%';
+    bar3.classList.add('color-' + listOfPercentages[2].level);
+    bar3.style.width = listOfPercentages[2].procentage + '%';
 
    
 
     var bar3text = document.createElement('p');
-    bar3text.classList.add('prosentage-' + listOfProcentages[2].level);
-    bar3text.textContent = listOfProcentages[2].procentage + '%';
+    bar3text.classList.add('percentage-' + listOfPercentages[2].level);
+    bar3text.textContent = listOfPercentages[2].procentage + '%';
     bar3.appendChild(bar3text);
     colorbardiv.appendChild(bar3);
 
     //fourth bar
     var bar4 = document.createElement('div');
     bar4.classList.add('color-segment');
-    bar4.classList.add('color-' + listOfProcentages[3].level);
-    bar4.style.width = listOfProcentages[3].procentage + '%';
+    bar4.classList.add('color-' + listOfPercentages[3].level);
+    bar4.style.width = listOfPercentages[3].procentage + '%';
 
     var bar4text = document.createElement('p');
-    bar4text.classList.add('prosentage-' + listOfProcentages[3].level);
-    bar4text.textContent = listOfProcentages[3].procentage + '%';
+    bar4text.classList.add('percentage-' + listOfPercentages[3].level);
+    bar4text.textContent = listOfPercentages[3].procentage + '%';
     bar4.style.borderRadius = '0px 10px 10px 0px';
     bar4.appendChild(bar4text);
     colorbardiv.appendChild(bar4);
