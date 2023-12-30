@@ -17,11 +17,10 @@ namespace RuokalistaServer.Controllers
 		{
 			this.db = db;
 		}
-		public IActionResult Tulokset()
+		public IActionResult Tulokset(string? isApp = "false")
 		{
-			var userAgent = Request.Headers.UserAgent.ToString();
 			string layout = "_Layout";
-			if (userAgent == "RuokalistaApp")
+			if (isApp == "true")
 			{
 				layout = "";
 			}
