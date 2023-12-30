@@ -13,7 +13,20 @@
     padding: 10px 10px 50px;
     text-align: left;
     margin: 10px;
-    min-width: 90%
+}
+
+/* For screens smaller than 575px */
+@media (max-width: 574px) {
+    #content {
+        min-width: 100%;
+    }
+}
+
+/* For screens larger than or equal to 575px */
+@media (min-width: 575px) {
+    #content {
+        min-width: 90%;
+    }
 }
 
 .color-bar {
