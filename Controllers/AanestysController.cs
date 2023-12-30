@@ -19,6 +19,13 @@ namespace RuokalistaServer.Controllers
 		}
 		public IActionResult Tulokset()
 		{
+			var userAgent = Request.Headers.UserAgent.ToString();
+			string layout = "_Layout";
+			if (userAgent == "RuokalistaApp")
+			{
+				layout = "";
+			}
+			ViewBag.Layout = layout;
 			return View();
 		}
 
