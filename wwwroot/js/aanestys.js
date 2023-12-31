@@ -156,8 +156,12 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     var bar1text = document.createElement('p');
     bar1text.classList.add('percentage-' + listOfPercentages[0].level);
     bar1text.textContent = listOfPercentages[0].procentage + '%';
+    if(listOfPercentages[0].procentage === 0){
+        bar1text.hidden = true;
+    }
     bar1.appendChild(bar1text);
     colorbardiv.appendChild(bar1);
+    
 
     //second bar
     var bar2 = document.createElement('div');
@@ -168,8 +172,12 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     var bar2text = document.createElement('p');
     bar2text.classList.add('percentage-' + listOfPercentages[1].level);
     bar2text.textContent = listOfPercentages[1].procentage + '%';
+    if(listOfPercentages[1].procentage === 0){
+        bar2text.hidden = true;
+    }
     bar2.appendChild(bar2text);
     colorbardiv.appendChild(bar2);
+     
 
     //third bar
     var bar3 = document.createElement('div');
@@ -182,8 +190,12 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     var bar3text = document.createElement('p');
     bar3text.classList.add('percentage-' + listOfPercentages[2].level);
     bar3text.textContent = listOfPercentages[2].procentage + '%';
+     if(listOfPercentages[2].procentage === 0){
+        bar3text.hidden = true;
+    }
     bar3.appendChild(bar3text);
     colorbardiv.appendChild(bar3);
+    
 
     //fourth bar
     var bar4 = document.createElement('div');
@@ -195,8 +207,12 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     bar4text.classList.add('percentage-' + listOfPercentages[3].level);
     bar4text.textContent = listOfPercentages[3].procentage + '%';
     bar4.style.borderRadius = '0px 10px 10px 0px';
+    if(listOfPercentages[3].procentage === 0){
+        bar4text.hidden = true;
+    }
     bar4.appendChild(bar4text);
     colorbardiv.appendChild(bar4);
+     
 
 
     body.appendChild(colorbardiv);
