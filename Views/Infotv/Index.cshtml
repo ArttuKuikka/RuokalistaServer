@@ -46,6 +46,7 @@
 
 	</style>
 	<script src="/js/aanestys.js"></script>
+	<script src="/js/infotv.js"></script>
 	<link rel="stylesheet" href="/css/aanestys.css">
 
 	<script>
@@ -116,53 +117,30 @@
 
 		//luo votebar
 		document.addEventListener("DOMContentLoaded", function () {
-			const aanestysbox = document.getElementById("aanestysbox");
-			const currentDate = new Date();
-			const currentDayOfWeek = currentDate.getDay();
+			//ajastin
+			 const currentDate = new Date();
+			const currentHour = currentDate.getHours();
+
+			
+			var aanestysbox = document.getElementById("aanestysbox");
+			
 			var showBool = @Html.Raw(ViewBag.nykyinenviikko?.ToString()?.ToLower());
+			var weekid = @ViewBag.viikko
+			var year = @ViewBag.Vuosi
 
-			if (showBool) {
-				fetch(`/api/v1/Aanestys/Tulos?weekid=@ViewBag.viikko&year=@ViewBag.Vuosi`)
-					.then(response => {
-						if (!response.ok) {
-							throw new Error('Network response was not ok');
-						}
-						return response.json();
-					})
-					.then(data => {
-						try {
-										const dayNames = ['sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'];
-										const dayOfWeekName = dayNames[currentDayOfWeek];
-										const voteData = [];
-										for (let i = 1; i < 5; i++) {
-											var searchStr = "level" + i.toString() + "_votes_" + dayOfWeekName;
-													voteData.push(data['votes'][searchStr])
-										} 
+			createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
 
-										var sumOfVotes = (voteData[0] + voteData[1] + voteData[2] + voteData[3]);
 
-										//jos alle 5 votee älä näytä
-										if(sumOfVotes <= 5){
-											aanestysbox.remove();
-											console.log("alle 5 votea");
-											return;
-										}
-
-										createPercentageBar(voteData[0], voteData[1],voteData[2], voteData[3], aanestysbox);
-
-										var voteCounter = document.getElementById("voteCounter");
-										voteCounter.innerText = sumOfVotes.toString() + " ääntä"
-						} catch (err) {
-							aanestysbox.remove();
-							throw err;
-						}
-					})
-					.catch(error => {
-						aanestysbox.remove();
-						console.error(error);
-					});
+			 // Check if the current time is between 9 am and 1 pm (inclusive)
+			if (currentHour >= 9 && currentHour <= 13) {
+				
+				// Set an interval to run your function every 10 minutes
+				setInterval(() => {
+					createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
+				}, 10 * 60 * 1000); // 10 minutes interval
 			} else {
 				aanestysbox.remove();
+				console.log('Current time is not between 9 am and 1 pm.');
 			}
 });
 
