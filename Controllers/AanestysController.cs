@@ -20,9 +20,11 @@ namespace RuokalistaServer.Controllers
 		public IActionResult Tulokset(string? isApp = "false")
 		{
 			string layout = "_Layout";
-			if (isApp == "true")
+            ViewBag.isApp = false;
+            if (isApp == "true")
 			{
 				layout = "_LayoutApp";
+				ViewBag.isApp = true;
 			}
 			ViewBag.Layout = layout;
 			return View();

@@ -25,7 +25,10 @@
     });
 </script>
 
-<h2>Ruokien äänestystulokset</h2>
+@if (!ViewBag.isApp)
+{
+    <h2>Ruokien äänestystulokset</h2>
+}
 
 <section class="faq-container">
     <div class="faq-one">
