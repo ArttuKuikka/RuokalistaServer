@@ -10,7 +10,19 @@
 <link rel="stylesheet" href="/css/aanestys.css">
 <script src="/js/aanestys.js"></script>
 <script>
-    main();
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        main(0);
+        var index = 0;
+        // Wait for the DOM content to be fully loaded
+        const button = document.querySelector(".moreResults");
+        button.addEventListener("click", function () {
+            index += 10;
+            main(index);
+            
+        });
+    });
 </script>
 
 <h2>Ruokien äänestystulokset</h2>
@@ -37,3 +49,9 @@
 
 <div id="aanestysDiv" class="aanestysContent">
 </div>
+
+<br />
+<div style="justify-content: center; text-align:center;">
+    <button class="btn btn-primary moreResults" >Lataa lisää tuloksia</button>
+    </div>
+    <br />

@@ -1,8 +1,7 @@
-function main(){
-    document.addEventListener("DOMContentLoaded", function () {
+function main(index){
     const contentBody = document.getElementById('aanestysDiv')
 
-    fetch('/api/v1/Aanestys/Tulokset?take=10')
+    fetch('/api/v1/Aanestys/Tulokset?start=' + index.toString() +'&take=10')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -17,7 +16,6 @@ function main(){
             errorElement.textContent = "Virhe hakiessa äänestystietoja! varmista että selaimesi tukee javascriptiä ja päivitä sivu.";
             contentBody.appendChild(errorElement);
         });
-});
 }
 
 
