@@ -97,7 +97,7 @@ namespace RuokalistaServer.Controllers
 		{
 			if(taso < 1 && taso > 5) 
 			{
-				return BadRequest("ei sallittu äänestystaso");
+				return BadRequest("ei sallittu aanestystaso");
 			}
 			
 			int viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
@@ -108,7 +108,7 @@ namespace RuokalistaServer.Controllers
 
 			if (ruokalista == null)
 			{
-				return Problem("Tämän viikon ruokalistaa ei vielä ole olemassa");
+				return Problem("Taman viikon ruokalistaa ei vielä ole olemassa");
 			}
 			VoteModel? VoteObject;
 			bool voteModelExist = true;
@@ -217,7 +217,7 @@ namespace RuokalistaServer.Controllers
 				
 
 				default:
-					return Problem("Et voi äänestää viikonloppuna: " + DateTime.Now.ToString());
+					return Problem("Et voi aanestaa viikonloppuna");
 					
 			}
 
@@ -229,7 +229,7 @@ namespace RuokalistaServer.Controllers
 			await db.SaveChangesAsync();
 
 
-			return Ok("äänestys onnistui");
+			return Ok("aanestys onnistui");
 		}
 	}
 }
