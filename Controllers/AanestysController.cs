@@ -41,15 +41,25 @@ namespace RuokalistaServer.Controllers
 				start = 0;
 			}
 
-			var ruokalistaObjects = db.Ruokalista.OrderByDescending(x => x.Year).ThenByDescending(x => x.WeekId).Skip((int)start).Take(take).ToList();
+			var currentWeekNumber = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+
+            var ruokalistaObjects = db.Ruokalista.OrderByDescending(x => x.Year).ThenByDescending(x => x.WeekId).Skip((int)start).Take(take).ToList();
 
 			var returnList = new List<ÄänestysTulos>();
 			foreach (var r in ruokalistaObjects)
 			{
+				var isCurrectWeek = false;
+				if(r.WeekId == currentWeekNumber)
+				{
+					isCurrectWeek = true;
+				}
+
 				var rObj = new ÄänestysTulos
 				{
 					ruokalista = r,
-					votes = db.Votes.FirstOrDefault(x => x.ruokalistaId == r.Id)
+					votes = db.Votes.FirstOrDefault(x => x.ruokalistaId == r.Id),
+					isCurrentWeek = isCurrectWeek,
+					currentDay = (int)DateTime.Today.DayOfWeek
 				};
 				returnList.Add(rObj);
 			}
@@ -61,18 +71,27 @@ namespace RuokalistaServer.Controllers
 		[Route("api/v1/Aanestys/Tulos")]
 		public IActionResult ApiTulos(int weekId, int Year)
 		{
+            var currentWeekNumber = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 
-			var ruokalistaObject = db.Ruokalista.Where(x => x.Year == Year).FirstOrDefault(x => x.WeekId == weekId);
+            var ruokalistaObject = db.Ruokalista.Where(x => x.Year == Year).FirstOrDefault(x => x.WeekId == weekId);
 			if(ruokalistaObject == null)
 			{
 				return NotFound("No ruokalista for week " + weekId.ToString());
 			}
 
-			var rObj = new ÄänestysTulos
+            var isCurrectWeek = false;
+            if (weekId == currentWeekNumber)
+            {
+                isCurrectWeek = true;
+            }
+
+            var rObj = new ÄänestysTulos
 			{
 				ruokalista = ruokalistaObject,
-				votes = db.Votes.FirstOrDefault(x => x.ruokalistaId == ruokalistaObject.Id)
-			};
+				votes = db.Votes.FirstOrDefault(x => x.ruokalistaId == ruokalistaObject.Id),
+				isCurrentWeek = isCurrectWeek,
+                currentDay = (int)DateTime.Today.DayOfWeek
+            };
 
 			return Ok(JsonConvert.SerializeObject(rObj));
 		}
