@@ -29,6 +29,10 @@
     }
 }
 
+.today_oranssi {
+    color:orange !important
+}
+
 .color-bar {
     width: 99%;
     height: 30px;

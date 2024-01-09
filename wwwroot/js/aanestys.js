@@ -28,7 +28,16 @@ function CreateAanestysBox(data, body) {
 
     //weektext
     var weekText = document.createElement('div');
-    weekText.className = 'dayTitle';
+    weekText.classList.add('dayTitle');
+
+    console.log(data["isCurrentWeek"])
+
+    let currentWeek = false;
+    if (data["isCurrentWeek"] === true) {
+        weekText.classList.add('today_oranssi');
+        currentWeek = true;
+    }
+
     weekText.style.fontFamily = 'Segoe UI';
     weekText.style.color = 'white';
     weekText.style.fontSize = '2em';
@@ -46,20 +55,32 @@ function CreateAanestysBox(data, body) {
     yearText.textContent = data["ruokalista"]["Year"];
     mainDiv.appendChild(yearText);
 
+
+    //generate isToday bools and set them based on the server data
+    let [ma, ti, ke, to, pe] = [false, false, false, false, false]
+    if (currentWeek) {
+        if (data['currentDay'] === 1) { ma = true }
+        if (data['currentDay'] === 2) { ti = true }
+        if (data['currentDay'] === 3) { ke = true }
+        if (data['currentDay'] === 4) { to = true }
+        if (data['currentDay'] === 5) { pe = true }
+    }
+
+
     //first bar
     //bar div
     var barDiv = document.createElement('div');
 
     if (data['votes'] !== null) {
-        createFullBar("Maanantai", data["ruokalista"]["Maanantai"], [data['votes']['level1_votes_maanantai'], data['votes']['level2_votes_maanantai'], data['votes']['level3_votes_maanantai'], data['votes']['level4_votes_maanantai']], barDiv)
+        createFullBar("Maanantai", data["ruokalista"]["Maanantai"], [data['votes']['level1_votes_maanantai'], data['votes']['level2_votes_maanantai'], data['votes']['level3_votes_maanantai'], data['votes']['level4_votes_maanantai']], barDiv, ma)
         barDiv.appendChild(document.createElement('br'));
-        createFullBar("Tiistai", data["ruokalista"]["Tiistai"], [data['votes']['level1_votes_tiistai'], data['votes']['level2_votes_tiistai'], data['votes']['level3_votes_tiistai'], data['votes']['level4_votes_tiistai']], barDiv)
+        createFullBar("Tiistai", data["ruokalista"]["Tiistai"], [data['votes']['level1_votes_tiistai'], data['votes']['level2_votes_tiistai'], data['votes']['level3_votes_tiistai'], data['votes']['level4_votes_tiistai']], barDiv, ti)
         barDiv.appendChild(document.createElement('br'));
-        createFullBar("Keskiviikko", data["ruokalista"]["Keskiviikko"], [data['votes']['level1_votes_keskiviikko'], data['votes']['level2_votes_keskiviikko'], data['votes']['level3_votes_keskiviikko'], data['votes']['level4_votes_keskiviikko']], barDiv)
+        createFullBar("Keskiviikko", data["ruokalista"]["Keskiviikko"], [data['votes']['level1_votes_keskiviikko'], data['votes']['level2_votes_keskiviikko'], data['votes']['level3_votes_keskiviikko'], data['votes']['level4_votes_keskiviikko']], barDiv, ke)
         barDiv.appendChild(document.createElement('br'));
-        createFullBar("Torstai", data["ruokalista"]["Torstai"], [data['votes']['level1_votes_torstai'], data['votes']['level2_votes_torstai'], data['votes']['level3_votes_torstai'], data['votes']['level4_votes_torstai']], barDiv)
+        createFullBar("Torstai", data["ruokalista"]["Torstai"], [data['votes']['level1_votes_torstai'], data['votes']['level2_votes_torstai'], data['votes']['level3_votes_torstai'], data['votes']['level4_votes_torstai']], barDiv, to)
         barDiv.appendChild(document.createElement('br'));
-        createFullBar("Perjantai", data["ruokalista"]["Perjantai"], [data['votes']['level1_votes_perjantai'], data['votes']['level2_votes_perjantai'], data['votes']['level3_votes_perjantai'], data['votes']['level4_votes_perjantai']], barDiv)
+        createFullBar("Perjantai", data["ruokalista"]["Perjantai"], [data['votes']['level1_votes_perjantai'], data['votes']['level2_votes_perjantai'], data['votes']['level3_votes_perjantai'], data['votes']['level4_votes_perjantai']], barDiv, pe)
 
         mainDiv.appendChild(barDiv);
     }
@@ -76,10 +97,15 @@ function CreateAanestysBox(data, body) {
     body.appendChild(mainDiv);
 }
 
-function createFullBar(day, food, votes, body) {
+function createFullBar(day, food, votes, body, isToday) {
     //ruokateksti
     var ruokaTeksti = document.createElement('p');
-    ruokaTeksti.className = 'dayTitle';
+    ruokaTeksti.classList.add('dayTitle');
+
+    if (isToday) {
+        ruokaTeksti.classList.add('today_oranssi')
+    }
+
     ruokaTeksti.textContent = day + ": " + food;
 
     //add elements to bar div 
