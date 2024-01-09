@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RuokalistaServer.Data;
 
@@ -11,9 +12,11 @@ using RuokalistaServer.Data;
 namespace RuokalistaServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118122845_AddVoteDb")]
+    partial class AddVoteDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,65 +294,65 @@ namespace RuokalistaServer.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("level1_votes_keskiviikko")
-                        .HasColumnType("int");
+                    b.Property<double?>("level1_votes_keskiviikko")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level1_votes_maanantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level1_votes_maanantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level1_votes_perjantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level1_votes_perjantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level1_votes_tiistai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level1_votes_tiistai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level1_votes_torstai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level1_votes_torstai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level2_votes_keskiviikko")
-                        .HasColumnType("int");
+                    b.Property<double?>("level2_votes_keskiviikko")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level2_votes_maanantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level2_votes_maanantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level2_votes_perjantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level2_votes_perjantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level2_votes_tiistai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level2_votes_tiistai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level2_votes_torstai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level2_votes_torstai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level3_votes_keskiviikko")
-                        .HasColumnType("int");
+                    b.Property<double?>("level3_votes_keskiviikko")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level3_votes_maanantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level3_votes_maanantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level3_votes_perjantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level3_votes_perjantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level3_votes_tiistai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level3_votes_tiistai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level3_votes_torstai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level3_votes_torstai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level4_votes_keskiviikko")
-                        .HasColumnType("int");
+                    b.Property<double?>("level4_votes_keskiviikko")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level4_votes_maanantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level4_votes_maanantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level4_votes_perjantai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level4_votes_perjantai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level4_votes_tiistai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level4_votes_tiistai")
+                        .HasColumnType("float");
 
-                    b.Property<int>("level4_votes_torstai")
-                        .HasColumnType("int");
+                    b.Property<double?>("level4_votes_torstai")
+                        .HasColumnType("float");
 
                     b.Property<int>("ruokalistaId")
                         .HasColumnType("int");
