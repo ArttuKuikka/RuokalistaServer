@@ -30,9 +30,9 @@ function CreateAanestysBox(data, body) {
     var weekText = document.createElement('div');
     weekText.classList.add('dayTitle');
 
-
+    let currentYearValue = new Date().getFullYear();
     let currentWeek = false;
-    if (data["isCurrentWeek"] === true) {
+    if (data["isCurrentWeek"] === true && data["ruokalista"]["Year"] === currentYearValue) {
         weekText.classList.add('today_oranssi');
         currentWeek = true;
     }
