@@ -30,7 +30,6 @@ function CreateAanestysBox(data, body) {
     var weekText = document.createElement('div');
     weekText.classList.add('dayTitle');
 
-    console.log(data["isCurrentWeek"])
 
     let currentWeek = false;
     if (data["isCurrentWeek"] === true) {
