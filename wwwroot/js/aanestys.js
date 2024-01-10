@@ -86,7 +86,7 @@ function CreateAanestysBox(data, body) {
     }
     else {
         var noVotesTitle = document.createElement('h4');
-        noVotesTitle.textContent = 'Ei äänestydataa saatavila';
+        noVotesTitle.textContent = 'Ei äänestysdataa saatavila';
         mainDiv.appendChild(noVotesTitle);
     }
 
