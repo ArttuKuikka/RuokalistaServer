@@ -9,6 +9,14 @@ function main(index){
             return response.json();
         })
         .then(data => {
+            // Find the index of the object with isCurrentWeek set to true
+            const currentIndex = data.findIndex(obj => obj.isCurrentWeek);
+
+            // Remove all objects before the one with isCurrentWeek set to true
+            if (currentIndex !== -1) {
+                data.splice(0, currentIndex);
+            }
+
             data.forEach(element => CreateAanestysBox(element, contentBody));
         })
         .catch(error => {
