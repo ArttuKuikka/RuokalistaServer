@@ -23,6 +23,7 @@ function main(index){
             var errorElement = document.createElement('h2');
             errorElement.textContent = "Virhe hakiessa äänestystietoja! varmista että selaimesi tukee javascriptiä ja päivitä sivu.";
             contentBody.appendChild(errorElement);
+            throw error;
         });
 }
 
@@ -181,7 +182,7 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     var bar1 = document.createElement('div');
     bar1.classList.add('color-segment');
     bar1.classList.add('color-' + listOfPercentages[0].level);
-    bar1.style.borderRadius = '10px 0px 0px 10px';
+    //bar1.style.borderRadius = '10px 0px 0px 10px';
     bar1.style.width = listOfPercentages[0].procentage.toString() + '%';
 
     var bar1text = document.createElement('p');
@@ -237,12 +238,33 @@ function createPercentageBar(level1, level2, level3, level4, body) {
     var bar4text = document.createElement('p');
     bar4text.classList.add('percentage-' + listOfPercentages[3].level);
     bar4text.textContent = listOfPercentages[3].procentage + '%';
-    bar4.style.borderRadius = '0px 10px 10px 0px';
+    //bar4.style.borderRadius = '0px 10px 10px 0px';
     if(listOfPercentages[3].procentage === 0){
         bar4text.hidden = true;
     }
     bar4.appendChild(bar4text);
     colorbardiv.appendChild(bar4);
+
+    //set rounded corners
+    colorbardiv.childNodes.forEach((currentVal, index, arr) => {
+        if (arr[index - 1] === undefined || arr[index - 1].textContent === "0%" || arr[index - 2] === undefined || arr[index - 2].textContent === "0%" || arr[index - 3] === undefined || arr[index - 3].textContent === "0%") {
+            arr[index].style.borderRadius = '10px 0px 0px 10px';
+        }
+
+
+        if (arr[index + 1] === undefined || arr[index + 1].textContent === "0%" || arr[index + 2] === undefined || arr[index + 2].textContent === "0%" || arr[index + 3] === undefined || arr[index + 3].textContent === "0%") {
+            let originalLevels = arr[index].style.borderRadius.toString().split(" ");
+
+            if (originalLevels[0] === undefined || originalLevels[0] === null || originalLevels[0] === "") {
+                originalLevels[0] = '0px';
+            }
+            if (originalLevels[3] === undefined) {
+                originalLevels[3] = '0px';
+            }
+
+            arr[index].style.borderRadius = `${originalLevels[0]} 10px 10px ${originalLevels[3]}`;
+        }
+    });
      
 
 
