@@ -247,18 +247,17 @@ function createPercentageBar(level1, level2, level3, level4, body) {
 
     //set rounded corners
     colorbardiv.childNodes.forEach((currentVal, index, arr) => {
-        if (arr[index - 1] === undefined || arr[index - 1].textContent === "0%" || arr[index - 2] === undefined || arr[index - 2].textContent === "0%" || arr[index - 3] === undefined || arr[index - 3].textContent === "0%") {
+        if ((arr[index - 1] === undefined || arr[index - 1].textContent === '0%') && (arr[index - 2] === undefined || arr[index - 2].textContent === '0%') && (arr[index - 3] === undefined || arr[index - 3].textContent === '0%')) {
             arr[index].style.borderRadius = '10px 0px 0px 10px';
         }
 
-
-        if (arr[index + 1] === undefined || arr[index + 1].textContent === "0%" || arr[index + 2] === undefined || arr[index + 2].textContent === "0%" || arr[index + 3] === undefined || arr[index + 3].textContent === "0%") {
+        if ((arr[index + 1] === undefined || arr[index + 1].textContent === '0%') && (arr[index + 2] === undefined || arr[index + 2].textContent === '0%') && (arr[index + 3] === undefined || arr[index + 3].textContent === '0%')) {
             let originalLevels = arr[index].style.borderRadius.toString().split(" ");
 
             if (originalLevels[0] === undefined || originalLevels[0] === null || originalLevels[0] === "") {
                 originalLevels[0] = '0px';
             }
-            if (originalLevels[3] === undefined) {
+            if (originalLevels[3] === undefined || originalLevels[3] === null || originalLevels[3] === "") {
                 originalLevels[3] = '0px';
             }
 
