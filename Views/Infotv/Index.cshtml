@@ -130,15 +130,13 @@
 
 			createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
 
-
-			 // Check if the current time is between 9 am and 12 am (inclusive)
-			if (currentHour >= 9 && currentHour <= 12) {
-				
-				// Set an interval to run your function every 10 minutes
-				setInterval(() => {
+			//päivitä votebar
+			setInterval(() => {
+				if (currentHour >= 10 && currentHour <= 12) {
 					createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
-				}, 5 * 60 * 1000); // 10 minutes interval
-			} 
+				}
+			}, 300000);
+			
 });
 
 
@@ -154,13 +152,13 @@
 
 		@{
 			if (ViewBag.RuokaOlemassa)
-			{
+					{
 								@if (ViewBag.NytOnSeuraavaViikko ?? false)
 				{
-									<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+											<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
 				}
 				else
-				{
+						{
 									<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
 				}
 
@@ -168,13 +166,13 @@
 				RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
-				{
-									<div class="autosize daytitle" style="color:orange;">Maanantai</div>
+					{
+												<div class="autosize daytitle" style="color:orange;">Maanantai</div>
 									<div class="autosize ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
 				}
 				else
-				{
-									<div class="autosize daytitle">Maanantai</div>
+						{
+											<div class="autosize daytitle">Maanantai</div>
 									<div class="autosize ruokateksti">@ruoka.Maanantai</div>
 				}
 
@@ -182,13 +180,13 @@
 
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
-				{
-									<div class="autosize daytitle" style="color:orange;">Tiistai</div>
+						{
+											<div class="autosize daytitle" style="color:orange;">Tiistai</div>
 									<div class="autosize ruokateksti" style="color:orange">@ruoka.Tiistai</div>
 				}
 				else
-				{
-									<div class="autosize daytitle">Tiistai</div>
+					{
+												<div class="autosize daytitle">Tiistai</div>
 									<div class="autosize ruokateksti">@ruoka.Tiistai</div>
 				}
 
@@ -196,13 +194,13 @@
 
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
-				{
-									<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
+					{
+												<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
 									<div class="autosize ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
 				}
 				else
-				{
-									<div class="autosize daytitle">Keskiviikko</div>
+					{
+												<div class="autosize daytitle">Keskiviikko</div>
 									<div class="autosize ruokateksti">@ruoka.Keskiviikko</div>
 				}
 
@@ -210,32 +208,32 @@
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
 				{
-									<div class="autosize daytitle" style="color:orange;">Torstai</div>
+													<div class="autosize daytitle" style="color:orange;">Torstai</div>
 									<div class="autosize ruokateksti" style="color:orange">@ruoka.Torstai</div>
 				}
 				else
-				{
-									<div class="autosize daytitle">Torstai</div>
+						{
+											<div class="autosize daytitle">Torstai</div>
 									<div class="autosize ruokateksti">@ruoka.Torstai</div>
 				}
 
 				
 
 				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
-				{
-									<div class="autosize daytitle" style="color:orange;">Perjantai</div>
+						{
+											<div class="autosize daytitle" style="color:orange;">Perjantai</div>
 									<div class="autosize ruokateksti" style="color:orange">@ruoka.Perjantai</div>
 				}
 				else
 				{
-									<div class="autosize daytitle">Perjantai</div>
+													<div class="autosize daytitle">Perjantai</div>
 									<div class="autosize ruokateksti">@ruoka.Perjantai</div>
 				}
 
 				
 			}
 			else
-			{
+					{
 								<h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
 			}
 
