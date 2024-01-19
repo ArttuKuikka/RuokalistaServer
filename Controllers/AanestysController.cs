@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 
@@ -249,6 +250,42 @@ namespace RuokalistaServer.Controllers
 
 
 			return Ok("aanestys onnistui");
+		}
+
+		[Authorize]
+		public async Task<IActionResult> Tulostaulu()
+		{
+			var model = new TulostauluModel();
+			
+			var lista = new List<(string, double)>();
+
+			foreach(var week in db.Ruokalista)
+			{
+				var viikonVotet = db.Votes.FirstOrDefault(x => x.ruokalistaId == week.Id);
+				if (viikonVotet == null) continue;
+
+
+                lista.Add((week.Maanantai, (1 * viikonVotet.level4_votes_maanantai) + (0.75 * viikonVotet.level3_votes_maanantai) + (0.50 * viikonVotet.level2_votes_maanantai) + (0.25 * viikonVotet.level1_votes_maanantai)));
+                lista.Add((week.Tiistai, (1 * viikonVotet.level4_votes_tiistai) + (0.75 * viikonVotet.level3_votes_tiistai) + (0.50 * viikonVotet.level2_votes_tiistai) + (0.25 * viikonVotet.level1_votes_tiistai)));
+                lista.Add((week.Keskiviikko, (1 * viikonVotet.level4_votes_keskiviikko) + (0.75 * viikonVotet.level3_votes_keskiviikko) + (0.50 * viikonVotet.level2_votes_keskiviikko) + (0.25 * viikonVotet.level1_votes_keskiviikko)));
+                lista.Add((week.Torstai, (1 * viikonVotet.level4_votes_torstai) + (0.75 * viikonVotet.level3_votes_torstai) + (0.50 * viikonVotet.level2_votes_torstai) + (0.25 * viikonVotet.level1_votes_torstai)));
+                lista.Add((week.Perjantai, (1 * viikonVotet.level4_votes_perjantai) + (0.75 * viikonVotet.level3_votes_perjantai) + (0.50 * viikonVotet.level2_votes_perjantai) + (0.25 * viikonVotet.level1_votes_perjantai)));
+			}
+
+			lista.RemoveAll(x => x.Item2 == 0);
+			lista = lista.OrderBy(x => x.Item2).ToList();
+			lista.Reverse();
+
+			//sort ja remove 0
+			var dataStr = "[{x: " + lista.First().Item2.ToString().Replace(',', '.') + ", y: '" + lista.First().Item1 +  "'}";
+			foreach(var item in lista.Skip(1))
+			{
+				dataStr += ", {x: " + item.Item2.ToString().Replace(',', '.') + ", y: '" + item.Item1 + "'}";
+            }
+			dataStr += "]";
+			model.data = dataStr;
+
+			return View(model);
 		}
 	}
 }

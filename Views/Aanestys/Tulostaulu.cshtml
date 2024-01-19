@@ -1,0 +1,49 @@
+﻿@using Newtonsoft.Json
+@using RuokalistaServer.Models;
+@model TulostauluModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Tulostaulu";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<h1>Tulostaulu</h1>
+
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                data: @Html.Raw(Model?.data)
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Ruokien äänestystulokset'
+                }
+            }
+        }
+    });
+</script>
+
