@@ -17,6 +17,25 @@ body {
   margin-bottom: 60px;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: #cb8300;
+    border-color: #cb8300;
+}
+
+.btn-primary:hover {
+        color: #fff;
+        background-color: #ffa500;
+        border-color: #ffa500;
+}
+.border-top {
+    border-top: 1px solid #cb8300 !important
+}
+
+.footer-text {
+    color: #cb8300;
+}
+
 .siteTitle {
     font-size: 3em
 }

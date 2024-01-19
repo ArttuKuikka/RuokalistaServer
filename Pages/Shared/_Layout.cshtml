@@ -28,11 +28,11 @@
     <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
     
 </head>
-<body style="background-color: #282828">
+<body style="background-color: #121212">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #3b3b3b; font-family:'Segoe UI';">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3" style="background-color: #1e1e1e; font-family:'Segoe UI';">
             <div class="container">
-                <a class="navbar-brand" style="color: white" href="/">Ruokalista</a>
+                <a class="navbar-brand" style="color: #ffa500; font-weight: bold" href="/">Ruokalista</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -57,14 +57,14 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" style="background-color: #282828; color: white;" class="pb-3">
+        <main role="main" style="color: white;" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer footer-text">
         <div class="container">
-            &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka 
+            &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka    <a href="mailto:contact@arttukuikka.fi">Ota yhteyttä</a>
         </div>
     </footer>
 
