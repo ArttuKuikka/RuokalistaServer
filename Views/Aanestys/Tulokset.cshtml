@@ -28,26 +28,27 @@
 @if (!ViewBag.isApp)
 {
     <h2>Ruokien äänestystulokset</h2>
+
+    <section class="faq-container">
+        <div class="faq-one">
+
+            <!-- faq question -->
+            <h3 class="faq-page">Mikä tämä sivu on?</h3>
+
+            <!-- faq answer -->
+            <div class="faq-body">
+                <p>
+                    Tällä sivulla on näkyvissä joka viikon ja jokaisen ruoan äänestystulokset. Voit itse äänestää päivän ruokaa joka päivän Isonkyrön koulukeskuksen ruokalassa olevan äänestysautomaatin(Kuva alla) avulla, valitsemalla 4 vaihtoehdosta sen jonka koet parhaaksi.
+                    Jos haluat tietää lisää miten äänestyspääte toimii, voit lukea siitä <a href="https://github.com/ArttuKuikka/RuokalistaAanestyspaate">TÄÄLÄ</a>
+                </p>
+                <img src="/aanestyspaate.png" style="width: 100%; max-width: 400px;" />
+
+            </div>
+        </div>
+        <hr class="hr-line">
+    </section>
 }
 
-<section class="faq-container">
-    <div class="faq-one">
-
-        <!-- faq question -->
-        <h3 class="faq-page">Mikä tämä sivu on?</h3>
-
-        <!-- faq answer -->
-        <div class="faq-body">
-            <p>
-               Tällä sivulla on näkyvissä joka viikon ja jokaisen ruoan äänestystulokset. Voit itse äänestää päivän ruokaa joka päivän Isonkyrön koulukeskuksen ruokalassa olevan äänestysautomaatin(Kuva alla) avulla, valitsemalla 4 vaihtoehdosta sen jonka koet parhaaksi.
-               Jos haluat tietää lisää miten äänestyspääte toimii, voit lukea siitä <a href="https://github.com/ArttuKuikka/RuokalistaAanestyspaate">TÄÄLÄ</a>
-            </p>
-            <img src="/aanestyspaate.png" style="width: 100%; max-width: 400px;" />
-            
-        </div>
-    </div>
-    <hr class="hr-line">
-</section>
 <br />
 
 <div id="aanestysDiv" class="aanestysContent">
