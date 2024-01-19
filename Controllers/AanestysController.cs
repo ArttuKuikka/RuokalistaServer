@@ -265,22 +265,37 @@ namespace RuokalistaServer.Controllers
 				if (viikonVotet == null) continue;
 
 				var maanantai_yhteensa = viikonVotet.level4_votes_maanantai + viikonVotet.level3_votes_maanantai + viikonVotet.level2_votes_maanantai + viikonVotet.level1_votes_maanantai;
-                lista.Add((week.Maanantai, (1 * (viikonVotet.level4_votes_maanantai / maanantai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_maanantai / maanantai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_maanantai / maanantai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_maanantai / maanantai_yhteensa))));
+                if(maanantai_yhteensa != 0)
+				{
+                    lista.Add((week.Maanantai, (1 * (viikonVotet.level4_votes_maanantai / maanantai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_maanantai / maanantai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_maanantai / maanantai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_maanantai / maanantai_yhteensa))));
+                }
 
 				var tiistai_yhteensa = viikonVotet.level4_votes_tiistai + viikonVotet.level3_votes_tiistai + viikonVotet.level2_votes_tiistai + viikonVotet.level1_votes_tiistai;
-                lista.Add((week.Tiistai, (1 * (viikonVotet.level4_votes_tiistai / tiistai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_tiistai / tiistai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_tiistai / tiistai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_tiistai / tiistai_yhteensa))));
+                if(tiistai_yhteensa != 0)
+				{
+                    lista.Add((week.Tiistai, (1 * (viikonVotet.level4_votes_tiistai / tiistai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_tiistai / tiistai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_tiistai / tiistai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_tiistai / tiistai_yhteensa))));
+                }
 
 				var keskiviikko_yhteensa = viikonVotet.level4_votes_keskiviikko + viikonVotet.level3_votes_keskiviikko + viikonVotet.level2_votes_keskiviikko + viikonVotet.level1_votes_keskiviikko;
-                lista.Add((week.Keskiviikko, (1 * (viikonVotet.level4_votes_keskiviikko / keskiviikko_yhteensa)) + (0.75 * (viikonVotet.level3_votes_keskiviikko / keskiviikko_yhteensa)) + (0.50 * (viikonVotet.level2_votes_keskiviikko / keskiviikko_yhteensa)) + (0.25 * (viikonVotet.level1_votes_keskiviikko / keskiviikko_yhteensa))));
+                if(keskiviikko_yhteensa != 0)
+				{
+                    lista.Add((week.Keskiviikko, (1 * (viikonVotet.level4_votes_keskiviikko / keskiviikko_yhteensa)) + (0.75 * (viikonVotet.level3_votes_keskiviikko / keskiviikko_yhteensa)) + (0.50 * (viikonVotet.level2_votes_keskiviikko / keskiviikko_yhteensa)) + (0.25 * (viikonVotet.level1_votes_keskiviikko / keskiviikko_yhteensa))));
+                }
 
 				var torstai_yhteensa = viikonVotet.level4_votes_torstai + viikonVotet.level3_votes_torstai + viikonVotet.level2_votes_torstai + viikonVotet.level1_votes_torstai;
-                lista.Add((week.Torstai, (1 * (viikonVotet.level4_votes_torstai / torstai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_torstai / torstai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_torstai / torstai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_torstai / torstai_yhteensa))));
+                if(torstai_yhteensa != 0)
+				{
+                    lista.Add((week.Torstai, (1 * (viikonVotet.level4_votes_torstai / torstai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_torstai / torstai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_torstai / torstai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_torstai / torstai_yhteensa))));
+                }
 
 				var perjantai_yhteensa = viikonVotet.level4_votes_perjantai + viikonVotet.level3_votes_perjantai + viikonVotet.level2_votes_perjantai + viikonVotet.level1_votes_perjantai;
-                lista.Add((week.Perjantai, (1 * (viikonVotet.level4_votes_perjantai / perjantai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_perjantai / perjantai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_perjantai / perjantai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_perjantai / perjantai_yhteensa))));
+                if(perjantai_yhteensa != 0)
+				{
+                    lista.Add((week.Perjantai, (1 * (viikonVotet.level4_votes_perjantai / perjantai_yhteensa)) + (0.75 * (viikonVotet.level3_votes_perjantai / perjantai_yhteensa)) + (0.50 * (viikonVotet.level2_votes_perjantai / perjantai_yhteensa)) + (0.25 * (viikonVotet.level1_votes_perjantai / perjantai_yhteensa))));
+                }
 			}
 
-			lista.RemoveAll(x => x.Item2 == 0);
+
 			lista = lista.OrderBy(x => x.Item2).ToList();
 			lista.Reverse();
 
