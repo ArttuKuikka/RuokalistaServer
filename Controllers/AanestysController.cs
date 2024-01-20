@@ -299,7 +299,7 @@ namespace RuokalistaServer.Controllers
 			lista = lista.OrderBy(x => x.Item2).ToList();
 			lista.Reverse();
 
-			//sort ja remove 0
+
 			var dataStr = "[{x: " + lista.First().Item2.ToString().Replace(',', '.') + ", y: '" + lista.First().Item1 +  "'}";
 			foreach(var item in lista.Skip(1))
 			{
