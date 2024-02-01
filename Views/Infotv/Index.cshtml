@@ -117,9 +117,8 @@
 
 		//luo votebar
 		document.addEventListener("DOMContentLoaded", function () {
-			//ajastin
-			 const currentDate = new Date();
-			const currentHour = currentDate.getHours();
+
+			 
 
 			
 			var aanestysbox = document.getElementById("aanestysbox");
@@ -132,6 +131,9 @@
 
 			//päivitä votebar
 			setInterval(() => {
+				const currentDate = new Date();
+				const currentHour = currentDate.getHours();
+
 				if (currentHour >= 10 && currentHour <= 12) {
 					createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
 				}
