@@ -129,14 +129,24 @@
 
 			createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
 
-			//päivitä votebar
+			//päivitä votebar 5 min välein
 			setInterval(() => {
-				const currentDate = new Date();
-				const currentHour = currentDate.getHours();
+				// Get current time
+				const currentTime = new Date();
 
-				if (currentHour >= 10 && currentHour <= 12) {
+				// Extract hours and minutes
+				const hours = currentTime.getHours();
+				const minutes = currentTime.getMinutes();
+
+				document.getElementById('testtext').textContent = hours.toString() + ":" + minutes.toString()
+
+				// Check if the current time is between 10:10 AM and 12:10 PM
+				if (hours === 10 && minutes >= 5 && hours < 12) {
+					
 					createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
+					
 				}
+				
 			}, 300000);
 			
 });
@@ -248,5 +258,6 @@
 		<h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
 		<h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
 	</div>
+	<p style="position: fixed; z-index: 5; bottom: 5px;" id="testtext">00.00</p>
 </body>
 

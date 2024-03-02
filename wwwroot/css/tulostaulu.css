@@ -1,0 +1,37 @@
+﻿.date-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.input-container {
+    text-align: left;
+    margin-right: 20px;
+}
+
+.title {
+    flex: 1;
+    margin-right: 20px;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #262626;
+    color: #ffffff;
+    border-radius: 5px
+}
+
+.contentBody {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+ .contentDiv {
+     margin: 0px 20px 0px 0px;
+ }
+
+

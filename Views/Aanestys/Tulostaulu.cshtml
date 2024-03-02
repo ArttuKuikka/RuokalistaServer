@@ -1,49 +1,112 @@
 ﻿@using Newtonsoft.Json
 @using RuokalistaServer.Models;
-@model TulostauluModel
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Tulostaulu";
+    ViewData["Title"] = "Tilastot";
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<h1>Tulostaulu</h1>
 
 
-<div>
-    <canvas id="myChart"></canvas>
-</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    const ctx = document.getElementById('myChart');
+<link rel="stylesheet" href="/css/aanestys.css">
+<script src="/js/aanestys.js"></script>
+<link rel="stylesheet" href="/css/tulostaulu.css">
+<script src="/js/tulostaulu.js"></script>
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            datasets: [{
-                data: @Html.Raw(Model?.data)
-            }]
+
+<div>
+
+</div>
+<div class="date-container">
+    <div class="title">
+        <h1>Tilastot</h1>
+        
+    </div>
+    <div class="input-container">
+        <div>Aikaväli</div>
+        <input type="text" name="datetimes" />
+    </div>
+</div>
+
+<br />
+
+<div class="contentBody" id="contentBody">
+
+</div>
+
+<script type="text/javascript">
+
+    var contentBody = document.getElementById('contentBody');
+
+    
+
+    const startTime = new Date(2023, 0 , 1)
+    const endTime = new Date();
+
+    $('input[name="datetimes"]').daterangepicker({
+        "locale": {
+            "format": "DD.MM.YYYY",
+            "separator": " - ",
+            "applyLabel": "OK",
+            "cancelLabel": "Peruuta",
+            "fromLabel": "Mistä",
+            "toLabel": "Minne",
+            "customRangeLabel": "Omavalintainen",
+            "weekLabel": "V",
+            "daysOfWeek": [
+                "Ma",
+                "Ti",
+                "Ke",
+                "To",
+                "Pe",
+                "La",
+                "Su"
+            ],
+            "monthNames": [
+                "Tammikuu",
+                "Helmikuu",
+                "Maaliskuu",
+                "Huhtikuu",
+                "Toukokuu",
+                "Kesäkuu",
+                "Heinäkuu",
+                "Elokuu",
+                "Syyskuu",
+                "Lokakuu",
+                "Marraskuu",
+                "Joulukuu"
+            ],
+            "firstDay": 0
         },
-        options: {
-            indexAxis: 'y',
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'Ruokien äänestystulokset'
-                }
-            }
-        }
+        "showCustomRangeLabel": false,
+        "linkedCalendars": false,
+        "showDropdowns": true,
+        "minYear": 2023,
+        "showWeekNumbers": true,
+        ranges: {
+            'Tämä viikko': [moment().startOf('week'), moment().endOf('week')],
+            'Viime viikko': [moment().startOf('week').subtract(7, 'days'), moment().startOf('week').subtract(1, 'days')],
+            'Tämä kuukausi': [moment().startOf('month'), moment().endOf('month')],
+            'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+            'Tämä vuosi': [moment().startOf('year'), moment().endOf('year')],
+            'Kaikki': [moment({ year: 2023, month: 0, day: 0 }), moment()]
+        },
+        "alwaysShowCalendars": true,
+        "startDate": formatDateForURL(startTime),
+        "endDate": formatDateForURL(endTime),
+        "opens": "left"
+    }, function (start, end, label) {
+        create_tulostaulu(contentBody, start, end)
     });
-</script>
 
+
+   
+
+
+    create_tulostaulu(contentBody, startTime, endTime)
+</script>

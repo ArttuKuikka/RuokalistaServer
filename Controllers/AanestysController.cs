@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
+using System.Globalization;
+using System.Text.Json;
 
 namespace RuokalistaServer.Controllers
 {
@@ -30,6 +32,76 @@ namespace RuokalistaServer.Controllers
 			ViewBag.Layout = layout;
 			return View();
 		}
+
+        [HttpGet]
+        [Route("api/v1/Aanestys/ProsenttiTuloksetTietyllaAikavalilla")]
+        public IActionResult ProsenttiTuloksetTietyllaAikavalilla(string start, string? end)
+		{
+            CultureInfo regionCulture = new CultureInfo("fi-FI");
+
+            var startDate = DateTime.Parse(start, regionCulture);
+            var endDate = DateTime.Now;
+            if (end != null && end != "")
+			{
+				endDate = DateTime.Parse(end, regionCulture);
+			}
+			var startWeek = System.Globalization.ISOWeek.GetWeekOfYear(startDate);
+			var endWeek = System.Globalization.ISOWeek.GetWeekOfYear(endDate);
+       
+			//FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Toimii mutta antaa tiestysti koko viikon ruokalista vaikka vaan yks päivä valittu viikosta
+            var ruokalistaObjects = db.Ruokalista.Where(item =>
+            (item.Year > startDate.Year || (item.Year == startDate.Year && item.WeekId >= startWeek)) &&
+            (item.Year < endDate.Year || (item.Year == endDate.Year && item.WeekId <= endWeek))
+        );
+
+            var returnList = new List<ProsenttiTulos>();
+            foreach (var r in ruokalistaObjects)
+            {
+
+                var prosentit = new ViikonProsentit
+                {
+                    maanantai = 0,
+					tiistai = 0,
+					keskiviikko = 0,
+					torstai = 0,
+					perjantai = 0
+                };
+
+                var VV = db.Votes.FirstOrDefault(x => x.ruokalistaId == r.Id);
+				if (VV != null)
+				{
+					prosentit.maanantai = CalculateFoodScore(VV.level1_votes_maanantai, VV.level2_votes_maanantai, VV.level3_votes_maanantai, VV.level4_votes_maanantai);
+					prosentit.tiistai = CalculateFoodScore(VV.level1_votes_tiistai, VV.level2_votes_tiistai, VV.level3_votes_tiistai, VV.level4_votes_tiistai);
+					prosentit.keskiviikko = CalculateFoodScore(VV.level1_votes_keskiviikko, VV.level2_votes_keskiviikko, VV.level3_votes_keskiviikko, VV.level4_votes_keskiviikko);
+					prosentit.torstai = CalculateFoodScore(VV.level1_votes_torstai, VV.level2_votes_torstai, VV.level3_votes_torstai, VV.level4_votes_torstai);
+					prosentit.perjantai = CalculateFoodScore(VV.level1_votes_perjantai, VV.level2_votes_perjantai, VV.level3_votes_perjantai, VV.level4_votes_perjantai);
+				}
+                
+
+
+                var rObj = new ProsenttiTulos
+                {
+                    ruokalista = r,
+                    prosentit = prosentit,
+
+                };
+                returnList.Add(rObj);
+            }
+
+            return Ok(JsonConvert.SerializeObject(returnList));
+        }
+
+		private double CalculateFoodScore(int level1, int level2, int level3, int level4)
+		{
+			var yhteensa = level1 + level2 + level3 + level4;
+			if(yhteensa == 0)
+			{
+				return 0;
+			}
+
+			return (1 * ((double)level4 / yhteensa)) + (0.75 * ((double)level3 / yhteensa)) + (0.50 * ((double)level2 / yhteensa)) + (0.25 * ((double)level1 / yhteensa));
+
+        }
 
 
 
@@ -252,63 +324,12 @@ namespace RuokalistaServer.Controllers
 			return Ok("aanestys onnistui");
 		}
 
-		[Authorize]
-		public async Task<IActionResult> Tulostaulu()
+
+		public IActionResult Tulostaulu()
 		{
-			var model = new TulostauluModel();
 			
-			var lista = new List<(string, double)>();
 
-			foreach(var week in db.Ruokalista)
-			{
-				var viikonVotet = db.Votes.FirstOrDefault(x => x.ruokalistaId == week.Id);
-				if (viikonVotet == null) continue;
-
-				var maanantai_yhteensa = viikonVotet.level4_votes_maanantai + viikonVotet.level3_votes_maanantai + viikonVotet.level2_votes_maanantai + viikonVotet.level1_votes_maanantai;
-                if(maanantai_yhteensa != 0)
-				{
-                    lista.Add((week.Maanantai, (1 * ((double)viikonVotet.level4_votes_maanantai / maanantai_yhteensa)) + (0.75 * ((double)viikonVotet.level3_votes_maanantai / maanantai_yhteensa)) + (0.50 * ((double)viikonVotet.level2_votes_maanantai / maanantai_yhteensa)) + (0.25 * ((double)viikonVotet.level1_votes_maanantai / maanantai_yhteensa))));
-                }
-
-				var tiistai_yhteensa = viikonVotet.level4_votes_tiistai + viikonVotet.level3_votes_tiistai + viikonVotet.level2_votes_tiistai + viikonVotet.level1_votes_tiistai;
-                if(tiistai_yhteensa != 0)
-				{
-                    lista.Add((week.Tiistai, (1 * ((double)viikonVotet.level4_votes_tiistai / tiistai_yhteensa)) + (0.75 * ((double)viikonVotet.level3_votes_tiistai / tiistai_yhteensa)) + (0.50 * ((double)viikonVotet.level2_votes_tiistai / tiistai_yhteensa)) + (0.25 * ((double)viikonVotet.level1_votes_tiistai / tiistai_yhteensa))));
-                }
-
-				var keskiviikko_yhteensa = viikonVotet.level4_votes_keskiviikko + viikonVotet.level3_votes_keskiviikko + viikonVotet.level2_votes_keskiviikko + viikonVotet.level1_votes_keskiviikko;
-                if(keskiviikko_yhteensa != 0)
-				{
-                    lista.Add((week.Keskiviikko, (1 * ((double)viikonVotet.level4_votes_keskiviikko / keskiviikko_yhteensa)) + (0.75 * ((double)viikonVotet.level3_votes_keskiviikko / keskiviikko_yhteensa)) + (0.50 * ((double)viikonVotet.level2_votes_keskiviikko / keskiviikko_yhteensa)) + (0.25 * ((double)viikonVotet.level1_votes_keskiviikko / keskiviikko_yhteensa))));
-                }
-
-				var torstai_yhteensa = viikonVotet.level4_votes_torstai + viikonVotet.level3_votes_torstai + viikonVotet.level2_votes_torstai + viikonVotet.level1_votes_torstai;
-                if(torstai_yhteensa != 0)
-				{
-                    lista.Add((week.Torstai, (1 * ((double)viikonVotet.level4_votes_torstai / torstai_yhteensa)) + (0.75 * ((double)viikonVotet.level3_votes_torstai / torstai_yhteensa)) + (0.50 * ((double)viikonVotet.level2_votes_torstai / torstai_yhteensa)) + (0.25 * ((double)viikonVotet.level1_votes_torstai / torstai_yhteensa))));
-                }
-
-				var perjantai_yhteensa = viikonVotet.level4_votes_perjantai + viikonVotet.level3_votes_perjantai + viikonVotet.level2_votes_perjantai + viikonVotet.level1_votes_perjantai;
-                if(perjantai_yhteensa != 0)
-				{
-                    lista.Add((week.Perjantai, (1 * ((double)viikonVotet.level4_votes_perjantai / perjantai_yhteensa)) + (0.75 * ((double)viikonVotet.level3_votes_perjantai / perjantai_yhteensa)) + (0.50 * ((double)viikonVotet.level2_votes_perjantai / perjantai_yhteensa)) + (0.25 * ((double)viikonVotet.level1_votes_perjantai / perjantai_yhteensa))));
-                }
-			}
-
-
-			lista = lista.OrderBy(x => x.Item2).ToList();
-			lista.Reverse();
-
-
-			var dataStr = "[{x: " + lista.First().Item2.ToString().Replace(',', '.') + ", y: '" + lista.First().Item1 +  "'}";
-			foreach(var item in lista.Skip(1))
-			{
-				dataStr += ", {x: " + item.Item2.ToString().Replace(',', '.') + ", y: '" + item.Item1 + "'}";
-            }
-			dataStr += "]";
-			model.data = dataStr;
-
-			return View(model);
+			return View();
 		}
 	}
 }
