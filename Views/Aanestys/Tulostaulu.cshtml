@@ -2,7 +2,7 @@
 @using RuokalistaServer.Models;
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Tulostaulu";
+    ViewData["Title"] = "Tilastot";
 }
 
 
@@ -10,6 +10,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <link rel="stylesheet" href="/css/aanestys.css">
 <script src="/js/aanestys.js"></script>
@@ -22,7 +24,7 @@
 </div>
 <div class="date-container">
     <div class="title">
-        <h1>Tulostaulu</h1>
+        <h1>Tilastot</h1>
         
     </div>
     <div class="input-container">
@@ -41,9 +43,14 @@
 
     var contentBody = document.getElementById('contentBody');
 
+    
+
+    const startTime = new Date(2023, 0 , 1)
+    const endTime = new Date();
+
     $('input[name="datetimes"]').daterangepicker({
         "locale": {
-            "format": "DD/MM/YYYY",
+            "format": "DD.MM.YYYY",
             "separator": " - ",
             "applyLabel": "OK",
             "cancelLabel": "Peruuta",
@@ -74,34 +81,32 @@
                 "Marraskuu",
                 "Joulukuu"
             ],
-            "firstDay": 1
+            "firstDay": 0
         },
+        "showCustomRangeLabel": false,
         "linkedCalendars": false,
         "showDropdowns": true,
-        "minYear": 2022,
+        "minYear": 2023,
         "showWeekNumbers": true,
         ranges: {
-            'Viimeiset 7 päivää': [moment().subtract(6, 'days'), moment()],
-            'Viimeiset 30 päivää': [moment().subtract(29, 'days'), moment()],
+            'Tämä viikko': [moment().startOf('week'), moment().endOf('week')],
+            'Viime viikko': [moment().startOf('week').subtract(7, 'days'), moment().startOf('week').subtract(1, 'days')],
             'Tämä kuukausi': [moment().startOf('month'), moment().endOf('month')],
-            'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+            'Tämä vuosi': [moment().startOf('year'), moment().endOf('year')],
+            'Kaikki': [moment({ year: 2023, month: 0, day: 0 }), moment()]
         },
         "alwaysShowCalendars": true,
-
+        "startDate": formatDateForURL(startTime),
+        "endDate": formatDateForURL(endTime),
         "opens": "left"
     }, function (start, end, label) {
         create_tulostaulu(contentBody, start, end)
     });
 
 
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const diffMonday = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust for Sunday
-    const diffFriday = diffMonday + 4;
-
-    const friday = new Date(today.setDate(diffFriday));
-    const monday = new Date(today.setDate(diffMonday));
+   
 
 
-    create_tulostaulu(contentBody, monday, friday)
+    create_tulostaulu(contentBody, startTime, endTime)
 </script>

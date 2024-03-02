@@ -32,6 +32,7 @@ function create_tulostaulu(contentBody, startTime, endTime) {
             else {
                 //success
                 createFoodBars(contentBody, data)
+                createChart(contentBody, data)
             }
         })
         .catch(error => {
@@ -128,6 +129,67 @@ function createFoodBars(contentBody, data) {
     });
     contentDiv.appendChild(div);
     contentBody.appendChild(contentDiv);
+}
+
+
+function createChart(contentBody, data) {
+
+    let lista = [];
+    data.forEach(function (element) {
+
+        lista.push({ prosentit: element.prosentit.maanantai, ruoka: element.ruokalista.Maanantai, week: element.ruokalista.WeekId })
+        lista.push({ prosentit: element.prosentit.tiistai, ruoka: element.ruokalista.Tiistai, week: element.ruokalista.WeekId })
+        lista.push({ prosentit: element.prosentit.keskiviikko, ruoka: element.ruokalista.Keskiviikko, week: element.ruokalista.WeekId })
+        lista.push({ prosentit: element.prosentit.torstai, ruoka: element.ruokalista.Torstai, week: element.ruokalista.WeekId })
+        lista.push({ prosentit: element.prosentit.perjantai, ruoka: element.ruokalista.Perjantai, week: element.ruokalista.WeekId })
+    });
+
+    lista = lista.filter(obj => obj.prosentit !== 0);
+
+    var div = document.createElement('div');
+    var title = document.createElement('h2');
+    title.textContent = "Ruoan laatu ajan funktiona"
+
+    div.appendChild(title);
+
+    //lisää tähä
+    var canvas = document.createElement('canvas');
+
+
+
+    var ctx = canvas.getContext('2d');
+
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: lista.map(dp => dp.ruoka),
+            datasets: [{
+                label: 'Ruoka',
+                data: lista.map(dp => dp.prosentit),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    display: false, // hide x-axis labels
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false, // hide legend
+                }
+            }
+        }
+    });
+
+    div.appendChild(canvas);
+    contentBody.appendChild(div);
 }
 
 

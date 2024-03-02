@@ -45,7 +45,7 @@ namespace RuokalistaServer.Controllers
 			var startWeek = System.Globalization.ISOWeek.GetWeekOfYear(startDate);
 			var endWeek = System.Globalization.ISOWeek.GetWeekOfYear(endDate);
        
-
+			//FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Toimii mutta antaa tiestysti koko viikon ruokalista vaikka vaan yks päivä valittu viikosta
             var ruokalistaObjects = db.Ruokalista.Where(item =>
             (item.Year > startDate.Year || (item.Year == startDate.Year && item.WeekId >= startWeek)) &&
             (item.Year < endDate.Year || (item.Year == endDate.Year && item.WeekId <= endWeek))
