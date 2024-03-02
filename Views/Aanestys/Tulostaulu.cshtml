@@ -42,6 +42,40 @@
     var contentBody = document.getElementById('contentBody');
 
     $('input[name="datetimes"]').daterangepicker({
+        "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "OK",
+            "cancelLabel": "Peruuta",
+            "fromLabel": "Mistä",
+            "toLabel": "Minne",
+            "customRangeLabel": "Omavalintainen",
+            "weekLabel": "V",
+            "daysOfWeek": [
+                "Ma",
+                "Ti",
+                "Ke",
+                "To",
+                "Pe",
+                "La",
+                "Su"
+            ],
+            "monthNames": [
+                "Tammikuu",
+                "Helmikuu",
+                "Maaliskuu",
+                "Huhtikuu",
+                "Toukokuu",
+                "Kesäkuu",
+                "Heinäkuu",
+                "Elokuu",
+                "Syyskuu",
+                "Lokakuu",
+                "Marraskuu",
+                "Joulukuu"
+            ],
+            "firstDay": 1
+        },
         "linkedCalendars": false,
         "showDropdowns": true,
         "minYear": 2022,
@@ -53,8 +87,7 @@
             'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
         "alwaysShowCalendars": true,
-        "startDate": "02/25/2024",
-        "endDate": "03/02/2024",
+
         "opens": "left"
     }, function (start, end, label) {
         create_tulostaulu(contentBody, start, end)
