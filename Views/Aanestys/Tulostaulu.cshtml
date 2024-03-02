@@ -1,49 +1,73 @@
 ﻿@using Newtonsoft.Json
 @using RuokalistaServer.Models;
-@model TulostauluModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Tulostaulu";
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<h1>Tulostaulu</h1>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<link rel="stylesheet" href="/css/aanestys.css">
+<script src="/js/aanestys.js"></script>
+<link rel="stylesheet" href="/css/tulostaulu.css">
+<script src="/js/tulostaulu.js"></script>
 
 
 <div>
-    <canvas id="myChart"></canvas>
+
+</div>
+<div class="date-container">
+    <div class="title">
+        <h1>Tulostaulu</h1>
+        
+    </div>
+    <div class="input-container">
+        <div>Aikaväli</div>
+        <input type="text" name="datetimes" />
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<br />
 
-<script>
-    const ctx = document.getElementById('myChart');
+<div id="contentBody">
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            datasets: [{
-                data: @Html.Raw(Model?.data)
-            }]
+</div>
+
+<script type="text/javascript">
+
+    var contentBody = document.getElementById('contentBody');
+
+    $('input[name="datetimes"]').daterangepicker({
+        "showDropdowns": true,
+        "minYear": 2022,
+        "showWeekNumbers": true,
+        ranges: {
+            'Viimeiset 7 päivää': [moment().subtract(6, 'days'), moment()],
+            'Viimeiset 30 päivää': [moment().subtract(29, 'days'), moment()],
+            'Tämä kuukausi': [moment().startOf('month'), moment().endOf('month')],
+            'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
-        options: {
-            indexAxis: 'y',
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'Ruokien äänestystulokset'
-                }
-            }
-        }
+        "alwaysShowCalendars": true,
+        "startDate": "02/25/2024",
+        "endDate": "03/02/2024",
+        "opens": "left"
+    }, function (start, end, label) {
+        create_tulostaulu(contentBody, start, end)
     });
-</script>
 
+
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const diffMonday = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust for Sunday
+    const diffFriday = diffMonday + 4;
+
+    const friday = new Date(today.setDate(diffFriday));
+    const monday = new Date(today.setDate(diffMonday));
+
+
+    create_tulostaulu(contentBody, monday, friday)
+</script>
