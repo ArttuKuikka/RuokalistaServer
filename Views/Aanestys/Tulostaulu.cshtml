@@ -33,7 +33,7 @@
 
 <br />
 
-<div id="contentBody">
+<div class="contentBody" id="contentBody">
 
 </div>
 
@@ -42,6 +42,7 @@
     var contentBody = document.getElementById('contentBody');
 
     $('input[name="datetimes"]').daterangepicker({
+        "linkedCalendars": false,
         "showDropdowns": true,
         "minYear": 2022,
         "showWeekNumbers": true,

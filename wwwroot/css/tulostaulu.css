@@ -25,4 +25,13 @@ input {
     border-radius: 5px
 }
 
+.contentBody {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+ .contentDiv {
+     margin: 0px 20px 0px 0px;
+ }
+
 
