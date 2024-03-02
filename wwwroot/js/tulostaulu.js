@@ -148,7 +148,7 @@ function createChart(contentBody, data) {
 
     var div = document.createElement('div');
     var title = document.createElement('h2');
-    title.textContent = "Ruoan laatu ajan funktiona"
+    title.textContent = "Ruokien sijoitus ajan funktiona"
 
     div.appendChild(title);
 
