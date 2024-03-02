@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
+using System.Globalization;
 using System.Text.Json;
 
 namespace RuokalistaServer.Controllers
@@ -36,11 +37,13 @@ namespace RuokalistaServer.Controllers
         [Route("api/v1/Aanestys/ProsenttiTuloksetTietyllaAikavalilla")]
         public IActionResult ProsenttiTuloksetTietyllaAikavalilla(string start, string? end)
 		{
-			var startDate = DateTime.Parse(start);
+            CultureInfo regionCulture = new CultureInfo("fi-FI");
+
+            var startDate = DateTime.Parse(start, regionCulture);
             var endDate = DateTime.Now;
             if (end != null && end != "")
 			{
-				endDate = DateTime.Parse(end);
+				endDate = DateTime.Parse(end, regionCulture);
 			}
 			var startWeek = System.Globalization.ISOWeek.GetWeekOfYear(startDate);
 			var endWeek = System.Globalization.ISOWeek.GetWeekOfYear(endDate);
