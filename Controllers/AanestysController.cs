@@ -46,7 +46,10 @@ namespace RuokalistaServer.Controllers
 			var endWeek = System.Globalization.ISOWeek.GetWeekOfYear(endDate);
        
 
-            var ruokalistaObjects = db.Ruokalista.Where(x => x.Year >= startDate.Year && x.WeekId >= startWeek && x.Year <= endDate.Year && x.WeekId <= endWeek);
+            var ruokalistaObjects = db.Ruokalista.Where(item =>
+            (item.Year > startDate.Year || (item.Year == startDate.Year && item.WeekId >= startWeek)) &&
+            (item.Year < endDate.Year || (item.Year == endDate.Year && item.WeekId <= endWeek))
+        );
 
             var returnList = new List<ProsenttiTulos>();
             foreach (var r in ruokalistaObjects)
