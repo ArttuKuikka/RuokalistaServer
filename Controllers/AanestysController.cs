@@ -325,7 +325,7 @@ namespace RuokalistaServer.Controllers
 		}
 
 
-		public IActionResult Tulostaulu()
+		public IActionResult Tilastot()
 		{
 			
 
