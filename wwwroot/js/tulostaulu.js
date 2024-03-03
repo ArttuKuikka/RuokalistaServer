@@ -10,7 +10,7 @@ function create_tulostaulu(contentBody, startTime, endTime) {
     const formattedStartDate = formatDateForURL(startDate);
     const formattedEndDate = formatDateForURL(endDate);
 
-    const url = `/api/v1/Aanestys/ProsenttiTuloksetTietyllaAikavalilla?start=${formattedStartDate}&end=${formattedEndDate}`;
+    const url = `/api/v1/Aanestys/ProsenttiTuloksetAikavalilla?start=${formattedStartDate}&end=${formattedEndDate}`;
 
     //get all of the votes in procentage form
 

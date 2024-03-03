@@ -34,8 +34,8 @@ namespace RuokalistaServer.Controllers
 		}
 
         [HttpGet]
-        [Route("api/v1/Aanestys/ProsenttiTuloksetTietyllaAikavalilla")]
-        public IActionResult ProsenttiTuloksetTietyllaAikavalilla(string start, string? end)
+        [Route("api/v1/Aanestys/ProsenttiTuloksetAikavalilla")]
+        public IActionResult ProsenttiTuloksetAikavalilla(string start, string? end)
 		{
             CultureInfo regionCulture = new CultureInfo("fi-FI");
 
