@@ -56,11 +56,11 @@ function createFoodBars(contentBody, data) {
     let lista = [];
     data.forEach(function (element) {
 
-        lista.push({prosentit: element.prosentit.maanantai, ruoka: element.ruokalista.Maanantai})
-        lista.push({prosentit: element.prosentit.tiistai, ruoka: element.ruokalista.Tiistai})
-        lista.push({prosentit: element.prosentit.keskiviikko, ruoka: element.ruokalista.Keskiviikko})
-        lista.push({prosentit: element.prosentit.torstai, ruoka: element.ruokalista.Torstai})
-        lista.push({prosentit: element.prosentit.perjantai, ruoka: element.ruokalista.Perjantai})
+        lista.push({ prosentit: element.prosentit.maanantai, ruoka: element.ruokalista.Maanantai, week: element.ruokalista.WeekId, tanaan: isToday(element.ruokalista.Year, element.ruokalista.WeekId, "Monday") })
+        lista.push({ prosentit: element.prosentit.tiistai, ruoka: element.ruokalista.Tiistai, week: element.ruokalista.WeekId, tanaan: isToday(element.ruokalista.Year, element.ruokalista.WeekId, "Tuesday") })
+        lista.push({ prosentit: element.prosentit.keskiviikko, ruoka: element.ruokalista.Keskiviikko, week: element.ruokalista.WeekId, tanaan: isToday(element.ruokalista.Year, element.ruokalista.WeekId, "Wednesday") })
+        lista.push({ prosentit: element.prosentit.torstai, ruoka: element.ruokalista.Torstai, week: element.ruokalista.WeekId, tanaan: isToday(element.ruokalista.Year, element.ruokalista.WeekId, "Thursday") })
+        lista.push({ prosentit: element.prosentit.perjantai, ruoka: element.ruokalista.Perjantai, week: element.ruokalista.WeekId, tanaan: isToday(element.ruokalista.Year, element.ruokalista.WeekId, "Friday") })
     });
 
     lista = lista.filter(obj => obj.prosentit !== 0);
@@ -86,6 +86,11 @@ function createFoodBars(contentBody, data) {
 
         var ruokaTeksti = document.createElement('p');
         ruokaTeksti.classList.add('dayTitle');
+
+        if (x.tanaan) {
+            ruokaTeksti.classList.add('today_oranssi')
+        }
+
         ruokaTeksti.textContent = index.toString() + ": " + x.ruoka;
 
         div.appendChild(ruokaTeksti);
@@ -220,4 +225,34 @@ function perc2color(perc) {
     }
     var h = r * 0x10000 + g * 0x100 + b * 0x1;
     return '#' + ('000000' + h.toString(16)).slice(-6);
+}
+
+function isToday(year, weeknumber, dayOfWeek) {
+    if (new Date() === getDateFromYearWeekAndDay(year, weeknumber, dayOfWeek)) {
+        return true;
+    }
+    else {
+        return false
+    }
+}
+
+
+//chatgpt
+function getDateFromYearWeekAndDay(year, weekNumber, dayOfWeek) {
+    // Create a new date object
+    let date = new Date();
+
+    // Set the year and the first day of January
+    date.setFullYear(year, 0, 1);
+
+    // Adjust to the first day of the week
+    date.setDate(date.getDate() - date.getDay() + 1);
+
+    // Add the number of weeks
+    date.setDate(date.getDate() + (weekNumber - 1) * 7);
+
+    // Add the specified day of the week
+    date.setDate(date.getDate() + ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].indexOf(dayOfWeek));
+
+    return date;
 }
