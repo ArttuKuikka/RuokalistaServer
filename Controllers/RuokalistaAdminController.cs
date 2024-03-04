@@ -91,7 +91,8 @@ namespace RuokalistaServer.Controllers
 				bg = new BackgroundForWeek
 				{
 					FileName = System.Web.HttpUtility.HtmlEncode(newImage),
-					WeekId = week
+					WeekId = week,
+                    Year = DateTime.Today.Year
 				};
 
 				await _context.BackgroundForWeek.AddAsync(bg);
@@ -173,7 +174,7 @@ namespace RuokalistaServer.Controllers
 			}
 
 
-            var TaustaObject = _context.BackgroundForWeek.First(x => x.WeekId == ruokalista.WeekId);
+            var TaustaObject = _context.BackgroundForWeek.First(x => x.WeekId == ruokalista.WeekId && x.Year == DateTime.Today.Year);
 			return View(TaustaObject); 
         }
 
