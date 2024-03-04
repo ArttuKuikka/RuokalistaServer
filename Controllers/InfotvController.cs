@@ -64,7 +64,7 @@ namespace RuokalistaServer.Controllers
         {
             
 
-            var bg = db.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week);
+            var bg = db.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week && x.Year == DateTime.Now.Year);
             if(bg == null)
             {
                 if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
@@ -118,7 +118,8 @@ namespace RuokalistaServer.Controllers
                 bg = new BackgroundForWeek
                 {
                     FileName = System.Web.HttpUtility.HtmlEncode(newImage),
-                    WeekId = week
+                    WeekId = week,
+                    Year = DateTime.Today.Year
                 };
 
                 await db.BackgroundForWeek.AddAsync(bg);
