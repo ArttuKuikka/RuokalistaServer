@@ -38,7 +38,7 @@ namespace RuokalistaServer.Controllers
 
             var week = ruokalista.WeekId;
 
-			var bg = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week);
+			var bg = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week && x.Year == DateTime.Today.Year);
 			if (bg == null)
 			{
 				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
