@@ -228,7 +228,11 @@ function perc2color(perc) {
 }
 
 function isToday(year, weeknumber, dayOfWeek) {
-    if (new Date() === getDateFromYearWeekAndDay(year, weeknumber, dayOfWeek)) {
+    var date = new Date();
+    var date2 = getDateFromYearWeekAndDay(year, weeknumber, dayOfWeek);
+
+
+    if (date.toString() === date2.toString()) {
         return true;
     }
     else {
