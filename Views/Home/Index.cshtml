@@ -2,12 +2,7 @@
 @{
     ViewData["Title"] = "Ruokalista";
 }
-<a class="btn btn-primary" onclick="window.location = '/Listaa';" style="margin: 0em 1em 0.5em 0em">Edellisten viikkojen ruokalistat</a>
-@if(@ViewBag.Nykyinenviikko){
-if(@ViewBag.SeuraavaViikko != null){
-        <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraavan viikon ruokalista</a>
-}
-}
+
 
 <div class="text-center" style="font-family:'Segoe UI';">
 
@@ -96,7 +91,7 @@ if(@ViewBag.SeuraavaViikko != null){
             <br />
 
             <p>G = gluteeniton, M = maidoton, L = laktoositon</p>
-            <br />
+            
       }
       else
       {
@@ -104,5 +99,18 @@ if(@ViewBag.SeuraavaViikko != null){
       }
 
 }
+
+
+<div>
+        <a class="btn btn-primary" onclick="window.location = '/Listaa';" style="margin: 0em 1em 0.5em 0em">&#x27F5; Edelliset viikot</a>
+    @if(@ViewBag.Nykyinenviikko){
+if(@ViewBag.SeuraavaViikko != null){
+                <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraava viikko &#x27F6;</a>
+}
+}
+
 </div>
+</div>
+<br />
+
 
