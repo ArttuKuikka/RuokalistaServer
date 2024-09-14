@@ -57,3 +57,11 @@ body {
 .ruokaText {
     font-size: 1.9em
 }
+
+@font-face {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('/fonts/SegoeUI.woff') format('woff');
+}
+
