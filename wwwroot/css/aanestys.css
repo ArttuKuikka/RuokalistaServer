@@ -40,14 +40,14 @@
 }
 
 .dayTitle {
-    font-family: Segoe UI;
+    font-family: Ruokalistafont;
     font-size: 1em;
     color: white;
     margin: 0px 0px 3px 5px;
 }
 
 .voteCountTitle {
-    font-family: Segoe UI;
+    font-family: Ruokalistafont;
     font-size: 0.8em;
     color: white;
     margin: -0.8em 0px -1px 5px;
@@ -91,29 +91,28 @@
 }
 
 .percentage-4 {
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     text-align: end;
     margin: 30px -0px 0px 0px;
     font-size: 1.2em;
-    
 }
 
 .percentage-3 {
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     text-align: end;
     margin: 30px -0px 0px 0px;
     font-size: 1.2em;
 }
 
 .percentage-2 {
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     text-align: end;
     margin: 30px -0px 0px 0px;
     font-size: 1.2em;
 }
 
 .percentage-1 {
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     text-align: end;
     margin: 30px -0px 0px 0px;
     font-size: 1.2em;
@@ -121,9 +120,8 @@
 
 .infotv-title {
     color: white;
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     font-weight: bold;
     font-size: 1.8em
-
 }
 
