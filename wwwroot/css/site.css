@@ -58,10 +58,12 @@ body {
     font-size: 1.9em
 }
 
+
+
 @font-face {
-    font-family: 'Segoe UI';
+    font-family: 'Ruokalistafont';
     font-style: normal;
     font-weight: normal;
-    src: local('Segoe UI Regular'), url('/fonts/SegoeUI.woff') format('woff');
+    src: local('Ruokalistafont'), url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 

@@ -46,7 +46,7 @@ function CreateAanestysBox(data, body) {
         currentWeek = true;
     }
 
-    weekText.style.fontFamily = 'Segoe UI';
+    weekText.style.fontFamily = 'Ruokalistafont';
     weekText.style.color = 'white';
     weekText.style.fontSize = '2em';
     weekText.style.fontWeight = 'bold';
@@ -56,7 +56,7 @@ function CreateAanestysBox(data, body) {
     //yeartext
     var yearText = document.createElement('div');
     yearText.className = 'dayTitle';
-    yearText.style.fontFamily = 'Segoe UI';
+    yearText.style.fontFamily = 'Ruokalistafont';
     yearText.style.color = 'white';
     yearText.style.fontSize = '1.2em';
     yearText.style.fontWeight = 'bold';
