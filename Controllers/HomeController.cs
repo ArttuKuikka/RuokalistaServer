@@ -25,8 +25,10 @@ namespace RuokalistaServer.Controllers
 
             var model = new IndexViewModel();
 
+            //load temporarily the next weeks menu to do checks
+            model.Ruokalista = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
 
-            model.NextWeeksMenuExists = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1) != null;
+            model.NextWeeksMenuExists = model.Ruokalista != null;
             //if not viewing custom week and year
             if (Week == null && Year == null)
             {
@@ -46,8 +48,10 @@ namespace RuokalistaServer.Controllers
             }
             
 
-
-            model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+            if(!model.ShowingNextWeeksMenu)
+            {
+                model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+            }
            
 
             if(model.Ruokalista != null)
