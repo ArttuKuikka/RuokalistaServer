@@ -1,7 +1,6 @@
-﻿@{
-	ViewData["Title"] = "Info-Tv näkymä";
-}
+﻿@model RuokalistaServer.ViewModels.InfoTVViewModel;
 <head>
+
 	<style>
 		.infotv_bg {
 			height: 100%;
@@ -48,9 +47,10 @@
 	<script src="/js/aanestys.js"></script>
 	<script src="/js/infotv.js"></script>
 	<link rel="stylesheet" href="/css/aanestys.css">
+	<link rel="stylesheet" href="/css/site.css">
 
 	<script>
-		fetch('/infotv/GetBgForWeek?week=@ViewBag.viikko')
+		fetch('/infotv/GetBgForWeek?week=@Model.Week')
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
@@ -123,9 +123,9 @@
 			
 			var aanestysbox = document.getElementById("aanestysbox");
 			
-			var showBool = @Html.Raw(ViewBag.nykyinenviikko?.ToString()?.ToLower());
-			var weekid = @ViewBag.viikko
-			var year = @ViewBag.Vuosi
+			var showBool = @Html.Raw(Model.ShowingCurrentWeeksMenu.ToString()?.ToLower());
+			var weekid = @Model.Week;
+			var year = @Model.Ruokalista?.Year;
 
 			createInfoTvVoteBar(aanestysbox, showBool, weekid, year);
 
@@ -138,7 +138,7 @@
 				const hours = currentTime.getHours();
 				const minutes = currentTime.getMinutes();
 
-				document.getElementById('testtext').textContent = hours.toString() + ":" + minutes.toString()
+				
 
 				// Check if the current time is between 10:10 AM and 12:10 PM
 				if (hours === 10 && minutes >= 5 && hours < 12) {
@@ -163,85 +163,48 @@
 	<div class="ruokacontainer" style=" text-align:center; color:white; font-family:'Ruokalistafont'">
 
 		@{
-			if (ViewBag.RuokaOlemassa)
+			if (Model.Ruokalista != null)
 					{
-								@if (ViewBag.NytOnSeuraavaViikko ?? false)
+								@if (Model.ShowingNextWeeksMenu)
 				{
-											<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+											<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
 				}
-				else
+				else if(Model.ShowingCurrentWeeksMenu)
 						{
-									<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@ViewBag.viikko) ruokalista</div>
-				}
-
-
-				RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
-
-				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday)
-					{
-												<div class="autosize daytitle" style="color:orange;">Maanantai</div>
-									<div class="autosize ruokateksti" style="color:orange;">@ruoka.Maanantai</div>
-				}
-				else
-						{
-											<div class="autosize daytitle">Maanantai</div>
-									<div class="autosize ruokateksti">@ruoka.Maanantai</div>
-				}
-
-				
-
-
-				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
-						{
-											<div class="autosize daytitle" style="color:orange;">Tiistai</div>
-									<div class="autosize ruokateksti" style="color:orange">@ruoka.Tiistai</div>
-				}
-				else
-					{
-												<div class="autosize daytitle">Tiistai</div>
-									<div class="autosize ruokateksti">@ruoka.Tiistai</div>
-				}
-
-				
-
-
-				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
-					{
-												<div class="autosize daytitle" style="color:orange;">Keskiviikko</div>
-									<div class="autosize ruokateksti" style="color:orange">@ruoka.Keskiviikko</div>
-				}
-				else
-					{
-												<div class="autosize daytitle">Keskiviikko</div>
-									<div class="autosize ruokateksti">@ruoka.Keskiviikko</div>
-				}
-
-				
-
-				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
-				{
-													<div class="autosize daytitle" style="color:orange;">Torstai</div>
-									<div class="autosize ruokateksti" style="color:orange">@ruoka.Torstai</div>
-				}
-				else
-						{
-											<div class="autosize daytitle">Torstai</div>
-									<div class="autosize ruokateksti">@ruoka.Torstai</div>
-				}
-
-				
-
-				if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
-						{
-											<div class="autosize daytitle" style="color:orange;">Perjantai</div>
-									<div class="autosize ruokateksti" style="color:orange">@ruoka.Perjantai</div>
+					<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
 				}
 				else
 				{
-													<div class="autosize daytitle">Perjantai</div>
-									<div class="autosize ruokateksti">@ruoka.Perjantai</div>
+					<div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) ruokalista</div>
 				}
 
+
+
+
+				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
+					<div class="autosize daytitle">Maanantai</div>
+					<div class="autosize ruokateksti">@Model.Ruokalista.Maanantai</div>
+				</div>
+
+				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
+					<div class="autosize daytitle">Tiistai</div>
+					<div class="autosize ruokateksti">@Model.Ruokalista.Tiistai</div>
+				</div>
+
+				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
+					<div class="autosize daytitle">Keskiviikko</div>
+					<div class="autosize ruokateksti">@Model.Ruokalista.Keskiviikko</div>
+				</div>
+
+				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
+					<div class="autosize daytitle">Torstai</div>
+					<div class="autosize ruokateksti">@Model.Ruokalista.Torstai</div>
+				</div>
+
+				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
+					<div class="autosize daytitle">Perjantai</div>
+					<div class="autosize ruokateksti">@Model.Ruokalista.Perjantai</div>
+				</div>
 				
 			}
 			else
@@ -258,6 +221,6 @@
 		<h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
 		<h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
 	</div>
-	<p style="position: fixed; z-index: 5; bottom: 5px;" id="testtext">00.00</p>
+	
 </body>
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
+using RuokalistaServer.ViewModels;
 
 namespace RuokalistaServer.Controllers
 {
@@ -15,47 +16,56 @@ namespace RuokalistaServer.Controllers
             this.db = db;
         }
 
-        public IActionResult Index(int? weekId, int? Year)
+        public IActionResult Index(int? Week, int? Year)
         {
-			ViewBag.Nykyinenviikko = false;
-			ViewBag.RuokaOlemassa = false;
-			var viikko = weekId ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+			var viikko = Week ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 			var vuosi = Year ?? DateTime.Now.Year;
-			if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+
+            var model = new InfoTVViewModel();
+            model.Week = viikko;
+
+
+			//load temporarily the next weeks menu to do checks
+			model.Ruokalista = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
+
+			var NextWeeksMenuExists = model.Ruokalista != null;
+			//if not viewing custom week and year
+			if (Week == null && Year == null)
 			{
-				ViewBag.NytOnSeuraavaViikko = true;
-				viikko += 1;
-			}
-			if (DateTime.Today.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour > 12)
-			{
-				if (db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1) != null)
+				if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
 				{
-					ViewBag.NytOnSeuraavaViikko = true;
+					model.ShowingNextWeeksMenu = true;
 					viikko += 1;
 				}
+				else if (DateTime.Today.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour > 12)
+				{
+					if (NextWeeksMenuExists)
+					{
+						model.ShowingNextWeeksMenu = true;
+						viikko += 1;
+					}
+				}
 			}
 
-			ViewBag.viikko = viikko;
-			ViewBag.Vuosi = vuosi;
 
-			var ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
-
-
-			if (ruokalista != null)
+			if (!model.ShowingNextWeeksMenu)
 			{
-				if (ruokalista.WeekId == System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now))
+				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+			}
+
+
+			if (model.Ruokalista != null)
+			{
+				if (model.Ruokalista.WeekId == System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now))
 				{
-					ViewBag.Nykyinenviikko = true;
+					model.ShowingCurrentWeeksMenu = true;
 
 				}
-				ViewBag.RuokaOlemassa = true;
 			}
 
 
-			ViewBag.SeuraavaViikkoNumero = viikko + 1;
-
-			ViewBag.ruokalista = ruokalista;
-			return View();
+			
+			return View(model);
 		}
 
 		
@@ -82,7 +92,7 @@ namespace RuokalistaServer.Controllers
 
                 if (imageFileCount.Equals(0))
                 {
-                    throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
+                    throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files?.Count() ?? 0} files overall");
                 }
 
 
@@ -152,7 +162,7 @@ namespace RuokalistaServer.Controllers
 
 			if (imageFileCount.Equals(0))
 			{
-				throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
+				throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files?.Count() ?? 0} files overall");
 			}
 
             var returnFile = imageFiles?.FirstOrDefault(x => Path.GetFileName(x) == System.Web.HttpUtility.HtmlDecode(filename));
