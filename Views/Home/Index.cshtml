@@ -1,92 +1,67 @@
-﻿
+﻿@model RuokalistaServer.ViewModels.IndexViewModel
+
 @{
-    ViewData["Title"] = "Ruokalista";
+    ViewData["Title"] = Model.Ruokalista != null ? $"Viikon {Model.Ruokalista.WeekId} ruokalista" : "Tätä ruokalistaa ei ole olemassa";
 }
 
 
 <div class="text-center" style="font-family:'Ruokalistafont', sans-serif;">
 
     @{
-        if(ViewBag.RuokaOlemassa ?? false)
+        if(Model.Ruokalista != null)
         {
-            @if (ViewBag.NykyinenViikko ?? false)
+            @if (Model.ShowingCurrentWeeksMenu)
             {
-                <div class="siteTitle">Tämän viikon(@ViewBag.viikko) ruokalista</div>
+                <div class="siteTitle">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
             }
-            else if (ViewBag.NytOnSeuraavaViikko ?? false)
+            else if (Model.ShowingNextWeeksMenu)
             {
-                <div class="siteTitle">Seuraavan viikon(@ViewBag.viikko) ruokalista</div>
+                <div class="siteTitle">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
             }
             else
             {
-                <div class="siteTitle">Viikon(@ViewBag.viikko) ruokalista</div>
+                <div class="siteTitle"> @Model.Ruokalista.Year/@Model.Ruokalista.WeekId ruokalista</div>
             }
 
-        RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
 
-            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Monday){
-                <div class="dayTitle" style="color:orange">Maanantai</div>
-                <div class="ruokaText" style ="color:orange">@ruoka.Maanantai</div>
-            }
-            else
-            {
-                <div class="dayTitle">Maanantai</div>
-                <div class="ruokaText">@ruoka.Maanantai</div>
-            }
-           
+
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
+                <h3 class="dayTitle">Maanantai</h3>
+                <h4 class="ruokaText">@Model.Ruokalista.Maanantai</h4>
+            
+            </div>
             <br />
 
 
-            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
-            {
-                <div class="dayTitle" style="color:orange">Tiistai</div>
-                <div class="ruokaText" style="color:orange">@ruoka.Tiistai</div>
-            }
-            else
-            {
-                <div class="dayTitle">Tiistai</div>
-                <div class="ruokaText">@ruoka.Tiistai</div>
-            }
-          
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
+                <h3 class="dayTitle">Tiistai</h3>
+                <h4 class="ruokaText">@Model.Ruokalista.Tiistai</h4>
+
+            </div>
             <br />
 
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
+                <h3 class="dayTitle">Keskiviikko</h3>
+                <h4 class="ruokaText">@Model.Ruokalista.Keskiviikko</h4>
 
-            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
-            {
-                <div class="dayTitle" style="color:orange">Keskiviikko</div>
-                <div class="ruokaText" style="color:orange">@ruoka.Keskiviikko</div>
-            }
-            else
-            {
-                <div class="dayTitle">Keskiviikko</div>
-                <div class="ruokaText">@ruoka.Keskiviikko</div>
-            }
-
+            </div>
             <br />
 
-            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
-            {
-                <div class="dayTitle" style="color:orange">Torstai</div>
-                <div class="ruokaText" style="color:orange">@ruoka.Torstai</div>
-            }
-            else
-            {
-                <div class="dayTitle">Torstai</div>
-                <div class="ruokaText">@ruoka.Torstai</div>
-            }
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
+                <h3 class="dayTitle">Torstai</h3>
+                <h4 class="ruokaText">@Model.Ruokalista.Torstai</h4>
 
+            </div>
             <br />
 
-            if (ViewBag.Nykyinenviikko && DateTime.Now.DayOfWeek == DayOfWeek.Friday)
-            {
-                <div class="dayTitle" style="color:orange">Perjantai</div>
-                <div class="ruokaText" style="color:orange">@ruoka.Perjantai</div>
-            }
-            else
-            {
-                <div class="dayTitle">Perjantai</div>
-                <div class="ruokaText">@ruoka.Perjantai</div>
-            }
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
+                <h3 class="dayTitle">Perjantai</h3>
+                <h4 class="ruokaText">@Model.Ruokalista.Perjantai</h4>
+
+            </div>
+            <br />
+
+       
 
             <br />
 
@@ -103,14 +78,15 @@
 
 <div>
         <a class="btn btn-primary" onclick="window.location = '/Listaa';" style="margin: 0em 1em 0.5em 0em">&#x27F5; Edelliset viikot</a>
-    @if(@ViewBag.Nykyinenviikko){
-if(@ViewBag.SeuraavaViikko != null){
-                <a class="btn btn-primary" onclick="window.location = '/?weekId=@ViewBag.SeuraavaViikkoNumero&Year=@ViewBag.Vuosi';" style="margin: 0em 1em 0.5em 0em">Seuraava viikko &#x27F6;</a>
-}
-}
+        
+
+        @if (Model.Ruokalista != null && Model.NextWeeksMenuExists && !Model.ShowingNextWeeksMenu)
+        {
+            //jos vuosi on vaihtunut niin ei toimi
+            <a class="btn btn-primary" onclick="window.location = '/@Model.Ruokalista.Year/@(Model.Ruokalista.WeekId + 1)';" style="margin: 0em 1em 0.5em 0em">Seuraava viikko &#x27F6;</a>
+        }
 
 </div>
 </div>
 <br />
-
 

@@ -58,6 +58,9 @@ body {
     font-size: 1.9em
 }
 
+.highlighted {
+    color: orange;
+}
 
 
 @font-face {
