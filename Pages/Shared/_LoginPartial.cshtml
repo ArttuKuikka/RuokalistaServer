@@ -7,12 +7,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="nav-link " style="color: white" href="/RuokalistaAdmin" title="Ruoka-Admin">Ruoka-Admin</a>
+            <a class="nav-link highlighted text-decoration-underline" href="/RuokalistaAdmin" title="Ruoka-Admin">Ruokalistahallinta</a>
     </li>
         @if (User.Identity?.Name == GlobalFunctions.GetRoot())
         {
             <li class="nav-item">
-                <a class="nav-link " style="color: white" href="/UserAdmin" title="User-Admin">User-Admin</a>
+                <a class="nav-link highlighted text-decoration-underline"  href="/UserAdmin" title="User-Admin">Käyttäjähallinta</a>
             </li>
         }
         <li class="nav-item">

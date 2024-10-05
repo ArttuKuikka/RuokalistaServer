@@ -1,70 +1,31 @@
 ﻿@model IEnumerable<RuokalistaServer.Models.Ruokalista>
 
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Hallitse ruokalistoja";
 }
 
-<h1>Admin</h1>
+<h1>Hallitse ruokalistoja</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Luo uusi ruokalista</a>
 </p>
 <table class="table" style="color: white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.WeekId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Maanantai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tiistai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Keskiviikko)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Torstai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Perjantai)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.WeekId)
+                    <h2>Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
+                    <h4>@Html.DisplayFor(modelItem => item.Year)</h4>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Maanantai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tiistai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Keskiviikko)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Torstai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Perjantai)
-            </td>
+           
             <td style="text-align:center">
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@item.Id">Uusi taustakuva</a> 
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">Valitse taustakuva</a>
+                    
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 Muokkaa</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Poista</a>
+                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">🏞️ Valitse taustakuva</a>
+                    
             </td>
         </tr>
 }
