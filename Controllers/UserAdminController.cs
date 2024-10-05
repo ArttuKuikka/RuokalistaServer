@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RuokalistaServer.Attributes;
 using RuokalistaServer.Data;
 
 namespace RuokalistaServer.Controllers
 {
     [Authorize]
+    [OnlyRootAllowed]
     public class UserAdminController : Controller
     {
         private ApplicationDbContext db;

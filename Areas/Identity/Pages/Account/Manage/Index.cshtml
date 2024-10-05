@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profiili";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -13,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" style="color: black" class="text-danger"></div>
             <div class="form-floating" style="color: black">
                 <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+                <label class="form-label">Käyttäjäni</label>
             </div>
            
         </form>
