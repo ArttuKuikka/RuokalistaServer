@@ -15,13 +15,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="WeekId" />
+            <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@Model.Id">🏞️ Arvo uusi taustakuva</a>
+            <br />
             <div class="form-group">
                 <label  class="control-label">Tiedostonimi</label>
                 <input asp-for="FileName" class="form-control" />
                 <span asp-validation-for="FileName" class="text-danger"></span>
             </div>
             <br />
-            <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@Model.Id">Arvo uusi taustakuva</a>
+            
 
             <div class="form-group">
                 <input type="submit" value="Tallenna" class="btn btn-primary" />
