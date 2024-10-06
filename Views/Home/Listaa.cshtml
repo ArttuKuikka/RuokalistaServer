@@ -14,8 +14,8 @@
     @foreach(var viikko in Model)
     {
      <tr>
-        <td><h3>@viikko.WeekId</h3> <p>@viikko.Year</p></td>
-        <td><a class="btn btn-primary" onclick="window.location = '/?weekId=@viikko.WeekId&Year=@viikko.Year';">Näytä</a></td>
+            <td><a href="/@viikko.Year/@viikko.WeekId"><h3>Viikko @viikko.WeekId</h3></a> <p>@viikko.Year</p></td>
+            <td><a class="btn btn-primary" onclick="window.location = '/@viikko.Year/@viikko.WeekId';">Näytä</a></td>
       
       </tr>
     }

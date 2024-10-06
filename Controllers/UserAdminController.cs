@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RuokalistaServer.Attributes;
 using RuokalistaServer.Data;
 
 namespace RuokalistaServer.Controllers
 {
     [Authorize]
+    [OnlyRootAllowed]
+    
     public class UserAdminController : Controller
     {
         private ApplicationDbContext db;
@@ -22,8 +25,9 @@ namespace RuokalistaServer.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.users = _userManager.Users.ToList();
-            return View();
+            var model = new List<IdentityUser>();
+            model = _userManager.Users.ToList();
+            return View(model);
         }
 
         public async Task<IActionResult> PoistaKayttaja(string id)
@@ -48,6 +52,7 @@ namespace RuokalistaServer.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UusiKayttaja(string email, string password)
         {
             var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };

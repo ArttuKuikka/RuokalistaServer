@@ -1,12 +1,13 @@
 ﻿@model RuokalistaServer.Models.BackgroundForWeek
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Vaihda taustakuva";
 }
 
-<h1>Edit</h1>
+<h1>Vaihda taustakuva</h1>
 
-<h4>Taustakuva</h4>
+<h4>Viikko @Model.WeekId/@Model.Year</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4" style="width:60%">
@@ -14,21 +15,25 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="WeekId" />
+            <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@Model.Id">🏞️ Arvo uusi taustakuva</a>
+            <br />
             <div class="form-group">
-                <label asp-for="FileName" class="control-label"></label>
+                <label  class="control-label">Tiedostonimi</label>
                 <input asp-for="FileName" class="form-control" />
                 <span asp-validation-for="FileName" class="text-danger"></span>
             </div>
-           
+            <br />
+            
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Takaisin</a>
 </div>
 
 @section Scripts {

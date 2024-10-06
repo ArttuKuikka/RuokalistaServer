@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model RuokalistaServer.ViewModels.IGViewModel
+<!DOCTYPE html>
 <html>
 <head>
 	<style>
@@ -121,7 +122,7 @@
 				step: 0.5
 			});
 
-			fetch('/infotv/GetBgForWeek?week=@ViewBag.Viikko')
+			fetch('/infotv/GetBgForWeek?week=@Model.Ruokalista.WeekId')
 				.then(response => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
@@ -145,35 +146,35 @@
 </head>
 
 @{
-	RuokalistaServer.Models.Ruokalista ruoka = ViewBag.ruokalista;
+	
 <body>
 
 	<div class="container">
 
 		<img src="/sample_bg.jpg" alt="Image 1" id="bg" class="image1" width="1080" height="1080" style="object-fit: cover">
 		<img src="/pohja.png" alt="Image 2" class="image2">
-		<p class="viikkotxt">@ViewBag.Viikko</p>
-			<p class="viikkonpaivattxt">@ViewBag.Paivat</p>
+		<p class="viikkotxt">@Model.Ruokalista.WeekId</p>
+			<p class="viikkonpaivattxt">@Model.Päivät</p>
 
 		<div class="ruokatekstit">
 			<div class="viikonpaiva maanantai">
-				<div class="ruokatext">@ruoka.Maanantai</div>
+				<div class="ruokatext">@Model.Ruokalista.Maanantai</div>
 			</div>
 
 			<div class="viikonpaiva tiistai">
-				<div class="ruokatext">@ruoka.Tiistai</div>
+					<div class="ruokatext">@Model.Ruokalista.Tiistai</div>
 			</div>
 
 			<div class="viikonpaiva keskiviikko">
-				<div class="ruokatext">@ruoka.Keskiviikko</div>
+					<div class="ruokatext">@Model.Ruokalista.Keskiviikko</div>
 			</div>
 
 			<div class="viikonpaiva torstai">
-				<div class="ruokatext">@ruoka.Torstai</div>
+					<div class="ruokatext">@Model.Ruokalista.Torstai</div>
 			</div>
 
 			<div class="viikonpaiva perjantai">
-				<div class="ruokatext">@ruoka.Perjantai</div>
+					<div class="ruokatext">@Model.Ruokalista.Perjantai</div>
 			</div>
 		</div>
 
@@ -190,7 +191,7 @@
 			position: fixed;
 			top: 40px;
 			left: 1100px;
-				">Viikon @ViewBag.Viikko ruokalista #isokyrö #kyrönmaanlukio #ruokalista #isokyröruokalista</p>
+				">Viikon @Model.Ruokalista.WeekId ruokalista #isokyrö #kyrönmaanlukio #ruokalista #isokyröruokalista</p>
 
 </body>
 }

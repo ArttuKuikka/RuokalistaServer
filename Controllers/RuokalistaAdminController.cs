@@ -190,7 +190,7 @@ namespace RuokalistaServer.Controllers
             await _context.SaveChangesAsync();
 
 
-            return Redirect("/RuokalistaAdmin");
+            return Redirect("i/RuokalistaAdmin/SetBG?ruokalistaId=" + model.Id.ToString());
         }
 		// GET: RuokalistaAdmin
 		public async Task<IActionResult> Index()
