@@ -8,6 +8,7 @@ namespace RuokalistaServer.Controllers
 {
     [Authorize]
     [OnlyRootAllowed]
+    
     public class UserAdminController : Controller
     {
         private ApplicationDbContext db;
@@ -51,6 +52,7 @@ namespace RuokalistaServer.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UusiKayttaja(string email, string password)
         {
             var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
