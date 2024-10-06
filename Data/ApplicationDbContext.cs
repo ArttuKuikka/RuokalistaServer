@@ -13,5 +13,7 @@ namespace RuokalistaServer.Data
         public DbSet<RuokalistaServer.Models.Ruokalista> Ruokalista { get; set; }
         public DbSet<RuokalistaServer.Models.BackgroundForWeek> BackgroundForWeek { get; set; }
         public DbSet<RuokalistaServer.Models.VoteModel> Votes { get; set; }
+
+        public DbSet<RuokalistaServer.Models.Ruokalista> Kasvisruokalista { get; set; }
     }
 }

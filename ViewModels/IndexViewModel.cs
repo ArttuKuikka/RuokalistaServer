@@ -8,5 +8,7 @@ namespace RuokalistaServer.ViewModels
         public bool ShowingNextWeeksMenu { get; set; }
         public bool ShowingCurrentWeeksMenu { get; set; }
         public bool NextWeeksMenuExists { get; set; }
+        public bool KasviruokalistaExists { get; set; }
+        public bool ShowingKasvisruokalista { get; set; }
     }
 }
