@@ -62,6 +62,12 @@ body {
     color: orange !important;
 }
 
+.rounded-container {
+    border-radius: 10px;
+    background-color: #2f2f2f;
+    padding: 10px;
+}
+
 
 @font-face {
     font-family: 'Ruokalistafont';
