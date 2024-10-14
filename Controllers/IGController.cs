@@ -43,7 +43,16 @@ namespace RuokalistaServer.Controllers
 			model.Päivät = viikonekapaiva.ToString("dd.MM") + "-" + viikonperjantai.ToString("dd.MM");
 
 
-			model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? return NotFound("Tämäm viikon ruokalistaa ei ole olemassa");
+			var ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+			if(ruokalista != null)
+			{
+				model.Ruokalista = ruokalista;
+
+			}
+			else
+			{
+				return NotFound("Tämän viikon ruokalistaa ei ole olemassa");
+			}
 
             return View(model);
         }
