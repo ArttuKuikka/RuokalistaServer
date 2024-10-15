@@ -2,7 +2,7 @@
 
 namespace RuokalistaServer.Models
 {
-    public class Ruokalista: IRuokalista
+    public interface IRuokalista
     {
         [JsonIgnore]
         public int Id { get; set; }
