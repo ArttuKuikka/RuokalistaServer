@@ -333,34 +333,54 @@ namespace RuokalistaServer.Controllers
         {
             if (id == null || _context.Ruokalista == null)
             {
-                return NotFound();
+                return BadRequest("Et määritellyt poistettavaa ruokalistaaa");
             }
 
-            var ruokalista = await _context.Ruokalista
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var ruokalista = await _context.Ruokalista.FindAsync(id);
             if (ruokalista == null)
             {
                 return NotFound();
             }
 
-            return View(ruokalista);
+            var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
+            var model = new Ruokalistat()
+            {
+                Ruokalista = ruokalista,
+                KasvisRuokalista = kasvisruokalista
+            };
+            return View(model);
         }
 
         // POST: RuokalistaAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Ruokalistat ruokalistat)
         {
+
             if (_context.Ruokalista == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Ruokalista'  is null.");
             }
-            var ruokalista = await _context.Ruokalista.FindAsync(id);
+            var ruokalista = await _context.Ruokalista.FindAsync(ruokalistat.Ruokalista.Id);
+            
             if (ruokalista != null)
             {
+                var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
                 _context.Ruokalista.Remove(ruokalista);
+
+                if (kasvisruokalista != null)
+                {
+                    _context.Kasvisruokalista.Remove(kasvisruokalista);
+                }
             }
-            
+            else
+            {
+                return Problem("Entity 'Ruokalista' is null.");
+            }
+
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
