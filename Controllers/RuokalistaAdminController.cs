@@ -275,7 +275,7 @@ namespace RuokalistaServer.Controllers
         {
             if (id == null || _context.Ruokalista == null)
             {
-                return NotFound();
+                return BadRequest("Et määritellyt muokattavaa ruokalistaaa");
             }
 
             var ruokalista = await _context.Ruokalista.FindAsync(id);
@@ -283,7 +283,15 @@ namespace RuokalistaServer.Controllers
             {
                 return NotFound();
             }
-            return View(ruokalista);
+
+            var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
+            var model = new Ruokalistat()
+            {
+                Ruokalista = ruokalista,
+                KasvisRuokalista = kasvisruokalista
+            };
+            return View(model);
         }
 
         // POST: RuokalistaAdmin/Edit/5
@@ -291,34 +299,33 @@ namespace RuokalistaServer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+        public async Task<IActionResult> Edit(Ruokalistat ruokalistat)
         {
-            if (id != ruokalista.Id)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
-                try
+                _context.Ruokalista.Update(ruokalistat.Ruokalista);
+
+                if(ruokalistat.KasvisRuokalista != null && !KasvisRuokalista.IsNull(ruokalistat.KasvisRuokalista))
                 {
-                    _context.Update(ruokalista);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RuokalistaExists(ruokalista.Id))
+                    ruokalistat.KasvisRuokalista.WeekId = ruokalistat.Ruokalista.WeekId;
+                    ruokalistat.KasvisRuokalista.Year = ruokalistat.Ruokalista.Year;
+
+                    var kasvisruokalista = _context.Kasvisruokalista.Find(ruokalistat.KasvisRuokalista.Id);
+                    if (kasvisruokalista != null)
                     {
-                        return NotFound();
+                        _context.Entry(kasvisruokalista).CurrentValues.SetValues(ruokalistat.KasvisRuokalista);
                     }
                     else
                     {
-                        throw;
+                        _context.Kasvisruokalista.Add(ruokalistat.KasvisRuokalista);
                     }
                 }
+
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ruokalista);
+            return View(ruokalistat);
         }
 
         // GET: RuokalistaAdmin/Delete/5
