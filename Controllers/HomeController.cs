@@ -115,10 +115,18 @@ namespace RuokalistaServer.Controllers
         [HttpGet("Listaa")]
         public async Task<IActionResult> Listaa()
         {
-            var ruokalista = db.Ruokalista?.ToList();
+            var ruokalista = await db.Ruokalista.ToListAsync();
             ruokalista.Reverse();
+            var kasvisruokalista = await db.Kasvisruokalista.ToListAsync();
 
-            return View(ruokalista);
+
+            var model = new ListaaViewModel()
+            {
+                Ruokalistat = ruokalista,
+                KasvisRuokalistat = kasvisruokalista
+            };
+
+            return View(model);
         }
     }
 }
