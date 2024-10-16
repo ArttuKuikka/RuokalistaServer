@@ -14,13 +14,14 @@ namespace RuokalistaServer.Controllers
         {
             this.db = db;
         }
-        public async Task<IActionResult> Index(int? Year, int? Week)
+        public IActionResult Index(int? Year, int? Week, bool kasvisruokalista = false)
         {
 
             var viikko = Week ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);   
             var vuosi = Year ?? DateTime.Now.Year;
 
             var model = new IGViewModel();
+			model.ShowingKasvisruokalista = kasvisruokalista;
 
 			if (Week == null && Year == null)
             {
@@ -43,10 +44,22 @@ namespace RuokalistaServer.Controllers
 			model.Päivät = viikonekapaiva.ToString("dd.MM") + "-" + viikonperjantai.ToString("dd.MM");
 
 
-			model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? throw new Exception($"Ruokalista for week {viikko} was null!!!");
+			if (!kasvisruokalista)
+			{
+				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? throw new Exception($"Ruokalista for week {viikko} was null!!!");
+			}
+			else
+			{
+				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? throw new Exception($"Ruokalista for week {viikko} was null!!!");
+			}
 
-            return View(model);
+            return View("Index",model);
         }
+
+		public IActionResult Kasvisruokalista(int? Year, int? Week)
+		{
+			return Index(Year, Week, true);
+		}
 
 		
 		public static DateTime GetFirstDayOfWeek(int year, int weekOfYear)

@@ -83,6 +83,30 @@
 			top: 900px;
 			left: 385px;
 		}
+
+		.kasvisruokatitle {
+			position: fixed;
+			z-index: 4;
+			top: 85px;
+			left: 220px;
+			font-size: 3.2em;
+			margin: 0px;
+			font-family: 'Open Sans';
+			color: forestgreen;
+			font-weight: bold;
+		}
+
+		.kasvisruokaruokalista {
+			position: fixed;
+			z-index: 4;
+			top: 135px;
+			left: 223px;
+			font-size: 1.9em;
+			margin: 0px;
+			font-family: 'Open Sans';
+			color: forestgreen;
+			font-weight: 500;
+		}
 	</style>
 
 	<script>
@@ -155,6 +179,11 @@
 		<img src="/pohja.png" alt="Image 2" class="image2">
 		<p class="viikkotxt">@Model.Ruokalista.WeekId</p>
 			<p class="viikkonpaivattxt">@Model.Päivät</p>
+			@if (Model.ShowingKasvisruokalista)
+			{
+				<p class="kasvisruokatitle">Kasvis</p>
+				<p class="kasvisruokaruokalista">Ruokalista</p>
+			}
 
 		<div class="ruokatekstit">
 			<div class="viikonpaiva maanantai">
