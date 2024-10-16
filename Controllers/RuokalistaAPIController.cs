@@ -31,7 +31,7 @@ namespace RuokalistaServer.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/v1/Ruokalista")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool kasvisruokalista = false)
         {
             if (_context.Ruokalista == null)
             {
@@ -39,9 +39,17 @@ namespace RuokalistaServer.Controllers
             }
 
             var viikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
-
-            var ruokalista = await _context.Ruokalista
-              .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
+            IRuokalista? ruokalista = null;
+            if (!kasvisruokalista)
+            {
+				await _context.Ruokalista
+			  .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
+			}
+            else
+            {
+				await _context.Kasvisruokalista
+			  .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
+			}
 
             if(ruokalista == null)
             {
@@ -55,19 +63,39 @@ namespace RuokalistaServer.Controllers
             
         }
 
-        //GET: Ruokalista/Details/5
-        [HttpGet]
+		[AllowAnonymous]
+		[HttpGet]
+		[Route("api/v1/KasvisRuokalista")]
+		public async Task<IActionResult> KasvisIndex()
+		{
+			return await Index(true);
+		}
+
+
+		//GET: Ruokalista/Details/5
+		[HttpGet]
         [AllowAnonymous]
         [Route("api/v1/Ruokalista/{year}/{week}")]
-        public async Task<IActionResult> Details(int? year, int? week)
+        public async Task<IActionResult> Details(int? year, int? week, bool kasvisruokalista = false)
         {
             if (year == null || _context.Ruokalista == null || week == null)
             {
                 return NotFound();
             }
 
-            var ruokalista = await _context.Ruokalista
-                .Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
+            IRuokalista? ruokalista = null;
+            if (!kasvisruokalista)
+            {
+				ruokalista = await _context.Ruokalista
+				.Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
+			}
+            else
+            {
+				ruokalista = await _context.Kasvisruokalista
+				.Where(m => m.Year == year).FirstOrDefaultAsync(k => k.WeekId == week);
+			}
+
+
             if (ruokalista == null)
             {
                 return NotFound();
@@ -76,7 +104,18 @@ namespace RuokalistaServer.Controllers
             return Json(ruokalista);
         }
 
-         [HttpGet]
+
+		[HttpGet]
+		[AllowAnonymous]
+		[Route("api/v1/KasvisRuokalista/{year}/{week}")]
+		public async Task<IActionResult> KasvisDetails(int? year, int? week)
+        {
+            return await Details(year, week, true); 
+		}
+
+
+
+		 [HttpGet]
         [Route("api/v1/Ruokalista/Get/{amount}")]
         public async Task<IActionResult> GetLatest(int amount)
         {
@@ -145,25 +184,73 @@ namespace RuokalistaServer.Controllers
             }
 
         }
-        //[HttpGet]
-        //[Route("api/v1/Ruokalista/Edit/{id}")]
 
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.Ruokalista == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var ruokalista = await _context.Ruokalista.FindAsync(id);
-        //    if (ruokalista == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(ruokalista);
-        //}
+		[HttpPost]
+		[Route("api/v1/KasvisRuokalista/Create")]
+		//[ValidateAntiForgeryToken]
+		public async Task<IActionResult> KasvisCreate([Bind("WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai"),] KasvisRuokalista ruokalista)
+		{
+			if (_context.Ruokalista == null)
+			{
+				return NotFound();
+			}
 
-        [HttpGet]
+			foreach (var item in _context.Ruokalista)
+			{
+				if (item.Year == ruokalista.Year && item.WeekId == ruokalista.WeekId)
+				{
+					return BadRequest(new { Status = "Error", Message = "Already exist" });
+				}
+			}
+			if (ruokalista.Year! < 2020)
+			{
+				return BadRequest(new { Status = "Error", Message = "Year must be higher than 2020" });
+
+			}
+			if (ruokalista.WeekId == 0)
+			{
+				return BadRequest(new { Status = "Error", Message = "WeekId cannot be 0" });
+			}
+
+			if (ruokalista.Id != 0)
+			{
+				return BadRequest(new { Status = "Error", Message = "ID must always be 0" });
+			}
+			if (ModelState.IsValid)
+			{
+
+				_context.Kasvisruokalista.Add(ruokalista);
+				await _context.SaveChangesAsync();
+				return Json(new { Status = "OK" });
+			}
+			else
+			{
+				return BadRequest(new { Status = "Error" });
+			}
+
+		}
+
+
+		//[HttpGet]
+		//[Route("api/v1/Ruokalista/Edit/{id}")]
+
+		//public async Task<IActionResult> Edit(int? id)
+		//{
+		//    if (id == null || _context.Ruokalista == null)
+		//    {
+		//        return NotFound();
+		//    }
+
+		//    var ruokalista = await _context.Ruokalista.FindAsync(id);
+		//    if (ruokalista == null)
+		//    {
+		//        return NotFound();
+		//    }
+		//    return View(ruokalista);
+		//}
+
+		[HttpGet]
         [AllowAnonymous]
         [Route("api/v1/Ruokalista/GetId/{year}/{week}")]
         public async Task<IActionResult> GetId(int? year, int? week)
