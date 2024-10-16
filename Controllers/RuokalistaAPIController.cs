@@ -42,12 +42,12 @@ namespace RuokalistaServer.Controllers
             IRuokalista? ruokalista = null;
             if (!kasvisruokalista)
             {
-				await _context.Ruokalista
+				ruokalista = await _context.Ruokalista
 			  .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
 			}
             else
             {
-				await _context.Kasvisruokalista
+				ruokalista = await _context.Kasvisruokalista
 			  .Where(m => m.Year == DateTime.Now.Year).FirstOrDefaultAsync(k => k.WeekId == viikko);
 			}
 
