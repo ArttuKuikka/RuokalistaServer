@@ -4,10 +4,11 @@ namespace RuokalistaServer.ViewModels
 {
 	public class InfoTVViewModel
 	{
-		public Ruokalista? Ruokalista { get; set; }
+		public IRuokalista? Ruokalista { get; set; }
 		public bool ShowingNextWeeksMenu { get; set; }
 		public bool ShowingCurrentWeeksMenu { get; set; }
-		public int Week { get; set; }
+		public bool ShowingKasvisruokalista { get; set; }
+        public int Week { get; set; }
 
 	}
 }
