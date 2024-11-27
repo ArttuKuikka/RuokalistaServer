@@ -47,18 +47,18 @@ namespace RuokalistaServer.Controllers
 
 			if (!kasvisruokalista)
 			{
-				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko)
+				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
 			}
 			else
 			{
-				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko)
+				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
 
 			}
       
-      if(model.Ruokalista == null)
-      {
-        return NotFound("Tämän viikon ruokalistaa ei ole olemassa");
-      }
+		  if(model.Ruokalista == null)
+		  {
+			return NotFound("Tämän viikon ruokalistaa ei ole olemassa");
+		  }
 
             return View("Index",model);
         }
