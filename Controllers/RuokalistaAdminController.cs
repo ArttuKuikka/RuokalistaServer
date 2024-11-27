@@ -175,7 +175,15 @@ namespace RuokalistaServer.Controllers
 			}
 
 
-            var TaustaObject = _context.BackgroundForWeek.First(x => x.WeekId == ruokalista.WeekId && x.Year == DateTime.Today.Year);
+            var TaustaObject = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == ruokalista.WeekId && x.Year == DateTime.Today.Year);
+            if(TaustaObject == null)
+            {
+                TaustaObject = new BackgroundForWeek()
+                {
+                    WeekId = ruokalista.WeekId,
+                    Year = DateTime.Today.Year,
+                };
+            }
 			return View(TaustaObject); 
         }
 
