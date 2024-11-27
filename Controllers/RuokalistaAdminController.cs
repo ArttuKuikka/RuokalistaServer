@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RuokalistaServer.Controllers
 {
@@ -221,7 +222,17 @@ namespace RuokalistaServer.Controllers
         // GET: RuokalistaAdmin/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Ruokalistat()
+            {
+               Ruokalista = new Ruokalista()
+               {
+                   Year = DateTime.Now.Year,
+                   WeekId = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now)
+               },
+            };
+
+
+            return View(model);
         }
 
         // POST: RuokalistaAdmin/Create
@@ -229,30 +240,34 @@ namespace RuokalistaServer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+
+        public async Task<IActionResult> Create(Ruokalistat ruokalistat)
         {
-            foreach (var item in _context.Ruokalista)
+
+            if(_context.Ruokalista.Any(x => x.WeekId == ruokalistat.Ruokalista.WeekId && x.Year == ruokalistat.Ruokalista.Year))
             {
-                if(ruokalista.Year < 2020)
-                {
-                    return BadRequest("Virheellinen vuosiluku");
-                }
-                if (ruokalista.WeekId <= 0)
-                {
-                    return BadRequest("Virheellinen viikko");
-                }
-                if (item.Year == ruokalista.Year && item.WeekId == ruokalista.WeekId)
-                {
-                    return BadRequest("Tämän viikon ruokalista on jo olemassa");
-                }
+                //tee sivulle ilmotus miellummi ku badrequest
+                return BadRequest("Ruokalista on jo olemassa");
             }
+
             if (ModelState.IsValid)
             {
-                _context.Add(ruokalista);
+                
+
+                _context.Ruokalista.Add(ruokalistat.Ruokalista);
+                
+                if(ruokalistat.KasvisRuokalista != null && !KasvisRuokalista.IsNull(ruokalistat.KasvisRuokalista))
+                {
+                    ruokalistat.KasvisRuokalista.WeekId = ruokalistat.Ruokalista.WeekId;
+                    ruokalistat.KasvisRuokalista.Year = ruokalistat.Ruokalista.Year;
+                    _context.Kasvisruokalista.Add(ruokalistat.KasvisRuokalista);
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ruokalista);
+
+            return View(ruokalistat);
         }
 
         // GET: RuokalistaAdmin/Edit/5
@@ -260,7 +275,7 @@ namespace RuokalistaServer.Controllers
         {
             if (id == null || _context.Ruokalista == null)
             {
-                return NotFound();
+                return BadRequest("Et määritellyt muokattavaa ruokalistaaa");
             }
 
             var ruokalista = await _context.Ruokalista.FindAsync(id);
@@ -268,7 +283,15 @@ namespace RuokalistaServer.Controllers
             {
                 return NotFound();
             }
-            return View(ruokalista);
+
+            var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
+            var model = new Ruokalistat()
+            {
+                Ruokalista = ruokalista,
+                KasvisRuokalista = kasvisruokalista
+            };
+            return View(model);
         }
 
         // POST: RuokalistaAdmin/Edit/5
@@ -276,34 +299,33 @@ namespace RuokalistaServer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WeekId,Year,Maanantai,Tiistai,Keskiviikko,Torstai,Perjantai")] Ruokalista ruokalista)
+        public async Task<IActionResult> Edit(Ruokalistat ruokalistat)
         {
-            if (id != ruokalista.Id)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
-                try
+                _context.Ruokalista.Update(ruokalistat.Ruokalista);
+
+                if(ruokalistat.KasvisRuokalista != null && !KasvisRuokalista.IsNull(ruokalistat.KasvisRuokalista))
                 {
-                    _context.Update(ruokalista);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RuokalistaExists(ruokalista.Id))
+                    ruokalistat.KasvisRuokalista.WeekId = ruokalistat.Ruokalista.WeekId;
+                    ruokalistat.KasvisRuokalista.Year = ruokalistat.Ruokalista.Year;
+
+                    var kasvisruokalista = _context.Kasvisruokalista.Find(ruokalistat.KasvisRuokalista.Id);
+                    if (kasvisruokalista != null)
                     {
-                        return NotFound();
+                        _context.Entry(kasvisruokalista).CurrentValues.SetValues(ruokalistat.KasvisRuokalista);
                     }
                     else
                     {
-                        throw;
+                        _context.Kasvisruokalista.Add(ruokalistat.KasvisRuokalista);
                     }
                 }
+
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ruokalista);
+            return View(ruokalistat);
         }
 
         // GET: RuokalistaAdmin/Delete/5
@@ -311,34 +333,54 @@ namespace RuokalistaServer.Controllers
         {
             if (id == null || _context.Ruokalista == null)
             {
-                return NotFound();
+                return BadRequest("Et määritellyt poistettavaa ruokalistaaa");
             }
 
-            var ruokalista = await _context.Ruokalista
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var ruokalista = await _context.Ruokalista.FindAsync(id);
             if (ruokalista == null)
             {
                 return NotFound();
             }
 
-            return View(ruokalista);
+            var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
+            var model = new Ruokalistat()
+            {
+                Ruokalista = ruokalista,
+                KasvisRuokalista = kasvisruokalista
+            };
+            return View(model);
         }
 
         // POST: RuokalistaAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Ruokalistat ruokalistat)
         {
+
             if (_context.Ruokalista == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Ruokalista'  is null.");
             }
-            var ruokalista = await _context.Ruokalista.FindAsync(id);
+            var ruokalista = await _context.Ruokalista.FindAsync(ruokalistat.Ruokalista.Id);
+            
             if (ruokalista != null)
             {
+                var kasvisruokalista = await _context.Kasvisruokalista.FirstOrDefaultAsync(x => x.WeekId == ruokalista.WeekId && x.Year == ruokalista.Year);
+
                 _context.Ruokalista.Remove(ruokalista);
+
+                if (kasvisruokalista != null)
+                {
+                    _context.Kasvisruokalista.Remove(kasvisruokalista);
+                }
             }
-            
+            else
+            {
+                return Problem("Entity 'Ruokalista' is null.");
+            }
+
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

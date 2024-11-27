@@ -1,4 +1,4 @@
-﻿@model List<RuokalistaServer.Models.Ruokalista>
+﻿@model RuokalistaServer.ViewModels.ListaaViewModel
 @{
     ViewData["Title"] = "Listaa ruokalistat";
 
@@ -11,11 +11,18 @@
     <th>Viikko ja vuosi</th>
     <th></th>
   </tr>
-    @foreach(var viikko in Model)
+    @foreach(var viikko in Model.Ruokalistat)
     {
      <tr>
             <td><a href="/@viikko.Year/@viikko.WeekId"><h3>Viikko @viikko.WeekId</h3></a> <p>@viikko.Year</p></td>
-            <td><a class="btn btn-primary" onclick="window.location = '/@viikko.Year/@viikko.WeekId';">Näytä</a></td>
+            <td>
+                <a class="btn btn-primary" href="/@viikko.Year/@viikko.WeekId">Ruokalista</a>
+
+                @if(Model.KasvisRuokalistat?.Where(x => x.Year == viikko.Year)?.FirstOrDefault(x => x.WeekId == viikko.WeekId) != null)
+                {
+                    <a class="btn" style="background-color: forestgreen; color: white; margin: 0.3em 0.3em 0.3em 0.3em;" href="/Kasvisruokalista/@viikko.Year/@viikko.WeekId">Kasvisruokalista</a>
+                }
+            </td>
       
       </tr>
     }

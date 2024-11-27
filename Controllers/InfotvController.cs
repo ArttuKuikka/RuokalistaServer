@@ -16,7 +16,7 @@ namespace RuokalistaServer.Controllers
             this.db = db;
         }
 
-        public IActionResult Index(int? Week, int? Year)
+        public IActionResult Index(int? Week, int? Year, bool kasvisruokalista = false)
         {
 			var viikko = Week ?? System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 			var vuosi = Year ?? DateTime.Now.Year;
@@ -24,9 +24,18 @@ namespace RuokalistaServer.Controllers
             var model = new InfoTVViewModel();
             model.Week = viikko;
 
+            model.ShowingKasvisruokalista = kasvisruokalista;
+
 
 			//load temporarily the next weeks menu to do checks
-			model.Ruokalista = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
+			if (!kasvisruokalista)
+            {
+				model.Ruokalista = db.Ruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
+			}
+            else
+            {
+				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == DateTime.Now.Year)?.FirstOrDefault(k => k.WeekId == viikko + 1);
+			}
 
 			var NextWeeksMenuExists = model.Ruokalista != null;
 			//if not viewing custom week and year
@@ -50,7 +59,14 @@ namespace RuokalistaServer.Controllers
 
 			if (!model.ShowingNextWeeksMenu)
 			{
-				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+                if (!kasvisruokalista)
+                {
+					model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+				}
+                else
+                {
+					model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko);
+				}
 			}
 
 
@@ -65,7 +81,12 @@ namespace RuokalistaServer.Controllers
 
 
 			
-			return View(model);
+			return View("Index", model);
+		}
+
+        public IActionResult Kasvisruokalista(int? Week, int? Year)
+        {
+			return Index(Week, Year, true);
 		}
 
 		

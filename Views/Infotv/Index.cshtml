@@ -164,10 +164,22 @@
 
 		@{
 			if (Model.Ruokalista != null)
-					{
-								@if (Model.ShowingNextWeeksMenu)
+			{
+				@if(Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
 				{
-											<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Tämän viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+				}
+				else if(Model.ShowingNextWeeksMenu && Model.ShowingKasvisruokalista)
+				{
+					<div style="font-size:3.8vw; font-weight:bold">Seuraavan viikon(@Model.Ruokalista.WeekId) kasvisruokalistaruokalista</div>
+				}
+				else if (Model.ShowingKasvisruokalista)
+				{
+					<div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+				}
+				else if (Model.ShowingNextWeeksMenu)
+				{
+					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
 				}
 				else if(Model.ShowingCurrentWeeksMenu)
 						{
