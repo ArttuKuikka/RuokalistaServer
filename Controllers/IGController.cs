@@ -44,14 +44,21 @@ namespace RuokalistaServer.Controllers
 			model.Päivät = viikonekapaiva.ToString("dd.MM") + "-" + viikonperjantai.ToString("dd.MM");
 
 
+
 			if (!kasvisruokalista)
 			{
-				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? throw new Exception($"Ruokalista for week {viikko} was null!!!");
+				model.Ruokalista = db.Ruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko)
 			}
 			else
 			{
-				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko) ?? throw new Exception($"Ruokalista for week {viikko} was null!!!");
+				model.Ruokalista = db.Kasvisruokalista.Where(m => m.Year == vuosi)?.FirstOrDefault(k => k.WeekId == viikko)
+
 			}
+      
+      if(model.Ruokalista == null)
+      {
+        return NotFound("Tämän viikon ruokalistaa ei ole olemassa");
+      }
 
             return View("Index",model);
         }
