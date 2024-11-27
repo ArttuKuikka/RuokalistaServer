@@ -1,7 +1,23 @@
 ﻿@model RuokalistaServer.ViewModels.IndexViewModel
 
 @{
-    ViewData["Title"] = Model.Ruokalista != null ? $"Viikon {Model.Ruokalista.WeekId} ruokalista" : "Tätä ruokalistaa ei ole olemassa";
+
+    if(Model.Ruokalista != null)
+    {
+        if (Model.ShowingCurrentWeeksMenu)
+        {
+            ViewData["Title"] = "Tämän viikon ruokalista";
+        }
+        else
+        {
+            ViewData["Title"] = $"Viikon {Model.Ruokalista.WeekId} ruokalista";
+        }
+        
+    }
+    else
+    {
+        ViewData["Title"] = "Tätä ruokalistaa ei ole olemassa";
+    }
 }
 
 
