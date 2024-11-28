@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Hallitse ruokalistoja";
+    var currentWeek = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 }
 
 <h1>Hallitse ruokalistoja</h1>
@@ -14,8 +15,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    <h2>Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
-            </td>
+                    @if(item.WeekId == currentWeek)
+                    {
+                        <h2 class="highlighted">Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                    }
+                    else
+                    {
+                        <h2>Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                    }
+                </td>
             <td>
                     <h4>@Html.DisplayFor(modelItem => item.Year)</h4>
             </td>
