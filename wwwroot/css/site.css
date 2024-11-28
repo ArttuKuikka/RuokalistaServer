@@ -86,6 +86,10 @@ body {
     }
 }
 
+.embed-disable {
+    display: none;
+}
+
 @font-face {
     font-family: 'Ruokalistafont';
     font-style: normal;
