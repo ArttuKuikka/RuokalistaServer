@@ -58,35 +58,38 @@
             </div>
             <br />
 
-            <div class="rounded-container" style="max-width: 50em;">
-                <h3>Kasvisruokalista</h3>
-                <div class="form-group">
-                    <label asp-for="KasvisRuokalista.Maanantai" class="control-label"></label>
-                    <input asp-for="KasvisRuokalista.Maanantai" class="form-control" />
-                    <span asp-validation-for="KasvisRuokalista.Maanantai" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="KasvisRuokalista.Tiistai" class="control-label"></label>
-                    <input asp-for="KasvisRuokalista.Tiistai" class="form-control" />
-                    <span asp-validation-for="KasvisRuokalista.Tiistai" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="KasvisRuokalista.Keskiviikko" class="control-label"></label>
-                    <input asp-for="KasvisRuokalista.Keskiviikko" class="form-control" />
-                    <span asp-validation-for="KasvisRuokalista.Keskiviikko" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="KasvisRuokalista.Torstai" class="control-label"></label>
-                    <input asp-for="KasvisRuokalista.Torstai" class="form-control" />
-                    <span asp-validation-for="KasvisRuokalista.Torstai" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="KasvisRuokalista.Perjantai" class="control-label"></label>
-                    <input asp-for="KasvisRuokalista.Perjantai" class="form-control" />
-                    <span asp-validation-for="KasvisRuokalista.Perjantai" class="text-danger"></span>
-                </div>
+            @if (GlobalConfig.KasvisruokalistaEnabled)
+            {
+                <div class="rounded-container" style="max-width: 50em;">
+                    <h3>Kasvisruokalista</h3>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Maanantai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Maanantai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Maanantai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Tiistai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Tiistai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Tiistai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Keskiviikko" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Keskiviikko" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Keskiviikko" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Torstai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Torstai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Torstai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Perjantai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Perjantai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Perjantai" class="text-danger"></span>
+                    </div>
 
-            </div>
+                </div>
+            }
 
             <br />
 

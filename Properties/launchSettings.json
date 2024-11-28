@@ -11,7 +11,8 @@
         "Aanestys_ENABLED": "true",
         "PrimaryColor": "#f542cb",
         "RootUser": "k@k.fi",
-        "Branding": "Testi ruokalista"
+        "Branding": "Testi ruokalista",
+        "Kasvisruokalista_ENABLED": "true"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://0.0.0.0:7254;http://0.0.0.0:5254"

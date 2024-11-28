@@ -6,6 +6,7 @@
         public static bool InfotvEnabled = string.Equals(Environment.GetEnvironmentVariable("Infotv_ENABLED"), "true", StringComparison.OrdinalIgnoreCase);
         public static bool AanestysEnabled = string.Equals(Environment.GetEnvironmentVariable("Aanestys_ENABLED"), "true", StringComparison.OrdinalIgnoreCase);
         public static bool APIEnabled = string.Equals(Environment.GetEnvironmentVariable("API_ENABLED"), "true", StringComparison.OrdinalIgnoreCase);
+        public static bool KasvisruokalistaEnabled = string.Equals(Environment.GetEnvironmentVariable("Kasvisruokalista_ENABLED"), "true", StringComparison.OrdinalIgnoreCase);
 
         public static string PrimaryColor = Environment.GetEnvironmentVariable("PrimaryColor") ?? "#ffa500";
 
