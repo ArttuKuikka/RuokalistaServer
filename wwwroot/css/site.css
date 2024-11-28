@@ -68,6 +68,27 @@ body {
     padding: 10px;
 }
 
+.print-only {
+    display: none;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    .print-ensure-display {
+        color: black !important;
+    }
+}
+
+.embed-disable {
+    display: none;
+}
 
 @font-face {
     font-family: 'Ruokalistafont';

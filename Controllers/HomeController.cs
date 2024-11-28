@@ -93,6 +93,13 @@ namespace RuokalistaServer.Controllers
             return View("Index", model);
         }
 
+        [HttpGet("/embed")]
+        public async Task<IActionResult> EmbedIndex(int? Year, int? Week, bool kasvisruokalista = false)
+        {
+            ViewBag.Embed = true;
+            return await Index(Year, Week, kasvisruokalista);
+        }
+
         [HttpGet("/{Year:int}/{Week:int}")]
         public async Task<IActionResult> SpesificIndex(int? Year, int? Week)
         {

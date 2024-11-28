@@ -30,7 +30,7 @@
 </head>
 <body style="background-color: #121212">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3" style="background-color: #1e1e1e; font-family:'Ruokalistafont', sans-serif;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 no-print" style="background-color: #1e1e1e; font-family:'Ruokalistafont', sans-serif;">
             <div class="container">
                 <a class="navbar-brand" style="color: #ffa500; font-weight: bold; white-space:nowrap;" href="/">Isokyrö Ruokalista</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -44,9 +44,7 @@
                             <a class="nav-link " style="color: white" href="/Aanestys/Tulokset">Äänestystulokset</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link " style="color: white" href="/swagger">API</a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link " style="color: white" href="https://play.google.com/store/apps/details?id=com.arttu.ruokalista">Lataa sovellus</a>
                         </li>
@@ -63,11 +61,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer footer-text">
+    <footer class="border-top footer footer-text no-print">
         <div class="container">
-            &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka    <a href="mailto:contact@arttukuikka.fi">Ota yhteyttä</a>
+            &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka    <a href="mailto:contact@arttukuikka.fi">Ota yhteyttä</a>   <a class="highlighted" href="/swagger">API</a>
         </div>
     </footer>
+
+    <div class="footer-text print-only footer">
+        <h3 class="highlighted">Kouluruokalista.fi</h3>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

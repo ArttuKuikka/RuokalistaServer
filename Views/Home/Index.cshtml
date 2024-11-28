@@ -1,6 +1,15 @@
 ﻿@model RuokalistaServer.ViewModels.IndexViewModel
 
 @{
+    var IsEmbedded = false;
+    if(ViewBag.Embed != null)
+    {
+        if(ViewBag.Embed == true)
+        {
+            Layout = "_LayoutApp";
+            IsEmbedded = true;
+        }
+    }
 
     if(Model.Ruokalista != null)
     {
@@ -21,7 +30,7 @@
 }
 
 
-<div class="text-center" style="font-family:'Ruokalistafont', sans-serif;">
+<div class="text-center print-ensure-display" style="font-family:'Ruokalistafont', sans-serif;">
 
     @{
         if(Model.Ruokalista != null)
@@ -105,27 +114,32 @@
 
 }
 
-    @if (Model.KasviruokalistaExists && !Model.ShowingKasvisruokalista && Model.Ruokalista != null)
+    @if (!IsEmbedded)
     {
-        <a class="btn" style="background-color: forestgreen; color:white; font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/Kasvisruokalista/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Kasvisruokalista</a>
+        <div class="no-print">
+            @if (Model.KasviruokalistaExists && !Model.ShowingKasvisruokalista && Model.Ruokalista != null)
+            {
+                <a class="btn" style="background-color: forestgreen; color:white; font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/Kasvisruokalista/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Kasvisruokalista</a>
+            }
+            else if (Model.Ruokalista != null && Model.KasviruokalistaExists)
+            {
+                <a class="btn btn-primary" style="font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Ruokalista</a>
+            }
+
+
+            <div>
+                <a class="btn btn-primary" href="/Listaa" style="margin: 0em 0.5em 0.5em 0em;">&#x27F5; Edelliset viikot</a>
+
+
+                @if (Model.Ruokalista != null && Model.NextWeeksMenuExists && !Model.ShowingNextWeeksMenu)
+                {
+                    //jos vuosi on vaihtunut niin ei toimi
+                    <a class="btn btn-primary" href="/@Model.Ruokalista.Year/@(Model.Ruokalista.WeekId + 1)" style="margin: 0em 0em 0.5em 0em">Seuraava viikko &#x27F6;</a>
+                }
+
+            </div>
+        </div>
     }
-    else if(Model.Ruokalista != null && Model.KasviruokalistaExists)
-    {
-        <a class="btn btn-primary" style="font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Ruokalista</a>
-    }
-
-
-<div>
-        <a class="btn btn-primary" href="/Listaa" style="margin: 0em 0.5em 0.5em 0em;">&#x27F5; Edelliset viikot</a>
-        
-
-        @if (Model.Ruokalista != null && Model.NextWeeksMenuExists && !Model.ShowingNextWeeksMenu)
-        {
-            //jos vuosi on vaihtunut niin ei toimi
-            <a class="btn btn-primary" href="/@Model.Ruokalista.Year/@(Model.Ruokalista.WeekId + 1)" style="margin: 0em 0em 0.5em 0em">Seuraava viikko &#x27F6;</a>
-        }
-
-</div>
 
 
     
