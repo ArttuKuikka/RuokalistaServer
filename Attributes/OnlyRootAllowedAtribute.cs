@@ -17,7 +17,7 @@ namespace RuokalistaServer.Attributes
 
 			if(user.Identity != null)
 			{
-				if (!user.Identity.IsAuthenticated || user.Identity.Name != GlobalFunctions.GetRoot())
+				if (!user.Identity.IsAuthenticated || user.Identity.Name != GlobalConfig.RootUser)
 				{
 					// If not authorized, return a 403 Forbidden result
 					context.Result = new ForbidResult();

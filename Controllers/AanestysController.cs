@@ -6,10 +6,11 @@ using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 using System.Globalization;
 using System.Text.Json;
+using RuokalistaServer.Attributes;
 
 namespace RuokalistaServer.Controllers
 {
-	
+	[Feature("Aanestys")]
 	
 	public class AanestysController : Controller
 	{

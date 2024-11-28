@@ -21,10 +21,10 @@ body {
     color: #fff;
     background-color: #cb8300;
     border-color: #cb8300;
+    transition: filter 0.3s ease;
 }
 
 .btn-primary:hover {
-        color: #fff;
         background-color: #ffa500;
         border-color: #ffa500;
 }
@@ -58,9 +58,7 @@ body {
     font-size: 1.9em
 }
 
-.highlighted {
-    color: orange !important;
-}
+
 
 .rounded-container {
     border-radius: 10px;

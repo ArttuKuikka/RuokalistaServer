@@ -3,9 +3,11 @@ using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 using RuokalistaServer.ViewModels;
 using System.Globalization;
+using RuokalistaServer.Attributes;
 
 namespace RuokalistaServer.Controllers
 {
+	[Feature("IG")]
     public class IGController : Controller
     {
         private ApplicationDbContext db;

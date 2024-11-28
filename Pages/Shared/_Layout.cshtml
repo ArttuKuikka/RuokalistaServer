@@ -4,21 +4,21 @@
     @Html.Partial("_Favicons")
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Isokyrö Ruokalista</title>
+    <title>@ViewData["Title"] - @GlobalConfig.BrandingName</title>
 
     <!-- Search Engine -->
-    <meta name="description" content="Isokyrön ylä-asteen ja lukion ruokalista kätevästi verkosta! Lataa sovellus saadaksesi ruokalista päivitykset suoraan puhelimeen!">
+    <meta name="description" content="Kouluruoka.fi ruokalista kätevästi verkosta! Lataa sovellus saadaksesi ruokalista päivitykset suoraan puhelimeen!">
     <meta name="image" content="https://ruokalista.arttukuikka.fi/logo.png">
     <!-- Schema.org for Google -->
-    <meta itemprop="name" content="@ViewData["Title"] - Isokyrö Ruokalista">
-    <meta itemprop="description" content="Isokyrön ylä-asteen ja lukion ruokalista kätevästi verkosta!">
+    <meta itemprop="name" content="@ViewData["Title"] - @GlobalConfig.BrandingName">
+    <meta itemprop="description" content="Kouluruoka.fi ruokalista kätevästi verkosta!">
     <meta itemprop="image" content="https://ruokalista.arttukuikka.fi/logo.png">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="@ViewData["Title"] - Isokyrö Ruokalista">
-    <meta name="og:description" content="Isokyrön ylä-asteen ja lukion ruokalista kätevästi verkosta!">
+    <meta name="og:title" content="@ViewData["Title"] - @GlobalConfig.BrandingName">
+    <meta name="og:description" content="Kouluruoka.fi ruokalista kätevästi verkosta!">
     <meta name="og:image" content="https://ruokalista.arttukuikka.fi/logo.png">
     <meta name="og:url" content="https://ruokalista.arttukuikka.fi">
-    <meta name="og:site_name" content="Isokyrö Ruokalista">
+    <meta name="og:site_name" content="@GlobalConfig.BrandingName">
     <meta name="og:locale" content="fi-fi">
     <meta name="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,13 +26,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
-    
+
+    <partial name="_RuntimeStyles" />
+
 </head>
 <body style="background-color: #121212">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 no-print" style="background-color: #1e1e1e; font-family:'Ruokalistafont', sans-serif;">
             <div class="container">
-                <a class="navbar-brand" style="color: #ffa500; font-weight: bold; white-space:nowrap;" href="/">Isokyrö Ruokalista</a>
+                <a class="navbar-brand highlighted" style="font-weight: bold; white-space:nowrap;" href="/">@GlobalConfig.BrandingName</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,9 +42,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item">
-                            <a class="nav-link " style="color: white" href="/Aanestys/Tulokset">Äänestystulokset</a>
-                        </li>
+                        @if (GlobalConfig.AanestysEnabled)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " style="color: white" href="/Aanestys/Tulokset">Äänestystulokset</a>
+                            </li>
+                        }
 
                       
                         <li class="nav-item">
@@ -62,7 +67,7 @@
     </div>
 
     <footer class="border-top footer footer-text no-print">
-        <div class="container">
+        <div class="container highlighted">
             &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka    <a href="mailto:contact@arttukuikka.fi">Ota yhteyttä</a>   <a class="highlighted" href="/swagger">API</a>
         </div>
     </footer>

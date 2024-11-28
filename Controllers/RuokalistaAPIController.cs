@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using RuokalistaServer.Attributes;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 
@@ -15,6 +16,7 @@ namespace RuokalistaServer.Controllers
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
+    [Feature("API")]
     public class RuokalistaController : Controller
     {
         private readonly ApplicationDbContext _context;

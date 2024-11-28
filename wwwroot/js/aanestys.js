@@ -42,7 +42,7 @@ function CreateAanestysBox(data, body) {
     let currentYearValue = new Date().getFullYear();
     let currentWeek = false;
     if (data["isCurrentWeek"] === true && data["ruokalista"]["Year"] === currentYearValue) {
-        weekText.classList.add('today_oranssi');
+        weekText.classList.add('highlighted');
         currentWeek = true;
     }
 
@@ -111,7 +111,7 @@ function createFullBar(day, food, votes, body, isToday) {
     ruokaTeksti.classList.add('dayTitle');
 
     if (isToday) {
-        ruokaTeksti.classList.add('today_oranssi')
+        ruokaTeksti.classList.add('highlighted')
     }
 
     ruokaTeksti.textContent = day + ": " + food;

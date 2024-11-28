@@ -5,7 +5,13 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "BackgroundsPath": "V:\\RuokalistaBG"
+        "BackgroundsPath": "V:\\RuokalistaBG",
+        "IG_ENABLED": "true",
+        "Infotv_ENABLED": "true",
+        "Aanestys_ENABLED": "true",
+        "PrimaryColor": "#f542cb",
+        "RootUser": "k@k.fi",
+        "Branding": "Laihian Ruokalista"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://0.0.0.0:7254;http://0.0.0.0:5254"

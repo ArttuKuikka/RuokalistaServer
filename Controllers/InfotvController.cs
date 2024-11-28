@@ -4,9 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
 using RuokalistaServer.ViewModels;
+using RuokalistaServer.Attributes;
 
 namespace RuokalistaServer.Controllers
 {
+    [Feature("Infotv")]
     public class InfotvController : Controller
     {
         private ApplicationDbContext db;
