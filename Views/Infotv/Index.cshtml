@@ -1,7 +1,12 @@
-﻿@model RuokalistaServer.ViewModels.InfoTVViewModel;
+﻿@using RuokalistaServer
+@model RuokalistaServer.ViewModels.InfoTVViewModel;
 <head>
-
 	<style>
+
+		.highlighted {
+			color: @GlobalConfig.PrimaryColor !important;
+		}
+
 		.infotv_bg {
 			height: 100%;
 			width: 100%;
