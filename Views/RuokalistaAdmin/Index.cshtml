@@ -15,7 +15,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    @if(item.WeekId == currentWeek)
+                    @if(item.WeekId == currentWeek && item.Year == DateTime.Now.Year)
                     {
                         <h2 class="highlighted">Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
                     }
