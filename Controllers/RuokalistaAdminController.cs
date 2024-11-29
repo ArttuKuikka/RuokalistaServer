@@ -42,7 +42,7 @@ namespace RuokalistaServer.Controllers
 			var bg = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week && x.Year == DateTime.Today.Year);
 			if (bg == null)
 			{
-				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
+				if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BackgroundsPath")))
 				{
 					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
 
@@ -103,7 +103,7 @@ namespace RuokalistaServer.Controllers
             }
             else
             {
-				if (Environment.GetEnvironmentVariable("BackgroundsPath").IsNullOrEmpty())
+				if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BackgroundsPath")))
 				{
 					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
 
