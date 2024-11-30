@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using RuokalistaServer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @Html.Partial("_Favicons")
@@ -68,7 +69,13 @@
 
     <footer class="border-top footer footer-text no-print">
         <div class="container highlighted">
-            &copy; @DateTime.Now.Year.ToString() - Kouluruokalista.fi    <a href="mailto:contact@arttukuikka.fi">Ota yhteyttä</a>   <a class="highlighted" href="/swagger">API</a>
+            &copy; @DateTime.Now.Year.ToString() - <a class="highlighted" href="https://Kouluruokalista.fi">Kouluruokalista.fi </a>
+            
+            @if (GlobalConfig.APIEnabled)
+            {
+                <span style="margin: 0 10px;">|</span>
+                <a class="highlighted" href="/swagger">API</a>
+            }
         </div>
     </footer>
 

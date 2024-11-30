@@ -13,86 +13,112 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string connectionString =
+	$"Server={Environment.GetEnvironmentVariable("DB_Server") ?? throw new Exception("No DB_Server environment variable provided")},{Environment.GetEnvironmentVariable("DB_Port") ?? "1433"};" +
+	$"Database={Environment.GetEnvironmentVariable("DB_Database")};" +
+	$"User={Environment.GetEnvironmentVariable("DB_User")};" +
+	$"Password={Environment.GetEnvironmentVariable("DB_Password")};" +
+	"MultipleActiveResultSets=true;" +
+	"TrustServerCertificate=True;" +
+	"Encrypt=true;";
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
+	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthorization(options =>
 {
-
-    var onlySecondJwtSchemePolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
-    options.AddPolicy("OnlyJwtScheme", onlySecondJwtSchemePolicyBuilder
-        .RequireAuthenticatedUser()
-        .Build());
-    var onlyCookieSchemePolicyBuilder = new AuthorizationPolicyBuilder("Identity.Application");
-    options.AddPolicy("OnlyCookieScheme", onlyCookieSchemePolicyBuilder
-        .RequireAuthenticatedUser()
-        .Build());
+	var onlySecondJwtSchemePolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+	options.AddPolicy("OnlyJwtScheme", onlySecondJwtSchemePolicyBuilder
+		.RequireAuthenticatedUser()
+		.Build());
+	var onlyCookieSchemePolicyBuilder = new AuthorizationPolicyBuilder("Identity.Application");
+	options.AddPolicy("OnlyCookieScheme", onlyCookieSchemePolicyBuilder
+		.RequireAuthenticatedUser()
+		.Build());
 });
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = "MultiAuthSchemes";
-    options.DefaultChallengeScheme = "MultiAuthSchemes";
-    options.DefaultScheme = "MultiAuthSchemes";
+	options.DefaultAuthenticateScheme = "MultiAuthSchemes";
+	options.DefaultChallengeScheme = "MultiAuthSchemes";
+	options.DefaultScheme = "MultiAuthSchemes";
 }).AddPolicyScheme("MultiAuthSchemes", "Bearer", options =>
 {
-    options.ForwardDefaultSelector = context =>
-    {
-        string authorization = context.Request.Headers[HeaderNames.Authorization];
-        if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
-        {
-            var token = authorization.Substring("Bearer ".Length).Trim();
-            var jwtHandler = new JwtSecurityTokenHandler();
-            return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals("https://ruokalista.arttukuikka.fi/"))
-                ? JwtBearerDefaults.AuthenticationScheme : "Bearer";
-        }
-        return "Identity.Application";
-    };
+	options.ForwardDefaultSelector = context =>
+	{
+		string authorization = context.Request.Headers[HeaderNames.Authorization];
+		if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
+		{
+			var token = authorization.Substring("Bearer ".Length).Trim();
+			var jwtHandler = new JwtSecurityTokenHandler();
+			return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals(Environment.GetEnvironmentVariable("JWT_Issuer")))
+				? JwtBearerDefaults.AuthenticationScheme : "Bearer";
+		}
+		return "Identity.Application";
+	};
 }).AddJwtBearer(options =>
 {
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = configuration["JWT:ValidAudience"],
-        ValidIssuer = configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-    };
+	options.SaveToken = true;
+	options.RequireHttpsMetadata = false;
+	options.TokenValidationParameters = new TokenValidationParameters()
+	{
+		ValidateIssuer = true,
+		ValidateAudience = true,
+		ValidAudience = Environment.GetEnvironmentVariable("JWT_Audience"),
+		ValidIssuer = Environment.GetEnvironmentVariable("JWT_Issuer"),
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_Secret") ?? throw new Exception("No JWT_Secret set!")))
+	};
 });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(e => { e.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Ruokalista API", Version = "v1" }); });
-
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// Ensure database is created and add default user if it was just created
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<ApplicationDbContext>();
+	bool databaseJustCreated = context.Database.EnsureCreated();
+
+	if (databaseJustCreated)
+	{
+		var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+		var userName = Environment.GetEnvironmentVariable("RootUser") ?? throw new Exception("No RootUser environment variable provided");
+		var pass = Environment.GetEnvironmentVariable("DefaultRootPassword") ?? throw new Exception("No DefaultRootPassword environment variable provided");
+
+		var user = new IdentityUser { UserName = userName, Email = userName };
+		var result = userManager.CreateAsync(user, pass).Result;
+
+		if (!result.Succeeded)
+		{
+			throw new Exception("Failed to create default user: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+		}
+	}
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 //app.UseHttpsRedirection();
@@ -103,22 +129,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/");
-    if (!app.Environment.IsDevelopment())
-    {
-        endpoints.MapGet("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-        endpoints.MapPost("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-    }
-    endpoints.MapRazorPages();
-});
+
+app.MapControllerRoute(
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/");
 
 app.MapRazorPages();
-app.MapControllers();
-
-
 
 app.Run();

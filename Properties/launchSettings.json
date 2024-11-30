@@ -23,6 +23,35 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BackgroundsPath": "",
+        "IG_ENABLED": "true",
+        "Infotv_ENABLED": "true",
+        "Aanestys_ENABLED": "true",
+        "PrimaryColor": "#f542cb",
+        "RootUser": "k@k.fi",
+        "Branding": "Testi ruokalista",
+        "Kasvisruokalista_ENABLED": "true",
+        "DB_Server": "10.10.0.203",
+        "DB_Database": "Ruokalista-docker",
+        "DB_User": "sa",
+        "DB_Password": "ProoSalasana123!",
+        "DefaultRootPassword": "ProoSalasana123!",
+        "API_ENABLED": "true",
+        "JWT_Issuer": "https://dev.kouluruokalista.fi",
+        "JWT_Audience": "https://dev.kouluruokalista.fi",
+        "JWT_Secret": "ChangeTheSecret"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
     }
   },
   "iisSettings": {
