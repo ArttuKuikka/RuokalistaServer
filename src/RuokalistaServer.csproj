@@ -7,6 +7,7 @@
     <UserSecretsId>aspnet-RuokalistaServer-64B0E267-48C2-408C-A06F-425237C6FD06</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   
