@@ -1,3 +1,22 @@
+light-mode {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+    body.dark-mode nav {
+        background-color: #1e1e1e;
+        color: white;
+    }
+
+        body.dark-mode nav a {
+            color: white; /* Ensure nav links inherit the correct color */
+        }
+
 html {
   font-size: 14px;
 }

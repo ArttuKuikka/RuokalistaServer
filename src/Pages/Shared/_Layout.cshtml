@@ -28,12 +28,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
 
+    <script src="/js/site.js"></script>
+
     <partial name="_RuntimeStyles" />
 
 </head>
-<body style="background-color: #121212">
+<body class="dark-mode">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 no-print" style="background-color: #1e1e1e; font-family:'Ruokalistafont', sans-serif;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 no-print" font-family:'Ruokalistafont', sans-serif;">
             <div class="container">
                 <a class="navbar-brand highlighted" style="font-weight: bold; white-space:nowrap;" href="/">@GlobalConfig.BrandingName</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -46,13 +48,13 @@
                         @if (GlobalConfig.AanestysEnabled)
                         {
                             <li class="nav-item">
-                                <a class="nav-link " style="color: white" href="/Aanestys/Tulokset">Äänestystulokset</a>
+                                <a class="nav-link "  href="/Aanestys/Tulokset">Äänestystulokset</a>
                             </li>
                         }
 
                       
                         <li class="nav-item">
-                            <a class="nav-link " style="color: white" href="https://play.google.com/store/apps/details?id=com.arttu.ruokalista">Lataa sovellus</a>
+                            <a class="nav-link " href="https://play.google.com/store/apps/details?id=com.arttu.ruokalista">Lataa sovellus</a>
                         </li>
                     </ul>
                     <div class="border-top"></div>
@@ -62,7 +64,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" style="color: white;" class="pb-3">
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
@@ -73,8 +75,10 @@
             
             @if (GlobalConfig.APIEnabled)
             {
-                <span style="margin: 0 10px;">|</span>
+                <span style="margin: 0 5px;">|</span>
                 <a class="highlighted" href="/swagger">API</a>
+                <span style="margin: 0 5px;">|</span>
+                <a href="#"  id="theme-toggle">🌓</a>
             }
         </div>
     </footer>
