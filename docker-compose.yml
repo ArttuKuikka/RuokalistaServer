@@ -19,7 +19,7 @@ services:
         - DB_Server=10.10.0.203
         - DB_Database=Ruokalista-docker
         - DB_User=sa
-        - DB_Password=ProoSalasana123!
+        - DB_Password=TestiSalasana123!
         - DefaultRootPassword=TestiSalasana123!
         - API_ENABLED=true
         - JWT_Issuer=https://dev.kouluruokalista.fi
