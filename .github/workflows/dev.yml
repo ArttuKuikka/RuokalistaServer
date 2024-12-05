@@ -28,7 +28,7 @@ jobs:
       - run: sudo systemctl stop ruokalistadev.service
       
       
-      - run: dotnet publish /home/administrator/actions-runner-ruokalista/_work/RuokalistaServer/RuokalistaServer/RuokalistaServer.csproj -o /services/ruokalistadev
+      - run: dotnet publish /home/administrator/actions-runner-ruokalista/_work/RuokalistaServer/RuokalistaServer/src/RuokalistaServer.csproj -o /services/ruokalistadev
       
       - run: cp /services/ruokalistadev_temp/appsettings.json /services/ruokalistadev
       
