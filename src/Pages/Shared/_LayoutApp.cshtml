@@ -1,18 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
 
     <partial name="_RuntimeStyles" />
-    
+
 </head>
-<body style="background-color: #121212">
+
+@{
+    var mode = Context.Request.Query["mode"].ToString();
+    var bodyClass = mode == "light" ? "light-mode" : "dark-mode";
+}
+
+<body class="@bodyClass">
     <div class="container">
-        <main role="main" style="color: white;" class="pb-3">
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>

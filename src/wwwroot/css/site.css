@@ -85,6 +85,14 @@ body {
     padding: 10px;
 }
 
+body.light-mode .rounded-container {
+    background-color: #b3b3b3;
+}
+
+body.dark-mode .table {
+    color: white;
+}
+
 .print-only {
     display: none;
 }

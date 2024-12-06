@@ -15,6 +15,10 @@
     margin: 10px;
 }
 
+body.light-mode #content {
+    background-color: #b3b3b3; /* Light grey background */
+}
+
 /* For screens smaller than 575px */
 @media (max-width: 574px) {
     #content {
@@ -42,14 +46,12 @@
 .dayTitle {
     font-family: Ruokalistafont;
     font-size: 1em;
-    color: white;
     margin: 0px 0px 3px 5px;
 }
 
 .voteCountTitle {
     font-family: Ruokalistafont;
     font-size: 0.8em;
-    color: white;
     margin: -0.8em 0px -1px 5px;
 }
 

@@ -5,7 +5,9 @@
 
 // Set a cookie
 function setCookie(name, value) {
-    document.cookie = `${name}=${value};path=/`; // No expiration date, session cookie
+    const date = new Date();
+    date.setDate(date.getDate() + 356); // Set the date to 356 days from now
+    document.cookie = `${name}=${value};path=/;expires=${date.toUTCString()}`;
 }
 
 // Get a cookie
@@ -25,13 +27,16 @@ function applyThemeFromCookie() {
     const theme = getCookie('theme');
     const themeToggle = document.getElementById('theme-toggle');
 
-    document.body.classList.remove('dark-mode', 'light-mode'); // Clear existing classes
-    if (theme === 'dark-mode') {
-        document.body.classList.add('dark-mode');
-        if (themeToggle) themeToggle.textContent = '🌗'; // Set toggle text for dark mode
-    } else {
-        document.body.classList.add('light-mode');
-        if (themeToggle) themeToggle.textContent = '🌓'; // Set toggle text for light mode
+    if (theme !== null) {
+
+        document.body.classList.remove('dark-mode', 'light-mode'); // Clear existing classes
+        if (theme === 'dark-mode') {
+            document.body.classList.add('dark-mode');
+            if (themeToggle) themeToggle.textContent = '🌗'; // Set toggle text for dark mode
+        } else {
+            document.body.classList.add('light-mode');
+            if (themeToggle) themeToggle.textContent = '🌓'; // Set toggle text for light mode
+        }
     }
 }
 

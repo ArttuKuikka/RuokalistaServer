@@ -47,7 +47,7 @@ function CreateAanestysBox(data, body) {
     }
 
     weekText.style.fontFamily = 'Ruokalistafont';
-    weekText.style.color = 'white';
+    //weekText.style.color = 'white';
     weekText.style.fontSize = '2em';
     weekText.style.fontWeight = 'bold';
     weekText.textContent = 'Viikko ' + data["ruokalista"]["WeekId"];
@@ -57,7 +57,7 @@ function CreateAanestysBox(data, body) {
     var yearText = document.createElement('div');
     yearText.className = 'dayTitle';
     yearText.style.fontFamily = 'Ruokalistafont';
-    yearText.style.color = 'white';
+    //yearText.style.color = 'white';
     yearText.style.fontSize = '1.2em';
     yearText.style.fontWeight = 'bold';
     yearText.textContent = data["ruokalista"]["Year"];
