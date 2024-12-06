@@ -25,4 +25,5 @@ services:
         - JWT_Issuer=https://dev.kouluruokalista.fi
         - JWT_Audience=https://dev.kouluruokalista.fi
         - JWT_Secret=ChangeTheSecret
+        - StaticContentHost=https://kouluruokalista.fi      
 

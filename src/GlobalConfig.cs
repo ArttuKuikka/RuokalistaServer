@@ -13,5 +13,7 @@
         public static string RootUser = Environment.GetEnvironmentVariable("RootUser") ?? "";
 
         public static string BrandingName = Environment.GetEnvironmentVariable("Branding") ?? "Kouluruokalista.fi";
-    }
+
+        public static string? StaticContentHost = Environment.GetEnvironmentVariable("StaticContentHost");
+	}
 }
