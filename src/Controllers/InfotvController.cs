@@ -129,11 +129,15 @@ namespace RuokalistaServer.Controllers
 
 						newImage = GlobalConfig.StaticContentHost + "/api/v1/GetPicture?filename=" + json[index];
 					}
-					catch(Exception)
+					catch(Exception ex)
 					{
 						//just return the fallback image without saving to db
 
+						Console.WriteLine("BG ERROR: " + ex.Message);
+
 						newImage = "/samplebg_infotv.jpg";
+						bg.FileName = System.Web.HttpUtility.HtmlEncode(newImage);
+						return Ok(bg);
 
 					}
 
