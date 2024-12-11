@@ -11,10 +11,15 @@ namespace RuokalistaServer.Models
         public int WeekId { get; set; }
         [Range(2020, 2100, ErrorMessage = "Virheellinen vuosiluku")]
         public int Year { get; set; }
-        public string Maanantai { get; set; }
-        public string Tiistai { get; set; }
-        public string Keskiviikko { get; set; }
-        public string Torstai { get; set; }
-        public string Perjantai { get; set; }
+        [MaxLength(150)]
+		public string Maanantai { get; set; }
+		[MaxLength(150)]
+		public string Tiistai { get; set; }
+		[MaxLength(150)]
+		public string Keskiviikko { get; set; }
+		[MaxLength(150)]
+		public string Torstai { get; set; }
+		[MaxLength(150)]
+		public string Perjantai { get; set; }
     }
 }
