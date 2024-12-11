@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using RuokalistaServer.Data;
 using RuokalistaServer.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RuokalistaServer.Controllers
 {
@@ -22,144 +22,6 @@ namespace RuokalistaServer.Controllers
         {
             _context = context;
         }
-
-
-        public async Task<IActionResult> NewRandomBG(int? id)
-        {
-			if (id == null || id == 0)
-			{
-				throw new ArgumentException("Invalid id number (0 or NULL)");
-			}
-
-            var ruokalista = await _context.Ruokalista.FindAsync(id);
-            if( ruokalista == null)
-            {
-                throw new Exception("Ruokalista is null");
-            }
-
-            var week = ruokalista.WeekId;
-
-			var bg = _context.BackgroundForWeek.FirstOrDefault(x => x.WeekId == week && x.Year == DateTime.Today.Year);
-			if (bg == null)
-			{
-				if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BackgroundsPath")))
-				{
-					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
-
-				}
-
-				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackgroundsPath"));
-
-
-
-				var imageFiles = files?.Where(x => x.EndsWith(".jpg") || x.EndsWith(".png"));
-				var imageFileCount = imageFiles?.Count() ?? 0;
-
-				if (imageFileCount.Equals(0))
-				{
-					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
-				}
-
-
-                string currentMonthString = DateTime.Today.Month.ToString();
-                if (currentMonthString.Length == 1)
-                {
-                    currentMonthString = "0" + currentMonthString;
-                }
-
-
-                var thisMonthsImageFiles = imageFiles?.Where(x => (Path.GetFileName(x)[4].ToString() + Path.GetFileName(x)[5].ToString()) == currentMonthString);
-
-                if (!(thisMonthsImageFiles?.Any() ?? false))
-                {
-                    //jos tässä kuussa ei oo kuvia ota vaan jotai randomilla
-                    thisMonthsImageFiles = imageFiles;
-                }
-
-                var thisMonthsImageFileCount = thisMonthsImageFiles?.Count() ?? 0;
-
-
-                Random random = new Random();
-                int randomNumber = random.Next(0, thisMonthsImageFileCount);
-                var newImage = thisMonthsImageFiles?.ElementAtOrDefault(randomNumber);
-                newImage = Path.GetFileName(newImage);
-
-                if (newImage == null)
-				{
-					throw new Exception("Error while picking new random backround picture, element is null at index");
-				}
-
-				bg = new BackgroundForWeek
-				{
-					FileName = System.Web.HttpUtility.HtmlEncode(newImage),
-					WeekId = week,
-                    Year = DateTime.Today.Year
-				};
-
-				await _context.BackgroundForWeek.AddAsync(bg);
-				await _context.SaveChangesAsync();
-
-
-            }
-            else
-            {
-				if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BackgroundsPath")))
-				{
-					throw new Exception("The 'BackgroundsPath' Environment variable is Null or empty");
-
-				}
-
-				string[] files = Directory.GetFiles(Environment.GetEnvironmentVariable("BackgroundsPath"));
-
-
-
-				var imageFiles = files?.Where(x => x.EndsWith(".jpg") || x.EndsWith(".png"));
-				var imageFileCount = imageFiles?.Count() ?? 0;
-
-				if (imageFileCount.Equals(0))
-				{
-					throw new Exception($"0 Image(.png or .jpg) files found in the 'BackgroundsPath', {files.Count()} files overall");
-				}
-
-
-
-                string currentMonthString = DateTime.Today.Month.ToString();
-                if (currentMonthString.Length == 1)
-                {
-                    currentMonthString = "0" + currentMonthString;
-                }
-
-
-                var thisMonthsImageFiles = imageFiles?.Where(x => (Path.GetFileName(x)[4].ToString() + Path.GetFileName(x)[5].ToString()) == currentMonthString);
-
-                if (!(thisMonthsImageFiles?.Any() ?? false))
-                {
-                    //jos tässä kuussa ei oo kuvia ota vaan jotai randomilla
-                    thisMonthsImageFiles = imageFiles;
-                }
-
-                var thisMonthsImageFileCount = thisMonthsImageFiles?.Count() ?? 0;
-
-
-                Random random = new Random();
-                int randomNumber = random.Next(0, thisMonthsImageFileCount);
-                var newImage = thisMonthsImageFiles?.ElementAtOrDefault(randomNumber);
-                newImage = Path.GetFileName(newImage);
-
-
-                if (newImage == null)
-				{
-					throw new Exception("Error while picking new random backround picture, element is null at index");
-				}
-
-                bg.FileName = System.Web.HttpUtility.HtmlEncode(newImage);
-
-				_context.BackgroundForWeek.Update(bg);
-				await _context.SaveChangesAsync();
-			}
-			bg.FileName = "/infotv/GetBgByFilename?filename=" + System.Web.HttpUtility.HtmlEncode(bg.FileName);
-			return Ok(bg);
-		}
 
 		public async Task<IActionResult> SetBG(int? ruokalistaId)
         {
@@ -198,9 +60,10 @@ namespace RuokalistaServer.Controllers
             bg.FileName = model.FileName;
             await _context.SaveChangesAsync();
 
+            var ruokalista = _context.Ruokalista.First(x => x.WeekId == bg.WeekId && x.Year == bg.Year);
 
-            return Redirect("i/RuokalistaAdmin/SetBG?ruokalistaId=" + model.Id.ToString());
-        }
+			return Redirect("/RuokalistaAdmin/SetBG?ruokalistaId=" + ruokalista.Id.ToString());
+		}
 		// GET: RuokalistaAdmin
 		public async Task<IActionResult> Index()
         {

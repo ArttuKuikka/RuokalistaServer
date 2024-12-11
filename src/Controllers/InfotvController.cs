@@ -152,7 +152,7 @@ namespace RuokalistaServer.Controllers
 			return Ok(bg);
 		}
 
-        public string GetLocalImage()
+        public static string GetLocalImage()
 		{
 			if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BackgroundsPath")))
 			{

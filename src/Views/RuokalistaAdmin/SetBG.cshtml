@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Vaihda taustakuva";
 }
+<script src="/js/bg.js"></script>
+<link rel="stylesheet" href="/css/bg.css" />
 
 <h1>Vaihda taustakuva</h1>
 
@@ -12,15 +14,16 @@
 <div class="row">
     <div class="col-md-4" style="width:60%">
         <p>Jos taustakuvaa ei ole valittu, valitaan se automaattisesti valitun viikon alkaessa</p>
+        <p>Voit lisätä kuvan linkin manuaalisesti, tai valita alla olevista vaihtoehdoista</p>
+        <p>Vinkki: Kuva näkyy kun pidät hiirtä sen päällä</p>
         <form asp-action="SetBG">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="WeekId" />
-            <a class="btn btn-primary" asp-action="NewRandomBG" asp-route-id="@Model.Id">🏞️ Arvo uusi taustakuva</a>
             <br />
             <div class="form-group">
-                <label  class="control-label">Tiedostonimi</label>
-                <input asp-for="FileName" class="form-control" />
+                <label  class="control-label">Linkki kuvaan</label>
+                <input asp-for="FileName" id="FileName" class="form-control" />
                 <span asp-validation-for="FileName" class="text-danger"></span>
             </div>
             <br />
@@ -30,6 +33,9 @@
                 <input type="submit" value="Tallenna" class="btn btn-primary" />
             </div>
         </form>
+        <div id="ImageBrowser">
+
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,13 @@
+﻿.image-link {
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.image-preview {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
