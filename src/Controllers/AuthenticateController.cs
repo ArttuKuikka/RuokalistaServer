@@ -67,11 +67,11 @@ namespace RuokalistaServer.Controllers
         {
             
 
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_Secret")));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
+                issuer: Environment.GetEnvironmentVariable("JWT_Issuer"),
+                audience: Environment.GetEnvironmentVariable("JWT_Audience"),
                 expires: DateTime.Now.AddHours(730),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
