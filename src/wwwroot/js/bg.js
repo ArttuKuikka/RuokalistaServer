@@ -1,15 +1,17 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+﻿
+
+function bglisting(host) {
     var linkField = document.getElementById('FileName');
     var imageBrowser = document.getElementById('ImageBrowser');
 
-    fetch('/RuokalistaAdmin/Testingimages')
+    fetch(host + '/api/v1/GetPictureListing?month=0')
         .then(response => response.json())
         .then(data => {
             data.forEach(image => {
                 var imageLink = document.createElement('div');
-                imageLink.textContent = image.name;
+                imageLink.textContent = image;
                 imageLink.classList.add('image-link');
-                imageLink.dataset.url = image.url;
+                imageLink.dataset.url = host + '/api/v1/GetPicture?filename=' + image;
 
                 imageLink.addEventListener('mouseover', (event) => {
                     var preview = document.createElement('div');
@@ -33,4 +35,4 @@
                 imageBrowser.appendChild(imageLink);
             });
         });
-});
+}

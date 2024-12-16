@@ -4,6 +4,11 @@
     ViewData["Title"] = "Vaihda taustakuva";
 }
 <script src="/js/bg.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            bglisting(@GlobalConfig.StaticContentHost);
+    });
+</script>
 <link rel="stylesheet" href="/css/bg.css" />
 
 <h1>Vaihda taustakuva</h1>
