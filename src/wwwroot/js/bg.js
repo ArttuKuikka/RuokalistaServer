@@ -11,7 +11,7 @@ function bglisting(host) {
                 var imageLink = document.createElement('div');
                 imageLink.textContent = image;
                 imageLink.classList.add('image-link');
-                imageLink.dataset.url = host + '/api/v1/GetPicture?filename=' + image;
+                imageLink.dataset.url = host + '/api/v1/GetPicturePreview?filename=' + image;
 
                 imageLink.addEventListener('mouseover', (event) => {
                     var preview = document.createElement('div');
