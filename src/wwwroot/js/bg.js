@@ -18,7 +18,7 @@
 
                     // Create an image element
                     const img = document.createElement('img');
-                    img.src = `${host}/api/v1/GetPicturePreview?filename=${image}`;
+                    img.src = `${host}/api/v1/GetPicture?filename=${image}`;
                     img.alt = image;
 
                     // Add click event to set the input field value
@@ -40,6 +40,6 @@
 
     // Update images when the month changes
     monthSelector.addEventListener('change', () => {
-        fetchImages(monthSelector.selectedIndex);
+        fetchImages(monthSelector.value);
     });
 }
