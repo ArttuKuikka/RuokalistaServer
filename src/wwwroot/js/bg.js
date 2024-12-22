@@ -1,7 +1,7 @@
 ﻿function bglisting(host) {
     const monthSelector = document.getElementById('month-selector');
-    const imageList = document.getElementById('imageList');
-    const fileNameInput = document.getElementById('fileName'); // Input field to update
+    const imageList = document.getElementById('image-list');
+    const fileNameInput = document.getElementById('FileName'); // Input field to update
 
     // Function to fetch and display images for a selected month
     function fetchImages(monthIndex) {
