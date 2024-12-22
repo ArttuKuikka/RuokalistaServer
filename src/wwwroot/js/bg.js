@@ -1,6 +1,7 @@
 ﻿function bglisting(host) {
-    const monthSelector = document.getElementById('monthSelector');
+    const monthSelector = document.getElementById('month-selector');
     const imageList = document.getElementById('imageList');
+    const fileNameInput = document.getElementById('fileName'); // Input field to update
 
     // Function to fetch and display images for a selected month
     function fetchImages(monthIndex) {
@@ -20,24 +21,9 @@
                     img.src = `${host}/api/v1/GetPicturePreview?filename=${image}`;
                     img.alt = image;
 
-                    // Add hover preview functionality
-                    imageLink.addEventListener('mouseover', (event) => {
-                        const preview = document.createElement('div');
-                        preview.classList.add('image-preview');
-                        preview.style.backgroundImage = `url(${img.src})`;
-                        document.body.appendChild(preview);
-
-                        imageLink.addEventListener('mousemove', (e) => {
-                            preview.style.top = `${e.clientY + 10}px`;
-                            preview.style.left = `${e.clientX + 10}px`;
-                        });
-                    });
-
-                    imageLink.addEventListener('mouseout', () => {
-                        const preview = document.querySelector('.image-preview');
-                        if (preview) {
-                            preview.remove();
-                        }
+                    // Add click event to set the input field value
+                    img.addEventListener('click', () => {
+                        fileNameInput.value = img.src;
                     });
 
                     // Append the image to the link container
