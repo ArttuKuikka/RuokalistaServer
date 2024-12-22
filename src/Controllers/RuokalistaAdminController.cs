@@ -52,17 +52,36 @@ namespace RuokalistaServer.Controllers
         [HttpPost]
 		public async Task<IActionResult> SetBG(BackgroundForWeek model)
         {
-            var bg = await _context.BackgroundForWeek.FindAsync(model.Id);
-            if (bg == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest("invalid id in model");
-            }
-            bg.FileName = model.FileName;
-            await _context.SaveChangesAsync();
+				var bg = await _context.BackgroundForWeek.FindAsync(model.Id);
+				if (bg == null)
+				{
+					//create new db object
+					bg = new BackgroundForWeek()
+					{
+						WeekId = model.WeekId,
+						Year = model.Year,
+						FileName = model.FileName
+					};
 
-            var ruokalista = _context.Ruokalista.First(x => x.WeekId == bg.WeekId && x.Year == bg.Year);
+					_context.BackgroundForWeek.Add(bg);
+				}
+				else
+				{
+					bg.FileName = model.FileName;
+				}
 
-			return Redirect("/RuokalistaAdmin/SetBG?ruokalistaId=" + ruokalista.Id.ToString());
+				await _context.SaveChangesAsync();
+
+				var ruokalista = _context.Ruokalista.First(x => x.WeekId == bg.WeekId && x.Year == bg.Year);
+
+				return Redirect("/RuokalistaAdmin");
+			}
+            else
+            {
+				return View(model);
+			}
 		}
 		// GET: RuokalistaAdmin
 		public async Task<IActionResult> Index()

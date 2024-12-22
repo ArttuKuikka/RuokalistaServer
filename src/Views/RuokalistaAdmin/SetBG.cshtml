@@ -17,17 +17,18 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4" style="width:60%">
+    <div>
         <p>Jos taustakuvaa ei ole valittu, valitaan se automaattisesti valitun viikon alkaessa</p>
         <p>Voit lisätä kuvan linkin manuaalisesti, tai valita alla olevista vaihtoehdoista klikkaamalla</p>
         <form asp-action="SetBG">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="WeekId" />
+            <input type="hidden" asp-for="Year" />
             <br />
             <div class="form-group">
                 <label  class="control-label">Linkki kuvaan</label>
-                <input asp-for="FileName" id="FileName" class="form-control" />
+                <input asp-for="FileName" style="width=80%;" id="FileName" class="form-control" />
                 <span asp-validation-for="FileName" class="text-danger"></span>
             </div>
             <br />
