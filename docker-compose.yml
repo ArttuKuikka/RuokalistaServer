@@ -26,4 +26,5 @@ services:
         - JWT_Audience=https://dev.kouluruokalista.fi
         - JWT_Secret=ChangeTheSecret
         - StaticContentHost=https://kouluruokalista.fi      
+        - InfoTV_Mainos_URL="https://kouluruokalista.fi/static/"
 
