@@ -36,7 +36,7 @@
     }
 
     // Initialize with the default month
-    fetchImages(monthSelector.selectedIndex);
+    fetchImages(monthSelector.value);
 
     // Update images when the month changes
     monthSelector.addEventListener('change', () => {
