@@ -1,0 +1,96 @@
+﻿@using RuokalistaServer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.Partial("_Favicons")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @GlobalConfig.BrandingName</title>
+
+    <!-- Search Engine -->
+    <meta name="description" content="Kouluruokalista.fi ruokalista kätevästi verkosta! Lataa sovellus saadaksesi ruokalista päivitykset suoraan puhelimeen!">
+    <meta name="image" content="https://ruokalista.arttukuikka.fi/logo.png">
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="@ViewData["Title"] - @GlobalConfig.BrandingName">
+    <meta itemprop="description" content="Kouluruokalista.fi ruokalista kätevästi verkosta!">
+    <meta itemprop="image" content="https://ruokalista.arttukuikka.fi/logo.png">
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="@ViewData["Title"] - @GlobalConfig.BrandingName">
+    <meta name="og:description" content="Kouluruokalista.fi ruokalista kätevästi verkosta!">
+    <meta name="og:image" content="https://ruokalista.arttukuikka.fi/logo.png">
+    <meta name="og:url" content="https://ruokalista.arttukuikka.fi">
+    <meta name="og:site_name" content="@GlobalConfig.BrandingName">
+    <meta name="og:locale" content="fi-fi">
+    <meta name="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
+
+    <script src="/js/site.js"></script>
+
+    <partial name="_RuntimeStyles" />
+
+</head>
+<body class="dark-mode">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 no-print" font-family:'Ruokalistafont', sans-serif;">
+            <div class="container">
+                <a class="navbar-brand highlighted" style="font-weight: bold; white-space:nowrap;" href="/">@GlobalConfig.BrandingName</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (GlobalConfig.AanestysEnabled)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link "  href="/Aanestys/Tulokset">Äänestystulokset</a>
+                            </li>
+                        }
+
+                      
+                        <li class="nav-item">
+                            <a class="nav-link " href="https://play.google.com/store/apps/details?id=com.arttu.ruokalista">Lataa sovellus</a>
+                        </li>
+                    </ul>
+                    <div class="border-top"></div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer footer-text no-print">
+        <div class="container highlighted">
+            &copy; @DateTime.Now.Year.ToString() - <a class="highlighted" href="https://Kouluruokalista.fi">Kouluruokalista.fi </a>
+            
+            @if (GlobalConfig.APIEnabled)
+            {
+                <span style="margin: 0 5px;">|</span>
+                <a class="highlighted" href="/swagger">API</a>
+                <span style="margin: 0 5px;">|</span>
+                <a href="#"  id="theme-toggle">🌓</a>
+            }
+        </div>
+    </footer>
+
+    <div class="footer-text print-only footer">
+        <h3 class="highlighted">Kouluruokalista.fi</h3>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

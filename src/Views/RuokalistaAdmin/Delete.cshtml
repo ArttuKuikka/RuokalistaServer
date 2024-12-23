@@ -1,0 +1,105 @@
+﻿@model RuokalistaServer.Models.Ruokalistat
+
+@{
+    ViewData["Title"] = "Poista ruokalista";
+}
+
+<h1>Poista ruokalista</h1>
+
+<h3>Oletko varma että haluat poistaa tämän ruokalistan</h3>
+<div>
+    <h4>Ruokalista</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Viikko
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.WeekId)
+        </dd>
+        <dt class = "col-sm-2">
+            Vuosi
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Year)
+        </dd>
+
+        <div style="padding: 1em 0em 0em 0em; font-weight: bold; color: orange;">Ruokalista</div>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ruokalista.Maanantai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Maanantai)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ruokalista.Tiistai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Tiistai)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ruokalista.Keskiviikko)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Keskiviikko)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ruokalista.Torstai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Torstai)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ruokalista.Perjantai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ruokalista.Perjantai)
+        </dd>
+
+
+        @if (GlobalConfig.KasvisruokalistaEnabled)
+        {
+            <div style="padding: 1em 0em 0em 0em; font-weight: bold; color: forestgreen;">Kasvisruokalista</div>
+
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KasvisRuokalista.Maanantai)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KasvisRuokalista.Maanantai)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KasvisRuokalista.Tiistai)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KasvisRuokalista.Tiistai)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KasvisRuokalista.Keskiviikko)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KasvisRuokalista.Keskiviikko)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KasvisRuokalista.Torstai)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KasvisRuokalista.Torstai)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.KasvisRuokalista.Perjantai)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.KasvisRuokalista.Perjantai)
+            </dd>
+        }
+    </dl>
+    
+    <br />
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Ruokalista.Id" />
+        <input type="submit" value="Poista" class="btn btn-danger" /> |
+        <a asp-action="Index">Takaisin</a>
+    </form>
+</div>

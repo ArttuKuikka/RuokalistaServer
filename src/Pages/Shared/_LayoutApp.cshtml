@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RuokalistaServer.styles.css" asp-append-version="true" />
+
+    <partial name="_RuntimeStyles" />
+
+</head>
+
+@{
+    var mode = Context.Request.Query["mode"].ToString();
+    var bodyClass = mode == "light" ? "light-mode" : "dark-mode";
+}
+
+<body class="@bodyClass">
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year.ToString() - Arttu Kuikka 
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,124 @@
+light-mode {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+    body.dark-mode nav {
+        background-color: #1e1e1e;
+        color: white;
+    }
+
+        body.dark-mode nav a {
+            color: white; /* Ensure nav links inherit the correct color */
+        }
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #cb8300;
+    border-color: #cb8300;
+    transition: filter 0.3s ease;
+}
+
+.btn-primary:hover {
+        background-color: #ffa500;
+        border-color: #ffa500;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFA500' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-toggler {
+    color: rgba(255, 120, 0, 0.55) !important;
+    border-color: rgba(255, 108, 0, 0.1) !important;
+}
+
+.border-top {
+    border-top: 1px solid #cb8300 !important
+}
+
+.footer-text {
+    color: #cb8300;
+}
+
+.siteTitle {
+    font-size: 3em
+}
+
+.dayTitle {
+    font-size: 2em
+}
+
+.ruokaText {
+    font-size: 1.9em
+}
+
+
+
+.rounded-container {
+    border-radius: 10px;
+    background-color: #2f2f2f;
+    padding: 10px;
+}
+
+body.light-mode .rounded-container {
+    background-color: #b3b3b3;
+}
+
+body.dark-mode .table {
+    color: white;
+}
+
+.print-only {
+    display: none;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    .print-ensure-display {
+        color: black !important;
+    }
+}
+
+.embed-disable {
+    display: none;
+}
+
+@font-face {
+    font-family: 'Ruokalistafont';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Ruokalistafont'), url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
+}
+

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RuokalistaServer.Models.Ruokalista>
+
+@{
+    ViewData["Title"] = "Hallitse ruokalistoja";
+    var currentWeek = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+}
+
+<h1>Hallitse ruokalistoja</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">➕ Luo uusi ruokalista</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @if(item.WeekId == currentWeek && item.Year == DateTime.Now.Year)
+                    {
+                        <h2 class="highlighted">Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                    }
+                    else
+                    {
+                        <h2>Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                    }
+                </td>
+            <td>
+                    <h4>@Html.DisplayFor(modelItem => item.Year)</h4>
+            </td>
+           
+            <td style="text-align:center">
+                    
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 Muokkaa</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Poista</a>
+                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">🏞️ Valitse taustakuva</a>
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

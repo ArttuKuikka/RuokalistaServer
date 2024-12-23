@@ -1,0 +1,70 @@
+﻿@model RuokalistaServer.Models.BackgroundForWeek
+
+@{
+    ViewData["Title"] = "Vaihda taustakuva";
+}
+<script src="/js/bg.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            bglisting('@GlobalConfig.StaticContentHost');
+    });
+</script>
+<link rel="stylesheet" href="/css/bg.css" />
+
+<h1>Vaihda taustakuva</h1>
+
+<h4>Viikko @Model.WeekId/@Model.Year</h4>
+
+<hr />
+<div class="row">
+    <div>
+        <p>Jos taustakuvaa ei ole valittu, valitaan se automaattisesti valitun viikon alkaessa</p>
+        <p>Voit lisätä kuvan linkin manuaalisesti, tai valita alla olevista vaihtoehdoista klikkaamalla</p>
+        <form asp-action="SetBG">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="WeekId" />
+            <input type="hidden" asp-for="Year" />
+            <br />
+            <div class="form-group">
+                <label  class="control-label">Linkki kuvaan</label>
+                <input asp-for="FileName" id="FileName" class="form-control" />
+                <span asp-validation-for="FileName" class="text-danger"></span>
+            </div>
+            <br />
+            
+
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
+            </div>
+        </form>
+        <br />
+        <div class="image-picker">
+            <div class="header">
+                <select id="month-selector">
+                    <option value="1">Tammikuu</option>
+                    <option value="2">Helmikuu</option>
+                    <option value="3">Maaliskuu</option>
+                    <option value="4">Huhtikuu</option>
+                    <option value="5">Toukokuu</option>
+                    <option value="6">Kesäkuu</option>
+                    <option value="7">Heinäkuu</option>
+                    <option value="8">Elokuu</option>
+                    <option value="9">Syyskuu</option>
+                    <option value="10">Lokakuu</option>
+                    <option value="11">Marraskuu</option>
+                    <option value="12">Joulukuu</option>
+                </select>
+            </div>
+            <div id="image-list" class="image-list"></div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Takaisin</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

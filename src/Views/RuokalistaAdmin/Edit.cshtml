@@ -1,0 +1,133 @@
+﻿@model RuokalistaServer.Models.Ruokalistat
+
+@{
+    ViewData["Title"] = "Muokkaa ruokalistaa";
+}
+
+<h1>Muokkaa ruokalistaa</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4" style="width:100%">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Ruokalista.Id" />
+
+            @{
+                var newId = Model.KasvisRuokalista?.Id ?? 0;
+            }
+
+            <input type="hidden" asp-for="KasvisRuokalista.Id" value="@newId" />
+
+            <div class="rounded-container" style="max-width: 15em;">
+                <div class="form-group">
+                    <label class="control-label">Vuosi</label>
+                    <input readonly asp-for="Ruokalista.Year" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Year" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Viikko</label>
+                    <input readonly asp-for="Ruokalista.WeekId" class="form-control" />
+                    <span asp-validation-for="Ruokalista.WeekId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="rounded-container" style="max-width: 50em;">
+                <h3>Ruokalista</h3>
+                <div class="form-group">
+                    <label asp-for="Ruokalista.Maanantai" class="control-label"></label>
+                    <input asp-for="Ruokalista.Maanantai" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Maanantai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ruokalista.Tiistai" class="control-label"></label>
+                    <input asp-for="Ruokalista.Tiistai" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Tiistai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ruokalista.Keskiviikko" class="control-label"></label>
+                    <input asp-for="Ruokalista.Keskiviikko" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Keskiviikko" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ruokalista.Torstai" class="control-label"></label>
+                    <input asp-for="Ruokalista.Torstai" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Torstai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ruokalista.Perjantai" class="control-label"></label>
+                    <input asp-for="Ruokalista.Perjantai" class="form-control" />
+                    <span asp-validation-for="Ruokalista.Perjantai" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+
+            @if (GlobalConfig.KasvisruokalistaEnabled)
+            {
+                <div class="rounded-container" style="max-width: 50em;">
+                    <h3>Kasvisruokalista</h3>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Maanantai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Maanantai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Maanantai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Tiistai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Tiistai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Tiistai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Keskiviikko" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Keskiviikko" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Keskiviikko" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Torstai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Torstai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Torstai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KasvisRuokalista.Perjantai" class="control-label"></label>
+                        <input asp-for="KasvisRuokalista.Perjantai" class="form-control" />
+                        <span asp-validation-for="KasvisRuokalista.Perjantai" class="text-danger"></span>
+                    </div>
+
+                </div>
+            }
+
+            <br />
+
+            <div class="rounded-container" style="max-width: 50em;">
+                <p>
+                    G = gluteeniton, M = maidoton, L = laktoositon <br />
+                    Esimerkki: Uunimakkara (G,M), Muusi (L,G), Kaalisalaatti.
+                    <br />
+                    <br />
+
+                    Ruoasta ei lähetetä ilmoitusta, jos lisäät siihen 'loma', 'vapaapäivä', 'vapaa' tai 'ei koulua'<br />
+                    Esim: Perjantai: Hyvää itsenäisyyspäivää! (vapaapäivä)<br />
+                    Tätä voidaan käyttää päivinä jolloin koulua ei ole koko viikon ajan<br />
+                    <br />
+                    voit jättää Kasvisruokalistan tyhjäksi, jos viikolle ei ole kasvisruokalistaa.
+                </p>
+            </div>
+
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Tallenna ruokalista" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Takaisin</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
