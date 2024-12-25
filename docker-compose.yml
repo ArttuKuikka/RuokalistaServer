@@ -1,12 +1,11 @@
 services:
   ruokalistaserver:
-    image: ${DOCKER_REGISTRY-}ruokalistaserver
+    image: ghcr.io/arttukuikka/ruokalistaserver
     build:
       context: src
       dockerfile: Dockerfile
     ports:
         - "8080"
-        - "8081"
     environment:
         - BackgroundsPath=
         - IG_ENABLED=true
@@ -26,5 +25,5 @@ services:
         - JWT_Audience=https://dev.kouluruokalista.fi
         - JWT_Secret=ChangeTheSecret
         - StaticContentHost=https://kouluruokalista.fi      
-        - InfoTV_Mainos_URL="https://kouluruokalista.fi/static/"
+        - InfoTV_Mainos_URL=https://kouluruokalista.fi/static/app_mainos.png
 
