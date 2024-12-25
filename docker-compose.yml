@@ -1,9 +1,6 @@
 services:
   ruokalistaserver:
     image: ghcr.io/arttukuikka/ruokalistaserver
-    build:
-      context: src
-      dockerfile: Dockerfile
     ports:
         - "8080"
     environment:
