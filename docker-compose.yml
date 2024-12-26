@@ -23,9 +23,3 @@ services:
         - JWT_Secret=ChangeTheSecret
         - StaticContentHost=https://kouluruokalista.fi      
         - InfoTV_Mainos_URL=https://kouluruokalista.fi/static/app_mainos.png
-    networks:
-      - bridge
-networks:
-  bridge:
-    external: true
-
