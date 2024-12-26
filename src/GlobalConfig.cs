@@ -15,5 +15,7 @@
         public static string BrandingName = Environment.GetEnvironmentVariable("Branding") ?? "Kouluruokalista.fi";
 
         public static string? StaticContentHost = Environment.GetEnvironmentVariable("StaticContentHost");
+
+        public static string DefaultLanguage = Environment.GetEnvironmentVariable("DefaultLanguage") ?? "fin";
 	}
 }
