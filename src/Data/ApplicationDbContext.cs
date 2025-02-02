@@ -15,5 +15,7 @@ namespace RuokalistaServer.Data
         public DbSet<RuokalistaServer.Models.VoteModel> Votes { get; set; }
 
         public DbSet<RuokalistaServer.Models.KasvisRuokalista> Kasvisruokalista { get; set; }
-    }
+
+        public DbSet<RuokalistaServer.Models.NewUserToken> NewUserTokens { get; set; }
+	}
 }
