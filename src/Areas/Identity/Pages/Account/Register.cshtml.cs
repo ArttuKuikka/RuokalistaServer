@@ -116,7 +116,7 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
 
 			if (string.IsNullOrEmpty(token) || !_context.NewUserTokens.Any(t => t.Token == token && t.isUsed == false))
 			{
-                return BadRequest("Virheellinen token. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+                return BadRequest("Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
 			}
 
             Input.Token = token;
@@ -138,13 +138,13 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
                 var token = _context.NewUserTokens.FirstOrDefault(t => t.Token == Input.Token && t.isUsed == false);
                 if (token == null)
                 {
-					ModelState.AddModelError(string.Empty, "Virheellinen token. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					ModelState.AddModelError(string.Empty, "Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
 					return Page();
 				}
 				//check if token expired
 				if (token.Expiration < DateTime.Now)
 				{
-					ModelState.AddModelError(string.Empty, "Token on vanhentunut. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					ModelState.AddModelError(string.Empty, "Linkki on vanhentunut. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
 					return Page();
 				}
 
