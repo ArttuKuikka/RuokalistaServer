@@ -114,14 +114,14 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
         {
 			ReturnUrl = returnUrl;
 
-			if (string.IsNullOrEmpty(token) || !_context.NewUserTokens.Any(t => t.Token == token && t.isUsed == false))
+			if (string.IsNullOrEmpty(token) || !_context.UserTokens.Any(t => t.Token == token && t.isUsed == false && t.isPasswordResetToken == false))
 			{
                 return BadRequest("Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
 			}
 
             Input.Token = token;
 
-			var newuser = _context.NewUserTokens.First(x => x.Token == token);
+			var newuser = _context.UserTokens.First(x => x.Token == token);
             Input.Email = newuser.UserHint ?? "";
 
 			// ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -135,7 +135,7 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var token = _context.NewUserTokens.FirstOrDefault(t => t.Token == Input.Token && t.isUsed == false);
+                var token = _context.UserTokens.FirstOrDefault(t => t.Token == Input.Token && t.isUsed == false && t.isPasswordResetToken == false);
                 if (token == null)
                 {
 					ModelState.AddModelError(string.Empty, "Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");

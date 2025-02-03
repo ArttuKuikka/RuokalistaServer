@@ -8,33 +8,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
+using RuokalistaServer.Data;
 
 namespace RuokalistaServer.Areas.Identity.Pages.Account
 {
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+		private readonly ApplicationDbContext _context;
 
-        public ResetPasswordModel(UserManager<IdentityUser> userManager)
+		public ResetPasswordModel(UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
-        }
+            _context = context;
+		}
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = new InputModel();
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
+		/// <summary>
+		///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+		///     directly from your code. This API may change or be removed in future releases.
+		/// </summary>
+		public class InputModel
         {
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -49,7 +54,7 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Salasanan pitää olla ainakin {2} merkkiä pitkä ja saa olla enintään {1} merkkiä pitkä", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -58,8 +63,8 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Vahvista salasana")]
+            [Compare("Password", ErrorMessage = "Salasanat eivät täsmää")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
@@ -67,51 +72,76 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            public string Code { get; set; }
+            public string Token { get; set; }
 
         }
 
-        public IActionResult OnGet(string code = null)
-        {
-            if (code == null)
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
-            else
-            {
-                Input = new InputModel
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
-                };
-                return Page();
-            }
-        }
+        public IActionResult OnGet(string token = null)
+		{
+
+			if (string.IsNullOrEmpty(token) || !_context.UserTokens.Any(t => t.Token == token && t.isUsed == false && t.isPasswordResetToken == true))
+			{
+				return BadRequest("Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+			}
+			Input.Token = token;
+
+			var newuser = _context.UserTokens.First(x => x.Token == token);
+			Input.Email = newuser.UserHint ?? "";
+
+			// ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+			return Page();
+		}
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+			if (ModelState.IsValid)
+			{
+				var token = _context.UserTokens.FirstOrDefault(t => t.Token == Input.Token && t.isUsed == false && t.isPasswordResetToken == true);
+				if (token == null)
+				{
+					ModelState.AddModelError(string.Empty, "Virheellinen linkki. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					return Page();
+				}
+				if(token.UserHint != Input.Email)
+				{
+					ModelState.AddModelError(string.Empty, "Virheellinen sähköposti. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					return Page();
+				}
 
-            var user = await _userManager.FindByEmailAsync(Input.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
-            }
+				//check if token expired
+				if (token.Expiration < DateTime.Now)
+				{
+					ModelState.AddModelError(string.Empty, "Linkki on vanhentunut. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					return Page();
+				}
+				var user = _userManager.FindByEmailAsync(Input.Email).Result;
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToPage("./ResetPasswordConfirmation");
-            }
+				if (user == null)
+				{
+					ModelState.AddModelError(string.Empty, "Virheellinen sähköposti. Ota yhteys tukeen saamasi sähköpostin ohjeiden mukaan");
+					return Page();
+				}
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            return Page();
-        }
+				await _userManager.RemovePasswordAsync(user);
+				var result = await _userManager.AddPasswordAsync(user, Input.Password);
+
+				if (result.Succeeded)
+				{
+					token.isUsed = true;
+					await _context.SaveChangesAsync();
+
+					return Redirect("./ResetPasswordConfirmation");
+				}
+			
+				foreach (var error in result.Errors)
+				{
+					ModelState.AddModelError(string.Empty, error.Description);
+				}
+			}
+
+			// If we got this far, something failed, redisplay form
+			return Page();
+		}
     }
 }
