@@ -14,12 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 string connectionString =
-	$"Server={Environment.GetEnvironmentVariable("DB_Server") ?? throw new Exception("No DB_Server environment variable provided")},{Environment.GetEnvironmentVariable("DB_Port") ?? "1433"};" +
+	$"Server={Environment.GetEnvironmentVariable("DB_Server")},{Environment.GetEnvironmentVariable("DB_Port") ?? "1433"};" +
 	$"Database={Environment.GetEnvironmentVariable("DB_Database")};" +
 	$"User={Environment.GetEnvironmentVariable("DB_User")};" +
 	$"Password={Environment.GetEnvironmentVariable("DB_Password")};" +
 	"MultipleActiveResultSets=true;" +
-	"TrustServerCertificate=True;" +
+	"TrustServerCertificate=true;" +
 	"Encrypt=true;";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -91,9 +91,9 @@ using (var scope = app.Services.CreateScope())
 {
 	var services = scope.ServiceProvider;
 	var context = services.GetRequiredService<ApplicationDbContext>();
-	bool databaseJustCreated = context.Database.EnsureCreated();
+	context.Database.Migrate();
 
-	if (databaseJustCreated)
+	if (!context.Users.Any())
 	{
 		var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 		var userName = Environment.GetEnvironmentVariable("RootUser") ?? throw new Exception("No RootUser environment variable provided");

@@ -12,7 +12,12 @@
         "PrimaryColor": "#f542cb",
         "RootUser": "root@kouluruokalista.fi",
         "Branding": "Testi ruokalista",
-        "Kasvisruokalista_ENABLED": "true"
+        "Kasvisruokalista_ENABLED": "true",
+        "DB_Server": "127.0.0.1",
+        "DB_Database": "Ruokalista-docker-new2",
+        "DB_User": "sa",
+        "DB_Password": "TestiSalasana123!",
+        "DefaultRootPassword": "TestiSalasana123!"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://0.0.0.0:7254;http://0.0.0.0:5254"
@@ -41,7 +46,7 @@
         "Branding": "Testi ruokalista",
         "Kasvisruokalista_ENABLED": "true",
         "DB_Server": "10.10.0.203",
-        "DB_Database": "Ruokalista-docker",
+        "DB_Database": "Ruokalista-docker-new-2",
         "DB_User": "sa",
         "DB_Password": "TestiSalasana123!",
         "DefaultRootPassword": "TestiSalasana123!",

@@ -1,5 +1,4 @@
-﻿using RuokalistaServer.Data.Migrations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace RuokalistaServer.Models
