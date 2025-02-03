@@ -9,18 +9,18 @@ using RuokalistaServer.Data;
 
 #nullable disable
 
-namespace RuokalistaServer.Data.Migrations
+namespace RuokalistaServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230725112326_RuokaBG")]
-    partial class RuokaBG
+    [Migration("20250203184827_new-init")]
+    partial class newinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -229,11 +229,11 @@ namespace RuokalistaServer.Data.Migrations
 
             modelBuilder.Entity("RuokalistaServer.Models.BackgroundForWeek", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FileName")
                         .IsRequired()
@@ -242,9 +242,51 @@ namespace RuokalistaServer.Data.Migrations
                     b.Property<int>("WeekId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("BackgroundForWeek");
+                });
+
+            modelBuilder.Entity("RuokalistaServer.Models.KasvisRuokalista", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Keskiviikko")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Maanantai")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Perjantai")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Tiistai")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Torstai")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("WeekId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kasvisruokalista");
                 });
 
             modelBuilder.Entity("RuokalistaServer.Models.Ruokalista", b =>
@@ -257,23 +299,28 @@ namespace RuokalistaServer.Data.Migrations
 
                     b.Property<string>("Keskiviikko")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Maanantai")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Perjantai")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Tiistai")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Torstai")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("WeekId")
                         .HasColumnType("int");
@@ -284,6 +331,111 @@ namespace RuokalistaServer.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ruokalista");
+                });
+
+            modelBuilder.Entity("RuokalistaServer.Models.UserToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserHint")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isPasswordResetToken")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isUsed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("RuokalistaServer.Models.VoteModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("level1_votes_keskiviikko")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level1_votes_maanantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level1_votes_perjantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level1_votes_tiistai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level1_votes_torstai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level2_votes_keskiviikko")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level2_votes_maanantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level2_votes_perjantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level2_votes_tiistai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level2_votes_torstai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level3_votes_keskiviikko")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level3_votes_maanantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level3_votes_perjantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level3_votes_tiistai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level3_votes_torstai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level4_votes_keskiviikko")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level4_votes_maanantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level4_votes_perjantai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level4_votes_tiistai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("level4_votes_torstai")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ruokalistaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

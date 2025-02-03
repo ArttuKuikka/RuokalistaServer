@@ -19,7 +19,7 @@ string connectionString =
 	$"User={Environment.GetEnvironmentVariable("DB_User")};" +
 	$"Password={Environment.GetEnvironmentVariable("DB_Password")};" +
 	"MultipleActiveResultSets=true;" +
-	"TrustServerCertificate=True;" +
+	"TrustServerCertificate=true;" +
 	"Encrypt=true;";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

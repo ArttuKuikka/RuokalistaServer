@@ -48,6 +48,10 @@ namespace RuokalistaServer.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
+        public ActionResult OnGet()
+        {
+			return Unauthorized();
+		}
 
         public async Task<IActionResult> OnPostAsync()
         {
