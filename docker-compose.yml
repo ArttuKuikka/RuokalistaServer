@@ -4,6 +4,7 @@ services:
     ports:
         - 8080:8080
     environment:
+        - TZ=Europe/Helsinki
         - BackgroundsPath=
         - IG_ENABLED=true
         - Infotv_ENABLED=true
