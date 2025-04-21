@@ -13,7 +13,11 @@
 
     if(Model.Ruokalista != null)
     {
-        if (Model.ShowingCurrentWeeksMenu)
+        if (Model.Printing)
+        {
+            ViewData["Title"] = $"Viikko {Model.Ruokalista.WeekId}";
+        }
+        else if (Model.ShowingCurrentWeeksMenu)
         {
             ViewData["Title"] = "Tämän viikon ruokalista";
         }
@@ -72,7 +76,7 @@
 
 
 
-            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
+            <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
                 <h3 class="dayTitle">Maanantai</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Maanantai</h4>
             
@@ -80,21 +84,21 @@
             <br />
 
 
-            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
+            <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
                 <h3 class="dayTitle">Tiistai</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Tiistai</h4>
 
             </div>
             <br />
 
-            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
+            <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
                 <h3 class="dayTitle">Keskiviikko</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Keskiviikko</h4>
 
             </div>
             <br />
 
-            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
+            <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
                 <h3 class="dayTitle">Torstai</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Torstai</h4>
 

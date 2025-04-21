@@ -52,18 +52,30 @@
             </td>
            
             <td style="text-align:center">
-                <!--- Add option to directly print if kasvisruokalista is not enabled and also fix hovering   --->
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="printDropdown" data-bs-toggle="dropdown" aria-expanded="false">🖨️</button>
-                    <ul class="dropdown-menu" aria-labelledby="printDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, false)">🖨️ Tulosta ruokalista</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, true)">🖨️ Tulosta kasvisruokalista</a>
-                        </li>
-                    </ul>
-                </div>
+                
+                @if (GlobalConfig.KasvisruokalistaEnabled)
+                {
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="printDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            🖨️
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="printDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, false)">🖨️ Tulosta ruokalista</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, true)">🖨️ Tulosta kasvisruokalista</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <button class="btn btn-primary" type="button" onclick="printRL(@item.Year, @item.WeekId, false)">
+                        🖨️
+                        </button>
+                }
+
 
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 Muokkaa</a> 
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Poista</a>
