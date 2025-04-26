@@ -20,7 +20,12 @@
 		.template {
 			height: 100%;
 			width: 100%;
-			object-fit: fill;
+			margin: auto;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 			z-index: 2;
 			position: absolute;
 			top: 0;
@@ -36,15 +41,20 @@
 			left: 10px;
 			bottom: 10px;
 			width: 73.5%;
+			height: 99%;
 		}
 		.daytitle{
 			font-weight: bold;
 			font-size: 2.5vw;
 		}
 
+		.autosize {
+			text-align: center;
+			margin: 10px 0;
+		}
+
 		.ruokateksti{
-			font-size: 2.3vw;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 		}
 
 
@@ -82,43 +92,52 @@
 			};
 			reader.readAsDataURL(input.files[0]);
 		}
+		function scaleTextToFit(container) {
+				const autosizeElements = Array.from(container.querySelectorAll('.autosize'));
+				if (autosizeElements.length === 0) return;
 
-		const isOverflown = ({ clientHeight, scrollHeight }) => scrollHeight > clientHeight
-		const resizeText = ({ element, elements, minSize = 1.2, maxSize = 3.3, step = 1, unit = 'vw' }) => {
-			(elements || [element]).forEach(el => {
-				let i = minSize
-				let overflow = false
+				let fontSize = 20; // start small
+				const parentWidth = container.clientWidth;
+				const parentHeight = container.clientHeight;
 
-				const parent = el.parentNode
+				// Reset font-size first
+				autosizeElements.forEach(el => el.style.fontSize = fontSize + 'px');
 
-				while (!overflow && i < maxSize) {
-					el.style.fontSize = `${i}${unit}`
-					overflow = isOverflown(parent)
+				// Grow until overflow
+				while (true) {
+					fontSize++;
+					autosizeElements.forEach(el => el.style.fontSize = fontSize + 'px');
 
-					if (!overflow) i += step
+					// Calculate total height including margins
+					let totalHeight = 0;
+					autosizeElements.forEach(el => {
+						const style = window.getComputedStyle(el);
+						const marginTop = parseFloat(style.marginTop);
+						const marginBottom = parseFloat(style.marginBottom);
+						totalHeight += el.offsetHeight + marginTop + marginBottom;
+					});
+
+					// Check width overflow
+					let widthOverflow = autosizeElements.some(el => el.scrollWidth > parentWidth);
+
+					// If total height or width is too much, stop
+					if (totalHeight > parentHeight || widthOverflow) {
+						fontSize--;
+						autosizeElements.forEach(el => el.style.fontSize = fontSize + 'px');
+						break;
+					}
 				}
+			}
 
-				// revert to last state where no overflow happened
-				el.style.fontSize = `${i - step}${unit}`
-			})
-		}
-
-		window.addEventListener("resize", function () {
-			console.log("resizing");
-			resizeText({
-				elements: document.querySelectorAll('.autosize'),
-				step: 0.1
-			});
-			
-		});
-
-		document.addEventListener("DOMContentLoaded", function () {
-			resizeText({
-				elements: document.querySelectorAll('.autosize'),
-				step: 0.1
+			window.addEventListener('load', () => {
+				const container = document.querySelector('.ruokacontainer');
+				scaleTextToFit(container);
 			});
 
-		});
+			window.addEventListener('resize', () => {
+				const container = document.querySelector('.ruokacontainer');
+				scaleTextToFit(container);
+			});
 
 		//luo votebar
 		document.addEventListener("DOMContentLoaded", function () {
@@ -232,9 +251,9 @@
 		}
 	</div>
 	<img src="@Environment.GetEnvironmentVariable("InfoTV_Mainos_URL")" style="width:19vw; height:28vw; position:absolute; bottom:0px; right:10px; z-index:4" />
-	
 
-	<div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
+
+    <div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
 		<h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
 		<h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
 	</div>
