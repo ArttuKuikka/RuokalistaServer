@@ -5,6 +5,29 @@
     var currentWeek = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 }
 
+<style>
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* optional: prevent flicker */
+    }
+
+</style>
+
+<script>
+    function printRL(year, week, isKasvis){
+        var url = '/' + year + "/" + week + "?printing=true";
+        
+        if (isKasvis){
+            url = '/kasvisruokalista/' + year + "/" + week + "?printing=true";
+        }
+        
+        const printWindow = window.open(url, '_blank');
+        printWindow.onload = function () {
+            printWindow.print();
+        };
+    }
+</script>
+
 <h1>Hallitse ruokalistoja</h1>
 
 <p>
@@ -29,7 +52,31 @@
             </td>
            
             <td style="text-align:center">
-                    
+                
+                @if (GlobalConfig.KasvisruokalistaEnabled)
+                {
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="printDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            🖨️
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="printDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, false)">🖨️ Tulosta ruokalista</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, true)">🖨️ Tulosta kasvisruokalista</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <button class="btn btn-primary" type="button" onclick="printRL(@item.Year, @item.WeekId, false)">
+                        🖨️
+                        </button>
+                }
+
+
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 Muokkaa</a> 
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Poista</a>
                     <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">🏞️ Valitse taustakuva</a>

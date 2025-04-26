@@ -18,7 +18,7 @@ namespace RuokalistaServer.Controllers
         }
 
         [HttpGet("/")]
-        public async Task <IActionResult> Index(int? Year, int? Week, bool kasvisruokalista = false)
+        public async Task <IActionResult> Index(int? Year, int? Week, bool kasvisruokalista = false, bool printing = false)
         {
             var nykyinenViikko = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
             var viikko = Week ?? nykyinenViikko;
@@ -27,6 +27,7 @@ namespace RuokalistaServer.Controllers
             var model = new IndexViewModel();
 
             model.ShowingKasvisruokalista = kasvisruokalista;
+            model.Printing = printing;
 
             //load temporarily the next weeks menu to do checks
             if (!kasvisruokalista)
@@ -101,9 +102,9 @@ namespace RuokalistaServer.Controllers
         }
 
         [HttpGet("/{Year:int}/{Week:int}")]
-        public async Task<IActionResult> SpesificIndex(int? Year, int? Week)
+        public async Task<IActionResult> SpesificIndex(int? Year, int? Week, bool printing = false)
         {
-            return await Index(Year, Week);
+            return await Index(Year, Week, printing: printing);
         }
 
         [HttpGet("/Kasvisruokalista")]
@@ -113,9 +114,9 @@ namespace RuokalistaServer.Controllers
         }
 
         [HttpGet("Kasvisruokalista/{Year:int}/{Week:int}")]
-        public async Task<IActionResult> SpesificKasvisruokalista(int? Year, int? Week)
+        public async Task<IActionResult> SpesificKasvisruokalista(int? Year, int? Week, bool printing = false)
         {
-            return await Index(Year, Week, true);
+            return await Index(Year, Week, true, printing);
         }
 
 
