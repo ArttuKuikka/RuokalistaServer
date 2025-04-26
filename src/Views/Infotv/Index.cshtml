@@ -1,9 +1,15 @@
 ﻿@using RuokalistaServer
 @model RuokalistaServer.ViewModels.InfoTVViewModel;
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<style>
+    
+    <meta charset="utf-8" />
+    <title>InfoTV - @GlobalConfig.BrandingName</title>
+    <style>
 
 		.highlighted {
+            font-weight: bold;
 			color: @GlobalConfig.PrimaryColor !important;
 		}
 
@@ -59,12 +65,12 @@
 
 
 	</style>
-	<script src="/js/aanestys.js"></script>
-	<script src="/js/infotv.js"></script>
-	<link rel="stylesheet" href="/css/aanestys.css">
-	<link rel="stylesheet" href="/css/site.css">
+    <script src="/js/aanestys.js"></script>
+    <script src="/js/infotv.js"></script>
+    <link rel="stylesheet" href="/css/aanestys.css">
+    <link rel="stylesheet" href="/css/site.css">
 
-	<script>
+    <script>
 		fetch('/infotv/GetBgForWeek?week=@Model.Week')
 			.then(response => {
 				if (!response.ok) {
@@ -182,81 +188,82 @@
 
 </head>
 <body style="background-color: #2c2f33">
-	<img id="Background-image" class="infotv_bg" src="~/samplebg_infotv.jpg" />
-	<img class="template" src="~/infotv_template_bk.png" />
-	<div class="ruokacontainer" style=" text-align:center; color:white; font-family:'Ruokalistafont'">
+<img id="Background-image" class="infotv_bg" src="~/samplebg_infotv.jpg" />
+<img class="template" src="~/infotv_template_bk.png" />
+<div class="ruokacontainer" style=" text-align:center; color:white; font-family:'Ruokalistafont'">
 
-		@{
-			if (Model.Ruokalista != null)
-			{
-				@if(Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
-				{
-					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Tämän viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
-				}
-				else if(Model.ShowingNextWeeksMenu && Model.ShowingKasvisruokalista)
-				{
-					<div style="font-size:3.8vw; font-weight:bold">Seuraavan viikon(@Model.Ruokalista.WeekId) kasvisruokalistaruokalista</div>
-				}
-				else if (Model.ShowingKasvisruokalista)
-				{
-					<div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
-				}
-				else if (Model.ShowingNextWeeksMenu)
-				{
-					<div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
-				}
-				else if(Model.ShowingCurrentWeeksMenu)
-						{
-					<div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
-				}
-				else
-				{
-					<div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) ruokalista</div>
-				}
-
-
+    @{
+        if (Model.Ruokalista != null)
+        {
+            @if(Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
+            {
+                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Tämän viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+            }
+            else if(Model.ShowingNextWeeksMenu && Model.ShowingKasvisruokalista)
+            {
+                <div style="font-size:3.8vw; font-weight:bold">Seuraavan viikon(@Model.Ruokalista.WeekId) kasvisruokalistaruokalista</div>
+            }
+            else if (Model.ShowingKasvisruokalista)
+            {
+                <div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+            }
+            else if (Model.ShowingNextWeeksMenu)
+            {
+                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+            }
+            else if(Model.ShowingCurrentWeeksMenu)
+            {
+                <div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+            }
+            else
+            {
+                <div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+            }
 
 
-				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
-					<div class="autosize">Maanantai</div>
-					<div class="autosize ruokateksti">@Model.Ruokalista.Maanantai</div>
-				</div>
 
-				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
-					<div class="autosize">Tiistai</div>
-					<div class="autosize ruokateksti">@Model.Ruokalista.Tiistai</div>
-				</div>
 
-				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
-					<div class="autosize">Keskiviikko</div>
-					<div class="autosize ruokateksti">@Model.Ruokalista.Keskiviikko</div>
-				</div>
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
+                <div class="autosize">Maanantai</div>
+                <div class="autosize ruokateksti">@Model.Ruokalista.Maanantai</div>
+            </div>
 
-				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
-					<div class="autosize">Torstai</div>
-					<div class="autosize ruokateksti">@Model.Ruokalista.Torstai</div>
-				</div>
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
+                <div class="autosize">Tiistai</div>
+                <div class="autosize ruokateksti">@Model.Ruokalista.Tiistai</div>
+            </div>
 
-				<div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
-					<div class="autosize">Perjantai</div>
-					<div class="autosize ruokateksti">@Model.Ruokalista.Perjantai</div>
-				</div>
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
+                <div class="autosize">Keskiviikko</div>
+                <div class="autosize ruokateksti">@Model.Ruokalista.Keskiviikko</div>
+            </div>
+
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
+                <div class="autosize">Torstai</div>
+                <div class="autosize ruokateksti">@Model.Ruokalista.Torstai</div>
+            </div>
+
+            <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
+                <div class="autosize">Perjantai</div>
+                <div class="autosize ruokateksti">@Model.Ruokalista.Perjantai</div>
+            </div>
 				
-			}
-			else
-					{
-								<h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
-			}
+        }
+        else
+        {
+            <h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
+        }
 
-		}
-	</div>
-	<img src="@Environment.GetEnvironmentVariable("InfoTV_Mainos_URL")" style="width:19vw; height:28vw; position:absolute; bottom:0px; right:10px; z-index:4" />
+    }
+</div>
+<img src="@Environment.GetEnvironmentVariable("InfoTV_Mainos_URL")" style="width:19vw; height:28vw; position:absolute; bottom:0px; right:10px; z-index:4" />
 
 
-    <div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
-		<h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
-		<h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
-	</div>
+<div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
+    <h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
+    <h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
+</div>
 	
 </body>
+</html>
 
