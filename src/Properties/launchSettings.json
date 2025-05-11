@@ -14,8 +14,8 @@
         "Branding": "Testi ruokalista",
         "Kasvisruokalista_ENABLED": "true",
         "DB_Server": "127.0.0.1",
-        "DB_Database": "Ruokalista-docker-new2",
-        "DB_User": "sa",
+        "DB_Database": "Ruokalista",
+        "DB_User": "postgres",
         "DB_Password": "TestiSalasana123!",
         "DefaultRootPassword": "TestiSalasana123!"
       },

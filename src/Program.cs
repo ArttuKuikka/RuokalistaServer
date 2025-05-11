@@ -14,17 +14,20 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 string connectionString =
-	$"Server={Environment.GetEnvironmentVariable("DB_Server")},{Environment.GetEnvironmentVariable("DB_Port") ?? "1433"};" +
+	$"Host={Environment.GetEnvironmentVariable("DB_Server")};" +
+	$"Port={Environment.GetEnvironmentVariable("DB_Port") ?? "5432"};" +
 	$"Database={Environment.GetEnvironmentVariable("DB_Database")};" +
-	$"User={Environment.GetEnvironmentVariable("DB_User")};" +
+	$"Username={Environment.GetEnvironmentVariable("DB_User")};" +
 	$"Password={Environment.GetEnvironmentVariable("DB_Password")};" +
-	"MultipleActiveResultSets=true;" +
-	"TrustServerCertificate=true;" +
-	"Encrypt=true;";
+	"SSL Mode=Disable;" +
+	"Trust Server Certificate=true;";
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+	options.UseNpgsql(connectionString));
+#if DEBUG
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+#endif
 
 builder.Services.AddControllers();
 
