@@ -1,4 +1,4 @@
-# Isokyrö Ruokalista
+# RuokalistaServer
 
 Kouluruokalista.fi:n koulukohtainen palvelin. Palvelin tarjoaa ruokalistajen ja äänestystulokiesin katselemisen, ruokalistojen hallinnan, info-tv integraation ja API:n
 - [Ruokalista Sovellus](https://github.com/KouluRuokalista-fi/RuokalistaApp)
