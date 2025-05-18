@@ -1,20 +1,16 @@
-# Isokyrö Ruokalista
+# RuokalistaServer
 
-Isonkyrön koulujen, Kyrönmaan Lukion ja Isonkyrön päiväkotien virallinen ruokalista palvelu. tämä repo sisältää palvelinosuuden ruokalistasta, tämän lisäksi on myös muita repoja kuten:
-- [Ruokalista Sovellus](https://github.com/ArttuKuikka/RuokalistaApp)
-- [Ruokalista Äänestyspääte](https://github.com/ArttuKuikka/RuokalistaAanestyspaate)
-
-Tämä repo sisältää myös mm.
-- Instagram kuva generaattorin
-- Info-tv integraation
+Kouluruokalista.fi:n koulukohtainen palvelin. Palvelin tarjoaa ruokalistajen ja äänestystulokiesin katselemisen, ruokalistojen hallinnan, info-tv integraation ja API:n
+- [Ruokalista Sovellus](https://github.com/KouluRuokalista-fi/RuokalistaApp)
+- [Ruokalista Äänestyspääte](https://github.com/KouluRuokalista-fi/RuokalistaAanestyspaate)
 
 
 # Kuvia
 - Etusivu
-![Etusivu](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/Dev/demo1.png)
+![Etusivu](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/master/demo1.png)
 - Admin sivu
-![Admin sivu](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/Dev/Demo2.png)
+![Admin sivu](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/master/Demo2.png)
 - infotv näkymä
-![Infotv](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/Dev/Demo3.png)
-- Instagram sivu
-![Instagram](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/Dev/Demo4.png)
+![Infotv](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/master/Demo3.png)
+- Äänestysnäkymä
+![Instagram](https://raw.githubusercontent.com/ArttuKuikka/RuokalistaServer/master/Demo4.png)
