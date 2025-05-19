@@ -112,12 +112,15 @@ namespace RuokalistaServer.Controllers
         // GET: RuokalistaAdmin/Create
         public IActionResult Create()
         {
-            var model = new Ruokalistat()
+            var latestRuokalista = _context.Ruokalista.OrderByDescending(x => x.Year).ThenByDescending(y => y.WeekId).FirstOrDefault();
+            var week = latestRuokalista != null ? latestRuokalista.WeekId + 1 : System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
+
+			var model = new Ruokalistat()
             {
                Ruokalista = new Ruokalista()
                {
                    Year = DateTime.Now.Year,
-                   WeekId = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now)
+                   WeekId = week
                },
             };
 
