@@ -86,7 +86,7 @@ body {
 }
 
 body.light-mode .rounded-container {
-    background-color: #b3b3b3;
+    background-color: #ececec;
 }
 
 body.dark-mode .table {
