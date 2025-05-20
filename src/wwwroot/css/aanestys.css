@@ -16,7 +16,7 @@
 }
 
 body.light-mode #content {
-    background-color: #b3b3b3; /* Light grey background */
+    background-color: #ececec; /* Light grey background */
 }
 
 /* For screens smaller than 575px */
