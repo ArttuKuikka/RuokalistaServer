@@ -1,4 +1,6 @@
 ﻿@model RuokalistaServer.ViewModels.IndexViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     var IsEmbedded = false;
@@ -19,17 +21,17 @@
         }
         else if (Model.ShowingCurrentWeeksMenu)
         {
-            ViewData["Title"] = "Tämän viikon ruokalista";
+            ViewData["Title"] = Localizer["ThisWeeksMenu"];
         }
         else
         {
-            ViewData["Title"] = $"Viikon {Model.Ruokalista.WeekId} ruokalista";
+            ViewData["Title"] = string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId);
         }
         
     }
     else
     {
-        ViewData["Title"] = "Tätä ruokalistaa ei ole olemassa";
+        ViewData["Title"] = Localizer["NoMenuAvailable"];
     }
 }
 
@@ -41,43 +43,43 @@
         {
             if (Model.Printing && Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">Viikon @Model.Ruokalista.WeekId kasvisruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"], Model.Ruokalista.WeekId)</div>
             }
             else if (Model.Printing)
             {
-                <div class="siteTitle">Viikon @Model.Ruokalista.WeekId ruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">Tämän viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["ThisWeeksVegetarianMenu"] + "({0})", Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingNextWeeksMenu && Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">Seuraavan viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["NextWeeksVegetarianMenu"] + "({0})", Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingNextWeeksMenu)
             {
-                <div class="siteTitle">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["NextWeeksMenu"] + "({0})", Model.Ruokalista.WeekId)</div>
             }
             
             else if(Model.ShowingCurrentWeeksMenu)
             {
-                <div class="siteTitle">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["ThisWeeksMenu"] + "({0})", Model.Ruokalista.WeekId)</div>
             }
             
             else if (Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">Viikon @Model.Ruokalista.WeekId/@Model.Ruokalista.Year kasvisruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"], Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
             }
             else
             {
-                <div class="siteTitle">Viikon @Model.Ruokalista.WeekId/@Model.Ruokalista.Year ruokalista</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
             }
 
 
 
             <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
-                <h3 class="dayTitle">Maanantai</h3>
+                <h3 class="dayTitle">@Localizer["Monday"]</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Maanantai</h4>
             
             </div>
@@ -85,28 +87,28 @@
 
 
             <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
-                <h3 class="dayTitle">Tiistai</h3>
+                <h3 class="dayTitle">@Localizer["Tuesday"]</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Tiistai</h4>
 
             </div>
             <br />
 
             <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
-                <h3 class="dayTitle">Keskiviikko</h3>
+                <h3 class="dayTitle">@Localizer["Wednesday"]</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Keskiviikko</h4>
 
             </div>
             <br />
 
             <div class="@(!Model.Printing && Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
-                <h3 class="dayTitle">Torstai</h3>
+                <h3 class="dayTitle">@Localizer["Thursday"]</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Torstai</h4>
 
             </div>
             <br />
 
             <div class="@(!Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
-                <h3 class="dayTitle">Perjantai</h3>
+                <h3 class="dayTitle">@Localizer["Friday"]</h3>
                 <h4 class="ruokaText">@Model.Ruokalista.Perjantai</h4>
 
             </div>
@@ -116,12 +118,12 @@
 
             <br />
 
-            <p>G = gluteeniton, M = maidoton, L = laktoositon</p>
+            <p>@Localizer["DietaryInfo"]</p>
             
       }
       else
       {
-            <div class="siteTitle">Tämän viikon ruokalistaa ei vielä ole</div>
+            <div class="siteTitle">@Localizer["NoMenuForThisWeek"]</div>
       }
 
 }
@@ -131,22 +133,22 @@
         <div class="no-print">
             @if (Model.KasviruokalistaExists && !Model.ShowingKasvisruokalista && Model.Ruokalista != null)
             {
-                <a class="btn" style="background-color: forestgreen; color:white; font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/Kasvisruokalista/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Kasvisruokalista</a>
+                <a class="btn" style="background-color: forestgreen; color:white; font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/Kasvisruokalista/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">@Localizer["VegetarianMenu"]</a>
             }
             else if (Model.Ruokalista != null && Model.KasviruokalistaExists)
             {
-                <a class="btn btn-primary" style="font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">Ruokalista</a>
+                <a class="btn btn-primary" style="font-size: 1.3em;  margin: 0.5em 0em 0.5em 0em" href="/@Model.Ruokalista.Year/@Model.Ruokalista.WeekId">@Localizer["RegularMenu"]</a>
             }
 
 
             <div>
-                <a class="btn btn-primary" href="/Listaa" style="margin: 0em 0.5em 0.5em 0em;">&#x27F5; Kaikki ruokalistat</a>
+                <a class="btn btn-primary" href="/Listaa" style="margin: 0em 0.5em 0.5em 0em;">&#x27F5; @Localizer["AllMenus"]</a>
 
 
                 @if (Model.Ruokalista != null && Model.NextWeeksMenuExists && !Model.ShowingNextWeeksMenu)
                 {
                     //jos vuosi on vaihtunut niin ei toimi
-                    <a class="btn btn-primary" href="/@Model.Ruokalista.Year/@(Model.Ruokalista.WeekId + 1)" style="margin: 0em 0em 0.5em 0em">Seuraava viikko &#x27F6;</a>
+                    <a class="btn btn-primary" href="/@Model.Ruokalista.Year/@(Model.Ruokalista.WeekId + 1)" style="margin: 0em 0em 0.5em 0em">@Localizer["NextWeek"] &#x27F6;</a>
                 }
 
             </div>

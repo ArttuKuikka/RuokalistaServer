@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using RuokalistaServer.Auth;
@@ -37,6 +39,24 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 	.AddErrorDescriber<CustomIdentityErrorDescriber>();
 
 builder.Services.AddRazorPages();
+
+// Add localization services
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	var supportedCultures = new[]
+	{
+		new CultureInfo("fi-FI"), // Finnish
+		new CultureInfo("en-US"), // English
+		new CultureInfo("sv-SE")  // Swedish
+	};
+
+	options.DefaultRequestCulture = new RequestCulture("fi-FI");
+	options.SupportedCultures = supportedCultures;
+	options.SupportedUICultures = supportedCultures;
+
+	options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -130,6 +150,9 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Add localization middleware
+app.UseRequestLocalization();
 
 app.UseAuthentication();
 app.UseAuthorization();
