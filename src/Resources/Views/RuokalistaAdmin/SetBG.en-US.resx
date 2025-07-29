@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChangeBackground" xml:space="preserve">
+    <value>Change background</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="AutoSelectInfo" xml:space="preserve">
+    <value>If no background image is selected, it will be automatically chosen when the selected week begins</value>
+  </data>
+  <data name="ManualLinkInfo" xml:space="preserve">
+    <value>You can add an image link manually, or select from the options below by clicking</value>
+  </data>
+  <data name="ImageLink" xml:space="preserve">
+    <value>Link to image</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>January</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>February</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>April</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>June</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>July</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>August</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>September</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>October</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>November</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>December</value>
+  </data>
+</root>

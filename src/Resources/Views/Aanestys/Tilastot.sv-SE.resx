@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistik</value>
+  </data>
+  <data name="TimeRange" xml:space="preserve">
+    <value>Tidsperiod</value>
+  </data>
+  <data name="JavaScriptRequired" xml:space="preserve">
+    <value>Den här sidan kräver en webbläsare med JavaScript-stöd för att fungera</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Anpassad</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Denna vecka</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Förra veckan</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Denna månad</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Förra månaden</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Detta år</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+</root>
