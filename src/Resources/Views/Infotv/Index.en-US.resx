@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ThisWeeksVegetarianMenuWithWeek" xml:space="preserve">
+    <value>This week's({0}) vegetarian menu</value>
+  </data>
+  <data name="NextWeeksVegetarianMenuWithWeek" xml:space="preserve">
+    <value>Next week's({0}) vegetarian menu</value>
+  </data>
+  <data name="WeekVegetarianMenuWithWeek" xml:space="preserve">
+    <value>Week({0}) vegetarian menu</value>
+  </data>
+  <data name="NextWeeksMenuWithWeek" xml:space="preserve">
+    <value>Next week's({0}) menu</value>
+  </data>
+  <data name="ThisWeeksMenuWithWeek" xml:space="preserve">
+    <value>This week's({0}) menu</value>
+  </data>
+  <data name="WeekMenuWithWeek" xml:space="preserve">
+    <value>Week({0}) menu</value>
+  </data>
+  <data name="NoMenuForThisWeek" xml:space="preserve">
+    <value>This week's menu is not yet available</value>
+  </data>
+  <data name="TodaysVotingResults" xml:space="preserve">
+    <value>Today's voting results</value>
+  </data>
+  <data name="VoteCount" xml:space="preserve">
+    <value>{0} votes</value>
+  </data>
+</root>

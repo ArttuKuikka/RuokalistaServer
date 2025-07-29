@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeleteMenu" xml:space="preserve">
+    <value>Ta bort meny</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort denna meny</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Meny</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Vecka</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Tillbaka till listan</value>
+  </data>
+</root>

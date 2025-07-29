@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Statistics" xml:space="preserve">
+    <value>Tilastot</value>
+  </data>
+  <data name="TimeRange" xml:space="preserve">
+    <value>Aikaväli</value>
+  </data>
+  <data name="JavaScriptRequired" xml:space="preserve">
+    <value>Tämä sivu vaatii selaimen javascript tuella toimiakseen</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Mistä</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Minne</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Omavalintainen</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Tämä viikko</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Viime viikko</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tämä kuukausi</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Viime kuukausi</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Tämä vuosi</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+</root>
