@@ -1,26 +1,28 @@
 ﻿@model RuokalistaServer.ViewModels.ListaaViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Listaa ruokalistat";
+    ViewData["Title"] = Localizer["ListMenus"];
 
 }
 
-<h1>Kaikki ruokalistat</h1>
+<h1>@Localizer["AllMenus"]</h1>
 
  <table class="table" style="color:white;">
   <tr>
-    <th>Viikko ja vuosi</th>
+    <th>@Localizer["WeekAndYear"]</th>
     <th></th>
   </tr>
     @foreach(var viikko in Model.Ruokalistat)
     {
      <tr>
-            <td><a href="/@viikko.Year/@viikko.WeekId"><h3>Viikko @viikko.WeekId</h3></a> <p>@viikko.Year</p></td>
+            <td><a href="/@viikko.Year/@viikko.WeekId"><h3>@Localizer["Week"] @viikko.WeekId</h3></a> <p>@viikko.Year</p></td>
             <td>
-                <a class="btn btn-primary" href="/@viikko.Year/@viikko.WeekId">Ruokalista</a>
+                <a class="btn btn-primary" href="/@viikko.Year/@viikko.WeekId">@Localizer["Menu"]</a>
 
                 @if(Model.KasvisRuokalistat?.Where(x => x.Year == viikko.Year)?.FirstOrDefault(x => x.WeekId == viikko.WeekId) != null)
                 {
-                    <a class="btn" style="background-color: forestgreen; color: white; margin: 0.3em 0.3em 0.3em 0.3em;" href="/Kasvisruokalista/@viikko.Year/@viikko.WeekId">Kasvisruokalista</a>
+                    <a class="btn" style="background-color: forestgreen; color: white; margin: 0.3em 0.3em 0.3em 0.3em;" href="/Kasvisruokalista/@viikko.Year/@viikko.WeekId">@Localizer["VegetarianMenu"]</a>
                 }
             </td>
       

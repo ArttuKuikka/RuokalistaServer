@@ -1,4 +1,6 @@
 ﻿@model RuokalistaServer.ViewModels.IGViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,8 +183,8 @@
 			<p class="viikkonpaivattxt">@Model.Päivät</p>
 			@if (Model.ShowingKasvisruokalista)
 			{
-				<p class="kasvisruokatitle">Kasvis</p>
-				<p class="kasvisruokaruokalista">Ruokalista</p>
+				<p class="kasvisruokatitle">@Localizer["Vegetarian"]</p>
+				<p class="kasvisruokaruokalista">@Localizer["Menu"]</p>
 			}
 
 		<div class="ruokatekstit">
@@ -210,7 +212,7 @@
 
 
 	</div>
-		<input type="file" title="Lataa taustakuva" accept="image/*" onchange="showPreview(event)" style="
+		<input type="file" title="@Localizer["UploadBackground"]" accept="image/*" onchange="showPreview(event)" style="
 		position: fixed;
 		top: 20px;
 		left: 1100px;
@@ -220,7 +222,7 @@
 			position: fixed;
 			top: 40px;
 			left: 1100px;
-				">Viikon @Model.Ruokalista.WeekId ruokalista #isokyrö #kyrönmaanlukio #ruokalista #isokyröruokalista</p>
+				">@Localizer["Week"] @Model.Ruokalista.WeekId ruokalista #isokyrö #kyrönmaanlukio #ruokalista #isokyröruokalista</p>
 
 </body>
 }

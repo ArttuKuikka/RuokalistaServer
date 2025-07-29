@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ThisWeeksMenu" xml:space="preserve">
+    <value>Tämän viikon ruokalista</value>
+  </data>
+  <data name="NextWeeksMenu" xml:space="preserve">
+    <value>Seuraavan viikon ruokalista</value>
+  </data>
+  <data name="WeekMenu" xml:space="preserve">
+    <value>Viikon {0} ruokalista</value>
+  </data>
+  <data name="NoMenuAvailable" xml:space="preserve">
+    <value>Tätä ruokalistaa ei ole olemassa</value>
+  </data>
+  <data name="ThisWeeksVegetarianMenu" xml:space="preserve">
+    <value>Tämän viikon kasvisruokalista</value>
+  </data>
+  <data name="NextWeeksVegetarianMenu" xml:space="preserve">
+    <value>Seuraavan viikon kasvisruokalista</value>
+  </data>
+  <data name="WeekVegetarianMenu" xml:space="preserve">
+    <value>Viikon {0} kasvisruokalista</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maanantai</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tiistai</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Keskiviikko</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torstai</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Perjantai</value>
+  </data>
+  <data name="DietaryInfo" xml:space="preserve">
+    <value>G = gluteeniton, M = maidoton, L = laktoositon</value>
+  </data>
+  <data name="VegetarianMenu" xml:space="preserve">
+    <value>Kasvisruokalista</value>
+  </data>
+  <data name="RegularMenu" xml:space="preserve">
+    <value>Ruokalista</value>
+  </data>
+  <data name="AllMenus" xml:space="preserve">
+    <value>Kaikki ruokalistat</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Seuraava viikko</value>
+  </data>
+  <data name="NoMenuForThisWeek" xml:space="preserve">
+    <value>Tämän viikon ruokalistaa ei vielä ole</value>
+  </data>
+</root>

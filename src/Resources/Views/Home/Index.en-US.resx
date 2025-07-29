@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ThisWeeksMenu" xml:space="preserve">
+    <value>This week's menu</value>
+  </data>
+  <data name="NextWeeksMenu" xml:space="preserve">
+    <value>Next week's menu</value>
+  </data>
+  <data name="WeekMenu" xml:space="preserve">
+    <value>Week {0} menu</value>
+  </data>
+  <data name="NoMenuAvailable" xml:space="preserve">
+    <value>This menu does not exist</value>
+  </data>
+  <data name="ThisWeeksVegetarianMenu" xml:space="preserve">
+    <value>This week's vegetarian menu</value>
+  </data>
+  <data name="NextWeeksVegetarianMenu" xml:space="preserve">
+    <value>Next week's vegetarian menu</value>
+  </data>
+  <data name="WeekVegetarianMenu" xml:space="preserve">
+    <value>Week {0} vegetarian menu</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="DietaryInfo" xml:space="preserve">
+    <value>G = gluten-free, M = dairy-free, L = lactose-free</value>
+  </data>
+  <data name="VegetarianMenu" xml:space="preserve">
+    <value>Vegetarian menu</value>
+  </data>
+  <data name="RegularMenu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="AllMenus" xml:space="preserve">
+    <value>All menus</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Next week</value>
+  </data>
+  <data name="NoMenuForThisWeek" xml:space="preserve">
+    <value>This week's menu is not yet available</value>
+  </data>
+</root>
