@@ -1,17 +1,19 @@
 ﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Hallinta";
+    ViewData["Title"] = Localizer["Administration"];
 }
 
-<h1 style="color: white">Hallinta</h1>
+<h1 style="color: white">@Localizer["Administration"]</h1>
 <hr />
-<h2 style="color: white">Käyttäjät</h2>
+<h2 style="color: white">@Localizer["Users"]</h2>
 <table class="table table-striped" style="color: white">
     <thead>
         <tr>
-            <th>Käyttäjä</th>
-            <th>Toiminnot</th>
+            <th>@Localizer["User"]</th>
+            <th>@Localizer["Actions"]</th>
         </tr>
     </thead>
     <tbody>
@@ -19,28 +21,28 @@
         {
             <tr>
                 <td style="color: white">@kayttaja.Email</td>
-                <td>@Html.ActionLink("Poista", "PoistaKayttaja", "UserAdmin", new { id = kayttaja.Id },new { @class = "btn btn-danger" })
-                @Html.ActionLink("Palauta Salasana", "PalautaSalasana", "UserAdmin", new { id = kayttaja.Id },new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink(Localizer["Delete"].Value, "PoistaKayttaja", "UserAdmin", new { id = kayttaja.Id },new { @class = "btn btn-danger" })
+                @Html.ActionLink(Localizer["ResetPassword"].Value, "PalautaSalasana", "UserAdmin", new { id = kayttaja.Id },new { @class = "btn btn-danger" })</td>
             </tr>
         }
     </tbody>
 </table>
 <br />
-<h2 style="color: white">Uusi käyttäjä</h2>
+<h2 style="color: white">@Localizer["NewUser"]</h2>
 @using (Html.BeginForm("UusiKayttaja", "UserAdmin", FormMethod.Post))
 {
     <table class="table" style="color: white">
         <tr>
-            <th>Sähköposti</th>
+            <th>@Localizer["Email"]</th>
             <td>@Html.TextBox("email")</td>
         </tr>
         <tr>
-            <th>Salasana</th>
+            <th>@Localizer["Password"]</th>
             <td>@Html.TextBox("password")</td>
         </tr>
         <tr>
             <th></th>
-            <td><button type="submit" class="btn btn-dark">Luo</button></td>
+            <td><button type="submit" class="btn btn-dark">@Localizer["Create"]</button></td>
         </tr>
     </table>
 }

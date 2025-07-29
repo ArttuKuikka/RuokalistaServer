@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<RuokalistaServer.Models.Ruokalista>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Hallitse ruokalistoja";
+    ViewData["Title"] = Localizer["ManageMenus"];
     var currentWeek = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now);
 }
 
@@ -28,10 +30,10 @@
     }
 </script>
 
-<h1>Hallitse ruokalistoja</h1>
+<h1>@Localizer["ManageMenus"]</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">➕ Luo uusi ruokalista</a>
+    <a class="btn btn-primary" asp-action="Create">➕ @Localizer["CreateNewMenu"]</a>
 </p>
 <table class="table">
     <tbody>
@@ -40,11 +42,11 @@
             <td>
                     @if(item.WeekId == currentWeek && item.Year == DateTime.Now.Year)
                     {
-                        <h2 class="highlighted">Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                        <h2 class="highlighted">@Localizer["Week"] @Html.DisplayFor(modelItem => item.WeekId)</h2>
                     }
                     else
                     {
-                        <h2>Viikko @Html.DisplayFor(modelItem => item.WeekId)</h2>
+                        <h2>@Localizer["Week"] @Html.DisplayFor(modelItem => item.WeekId)</h2>
                     }
                 </td>
             <td>
@@ -61,10 +63,10 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="printDropdown">
                             <li>
-                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, false)">🖨️ Tulosta ruokalista</a>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, false)">🖨️ @Localizer["PrintMenu"]</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, true)">🖨️ Tulosta kasvisruokalista</a>
+                                <a class="dropdown-item" href="#" onclick="printRL(@item.Year, @item.WeekId, true)">🖨️ @Localizer["PrintVegetarianMenu"]</a>
                             </li>
                         </ul>
                     </div>
@@ -77,9 +79,9 @@
                 }
 
 
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 Muokkaa</a> 
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Poista</a>
-                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">🏞️ Valitse taustakuva</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">📝 @Localizer["Edit"]</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ @Localizer["Delete"]</a>
+                    <a class="btn btn-primary" href="/RuokalistaAdmin/SetBG?ruokalistaId=@item.Id">🏞️ @Localizer["SelectBackground"]</a>
                     
             </td>
         </tr>

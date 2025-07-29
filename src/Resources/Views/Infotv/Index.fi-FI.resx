@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ThisWeeksVegetarianMenu" xml:space="preserve">
+    <value>Tämän viikon({0}) kasvisruokalista</value>
+  </data>
+  <data name="NextWeeksVegetarianMenu" xml:space="preserve">
+    <value>Seuraavan viikon({0}) kasvisruokalista</value>
+  </data>
+  <data name="WeekVegetarianMenu" xml:space="preserve">
+    <value>Viikon({0}) kasvisruokalista</value>
+  </data>
+  <data name="NextWeeksMenu" xml:space="preserve">
+    <value>Seuraavan viikon({0}) ruokalista</value>
+  </data>
+  <data name="ThisWeeksMenu" xml:space="preserve">
+    <value>Tämän viikon({0}) ruokalista</value>
+  </data>
+  <data name="WeekMenu" xml:space="preserve">
+    <value>Viikon({0}) ruokalista</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maanantai</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tiistai</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Keskiviikko</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torstai</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Perjantai</value>
+  </data>
+  <data name="NoMenuForThisWeek" xml:space="preserve">
+    <value>Tämän viikon ruokalistaa ei vielä ole</value>
+  </data>
+  <data name="TodaysVotingResults" xml:space="preserve">
+    <value>Tämän päivän äänestystulokset</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>ääntä</value>
+  </data>
+</root>

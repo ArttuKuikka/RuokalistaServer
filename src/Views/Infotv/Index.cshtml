@@ -1,5 +1,7 @@
 ﻿@using RuokalistaServer
 @model RuokalistaServer.ViewModels.InfoTVViewModel;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -197,61 +199,61 @@
         {
             @if(Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
             {
-                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Tämän viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">@string.Format(Localizer["ThisWeeksVegetarianMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if(Model.ShowingNextWeeksMenu && Model.ShowingKasvisruokalista)
             {
-                <div style="font-size:3.8vw; font-weight:bold">Seuraavan viikon(@Model.Ruokalista.WeekId) kasvisruokalistaruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold">@string.Format(Localizer["NextWeeksVegetarianMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingKasvisruokalista)
             {
-                <div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) kasvisruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold">@string.Format(Localizer["WeekVegetarianMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingNextWeeksMenu)
             {
-                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">Seuraavan viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold; margin-bottom:10px">@string.Format(Localizer["NextWeeksMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if(Model.ShowingCurrentWeeksMenu)
             {
-                <div style="font-size:3.8vw; font-weight:bold">Tämän viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold">@string.Format(Localizer["ThisWeeksMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else
             {
-                <div style="font-size:3.8vw; font-weight:bold">Viikon(@Model.Ruokalista.WeekId) ruokalista</div>
+                <div style="font-size:3.8vw; font-weight:bold">@string.Format(Localizer["WeekMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
 
 
 
 
             <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Monday ? "highlighted" : "")">
-                <div class="autosize">Maanantai</div>
+                <div class="autosize">@Localizer["Monday"]</div>
                 <div class="autosize ruokateksti">@Model.Ruokalista.Maanantai</div>
             </div>
 
             <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Tuesday ? "highlighted" : "")">
-                <div class="autosize">Tiistai</div>
+                <div class="autosize">@Localizer["Tuesday"]</div>
                 <div class="autosize ruokateksti">@Model.Ruokalista.Tiistai</div>
             </div>
 
             <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Wednesday ? "highlighted" : "")">
-                <div class="autosize">Keskiviikko</div>
+                <div class="autosize">@Localizer["Wednesday"]</div>
                 <div class="autosize ruokateksti">@Model.Ruokalista.Keskiviikko</div>
             </div>
 
             <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Thursday ? "highlighted" : "")">
-                <div class="autosize">Torstai</div>
+                <div class="autosize">@Localizer["Thursday"]</div>
                 <div class="autosize ruokateksti">@Model.Ruokalista.Torstai</div>
             </div>
 
             <div class="@(Model.ShowingCurrentWeeksMenu && DateTime.Now.DayOfWeek == DayOfWeek.Friday ? "highlighted" : "")">
-                <div class="autosize">Perjantai</div>
+                <div class="autosize">@Localizer["Friday"]</div>
                 <div class="autosize ruokateksti">@Model.Ruokalista.Perjantai</div>
             </div>
 				
         }
         else
         {
-            <h1 style="font-size:4vw">Tämän viikon ruokalistaa ei vielä ole</h1>
+            <h1 style="font-size:4vw">@Localizer["NoMenuForThisWeek"]</h1>
         }
 
     }
@@ -260,8 +262,8 @@
 
 
 <div id="aanestysbox" style="top:5px; right:5px; z-index:4; position: absolute;  width:24vw; height: 10vw; background-color: #222; border-radius: 10px; opacity:80%; text-align:center;">
-    <h2 class="infotv-title">Tämän päivän äänestystulokset</h2>
-    <h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 ääntä</h4>
+    <h2 class="infotv-title">@Localizer["TodaysVotingResults"]</h2>
+    <h4 id="voteCounter" class="voteCountTitle" style="font-size: 1.2em">0 @Localizer["Votes"]</h4>
 </div>
 	
 </body>

@@ -1,8 +1,10 @@
 ﻿@using Newtonsoft.Json
 @using RuokalistaServer.Models;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Tilastot";
+    ViewData["Title"] = Localizer["Statistics"];
 }
 
 
@@ -24,18 +26,18 @@
 </div>
 <div class="date-container">
     <div class="title">
-        <h1>Tilastot</h1>
+        <h1>@Localizer["Statistics"]</h1>
         
     </div>
     <div class="input-container">
-        <div>Aikaväli</div>
+        <div>@Localizer["TimeRange"]</div>
         <input type="text" name="datetimes" />
     </div>
 </div>
 
 <br />
 <noscript>
-    <h1>Tämä sivu vaatii selaimen javascript tuella toimiakseen</h1>
+    <h1>@Localizer["JavaScriptRequired"]</h1>
 </noscript>
 
 <div class="contentBody" id="contentBody">
@@ -55,18 +57,18 @@
         "locale": {
             "format": "DD.MM.YYYY",
             "separator": " - ",
-            "applyLabel": "OK",
-            "cancelLabel": "Peruuta",
-            "fromLabel": "Mistä",
-            "toLabel": "Minne",
-            "customRangeLabel": "Omavalintainen",
-            "weekLabel": "V",
+            "applyLabel": "@Localizer["ApplyLabel"]",
+            "cancelLabel": "@Localizer["CancelLabel"]",
+            "fromLabel": "@Localizer["FromLabel"]",
+            "toLabel": "@Localizer["ToLabel"]",
+            "customRangeLabel": "@Localizer["CustomRangeLabel"]",
+            "weekLabel": "@Localizer["WeekLabel"]",
             "daysOfWeek": [
-                "Ma",
-                "Ti",
-                "Ke",
-                "To",
-                "Pe",
+                "@Localizer["Monday"].ToString().Substring(0, 2)",
+                "@Localizer["Tuesday"].ToString().Substring(0, 2)",
+                "@Localizer["Wednesday"].ToString().Substring(0, 2)",
+                "@Localizer["Thursday"].ToString().Substring(0, 2)",
+                "@Localizer["Friday"].ToString().Substring(0, 2)",
                 "La",
                 "Su"
             ],
@@ -92,12 +94,12 @@
         "minYear": 2023,
         "showWeekNumbers": true,
         ranges: {
-            'Tämä viikko': [moment().startOf('week'), moment().endOf('week')],
-            'Viime viikko': [moment().startOf('week').subtract(7, 'days'), moment().startOf('week').subtract(1, 'days')],
-            'Tämä kuukausi': [moment().startOf('month'), moment().endOf('month')],
-            'Viime kuukausi': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-            'Tämä vuosi': [moment().startOf('year'), moment().endOf('year')],
-            'Kaikki': [moment({ year: 2023, month: 0, day: 0 }), moment()]
+            '@Localizer["ThisWeek"]': [moment().startOf('week'), moment().endOf('week')],
+            '@Localizer["LastWeek"]': [moment().startOf('week').subtract(7, 'days'), moment().startOf('week').subtract(1, 'days')],
+            '@Localizer["ThisMonth"]': [moment().startOf('month'), moment().endOf('month')],
+            '@Localizer["LastMonth"]': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+            '@Localizer["ThisYear"]': [moment().startOf('year'), moment().endOf('year')],
+            '@Localizer["All"]': [moment({ year: 2023, month: 0, day: 0 }), moment()]
         },
         "alwaysShowCalendars": true,
         "startDate": formatDateForURL(startTime),
