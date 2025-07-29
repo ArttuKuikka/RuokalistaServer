@@ -33,4 +33,22 @@
   <data name="BackToList" xml:space="preserve">
     <value>Tillbaka till listan</value>
   </data>
+  <data name="DietaryInfo" xml:space="preserve">
+    <value>G = glutenfri, M = mjölkfri, L = laktosfri</value>
+  </data>
+  <data name="ExampleFormat" xml:space="preserve">
+    <value>Exempel: Ugnkorv (G,M), Mos (L,G), Kålsallad.</value>
+  </data>
+  <data name="NoNotificationInfo" xml:space="preserve">
+    <value>Ingen avisering skickas för mat om du lägger till 'semester', 'ledig dag', 'ledig' eller 'ingen skola'</value>
+  </data>
+  <data name="HolidayExample" xml:space="preserve">
+    <value>Ex: Fredag: Grattis på självständighetsdagen! (helgdag)</value>
+  </data>
+  <data name="WeekOffInfo" xml:space="preserve">
+    <value>Detta kan användas på dagar när det inte finns skola hela veckan</value>
+  </data>
+  <data name="VegetarianOptional" xml:space="preserve">
+    <value>du kan lämna vegetariska menyn tom om det inte finns någon vegetarisk meny för veckan.</value>
+  </data>
 </root>

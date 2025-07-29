@@ -1,30 +1,32 @@
 ﻿@model RuokalistaServer.Models.Ruokalistat
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Poista ruokalista";
+    ViewData["Title"] = Localizer["DeleteMenu"];
 }
 
-<h1>Poista ruokalista</h1>
+<h1>@Localizer["DeleteMenu"]</h1>
 
-<h3>Oletko varma että haluat poistaa tämän ruokalistan</h3>
+<h3>@Localizer["ConfirmDelete"]</h3>
 <div>
-    <h4>Ruokalista</h4>
+    <h4>@Localizer["Menu"]</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Viikko
+            @Localizer["Week"]
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Ruokalista.WeekId)
         </dd>
         <dt class = "col-sm-2">
-            Vuosi
+            @Localizer["Year"]
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ruokalista.Year)
         </dd>
 
-        <div style="padding: 1em 0em 0em 0em; font-weight: bold; color: orange;">Ruokalista</div>
+        <div style="padding: 1em 0em 0em 0em; font-weight: bold; color: orange;">@Localizer["Menu"]</div>
 
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Ruokalista.Maanantai)

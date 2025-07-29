@@ -1,11 +1,13 @@
 ﻿@model RuokalistaServer.Models.Ruokalistat
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Luo ruokalista";
+    ViewData["Title"] = Localizer["CreateMenu"];
 
 }
 
-<h1>Luo ruokalista</h1>
+<h1>@Localizer["CreateMenu"]</h1>
 <br />
 <hr />
 <div class="row">
@@ -14,12 +16,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="rounded-container" style="max-width: 15em;">
                 <div class="form-group">
-                    <label class="control-label">Vuosi</label>
+                    <label class="control-label">@Localizer["Year"]</label>
                     <input style="font-size: 1.5em;" asp-for="Ruokalista.Year" class="form-control" />
                     <span asp-validation-for="Ruokalista.Year" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Viikko</label>
+                    <label class="control-label">@Localizer["Week"]</label>
                     <input style="font-size: 1.5em;" asp-for="Ruokalista.WeekId" class="form-control" />
                     <span asp-validation-for="Ruokalista.WeekId" class="text-danger"></span>
                 </div>
@@ -28,7 +30,7 @@
             <br />
 
             <div class="rounded-container" style="max-width: 50em;">
-                <h3>Ruokalista</h3>
+                <h3>@Localizer["Menu"]</h3>
                 <div class="form-group">
                     <label asp-for="Ruokalista.Maanantai" class="control-label"></label>
                     <input asp-for="Ruokalista.Maanantai" class="form-control" />
@@ -61,7 +63,7 @@
             @if (GlobalConfig.KasvisruokalistaEnabled)
             {
                 <div class="rounded-container" style="max-width: 50em;">
-                    <h3>Kasvisruokalista</h3>
+                    <h3>@Localizer["VegetarianMenu"]</h3>
                     <div class="form-group">
                         <label asp-for="KasvisRuokalista.Maanantai" class="control-label"></label>
                         <input asp-for="KasvisRuokalista.Maanantai" class="form-control" />
@@ -94,23 +96,23 @@
             <br />
 
             <div class="rounded-container" style="max-width: 50em;">
-                <p>G = gluteeniton, M = maidoton, L = laktoositon <br />
-                    Esimerkki: Uunimakkara (G,M), Muusi (L,G), Kaalisalaatti.
+                <p>@Localizer["DietaryInfo"] <br />
+                    @Localizer["ExampleFormat"]
                     <br />
                     <br />
 
-                    Ruoasta ei lähetetä ilmoitusta, jos lisäät siihen 'loma', 'vapaapäivä', 'vapaa' tai 'ei koulua'<br />
-                    Esim: Perjantai: Hyvää itsenäisyyspäivää! (vapaapäivä)<br />
-                    Tätä voidaan käyttää päivinä jolloin koulua ei ole koko viikon ajan<br />
+                    @Localizer["NoNotificationInfo"]<br />
+                    @Localizer["HolidayExample"]<br />
+                    @Localizer["WeekOffInfo"]<br />
                     <br />
-                    voit jättää Kasvisruokalistan tyhjäksi, jos viikolle ei ole kasvisruokalistaa.
+                    @Localizer["VegetarianOptional"]
                 </p>
             </div>
 
 
             <br />
             <div class="form-group">
-                <input type="submit" value="Luo ruokalista" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Create"]" class="btn btn-primary" />
             </div>
 
         </form>
@@ -118,7 +120,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Takaisin</a>
+    <a asp-action="Index">@Localizer["BackToList"]</a>
 </div>
 
 

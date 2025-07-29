@@ -1,7 +1,9 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
     Layout = ViewBag.Layout;
-    ViewData["Title"] = "Äänestystulokset";
+    ViewData["Title"] = Localizer["VotingResults"];
 }
 
 <link rel="stylesheet" href="/css/faq.css">
@@ -27,7 +29,7 @@
 
 @if (!ViewBag.isApp)
 {
-    <h2>Ruokien äänestystulokset</h2>
+    <h2>@Localizer["VotingResults"]</h2>
 
    
 }
@@ -39,6 +41,6 @@
 
 <br />
 <div style="justify-content: center; text-align:center;">
-    <button class="btn btn-primary moreResults" >Lataa lisää tuloksia</button>
+    <button class="btn btn-primary moreResults" >@Localizer["LoadMoreResults"]</button>
     </div>
     <br />

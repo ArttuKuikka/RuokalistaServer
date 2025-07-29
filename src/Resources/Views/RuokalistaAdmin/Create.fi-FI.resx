@@ -33,4 +33,22 @@
   <data name="BackToList" xml:space="preserve">
     <value>Takaisin listaan</value>
   </data>
+  <data name="DietaryInfo" xml:space="preserve">
+    <value>G = gluteeniton, M = maidoton, L = laktoositon</value>
+  </data>
+  <data name="ExampleFormat" xml:space="preserve">
+    <value>Esimerkki: Uunimakkara (G,M), Muusi (L,G), Kaalisalaatti.</value>
+  </data>
+  <data name="NoNotificationInfo" xml:space="preserve">
+    <value>Ruoasta ei lähetetä ilmoitusta, jos lisäät siihen 'loma', 'vapaapäivä', 'vapaa' tai 'ei koulua'</value>
+  </data>
+  <data name="HolidayExample" xml:space="preserve">
+    <value>Esim: Perjantai: Hyvää itsenäisyyspäivää! (vapaapäivä)</value>
+  </data>
+  <data name="WeekOffInfo" xml:space="preserve">
+    <value>Tätä voidaan käyttää päivinä jolloin koulua ei ole koko viikon ajan</value>
+  </data>
+  <data name="VegetarianOptional" xml:space="preserve">
+    <value>voit jättää Kasvisruokalistan tyhjäksi, jos viikolle ei ole kasvisruokalistaa.</value>
+  </data>
 </root>

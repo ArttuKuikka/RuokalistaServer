@@ -33,4 +33,22 @@
   <data name="BackToList" xml:space="preserve">
     <value>Back to list</value>
   </data>
+  <data name="DietaryInfo" xml:space="preserve">
+    <value>G = gluten-free, M = dairy-free, L = lactose-free</value>
+  </data>
+  <data name="ExampleFormat" xml:space="preserve">
+    <value>Example: Oven sausage (G,M), Mashed potatoes (L,G), Cabbage salad.</value>
+  </data>
+  <data name="NoNotificationInfo" xml:space="preserve">
+    <value>No notification is sent for food if you add 'holiday', 'day off', 'free' or 'no school'</value>
+  </data>
+  <data name="HolidayExample" xml:space="preserve">
+    <value>Ex: Friday: Happy Independence Day! (holiday)</value>
+  </data>
+  <data name="WeekOffInfo" xml:space="preserve">
+    <value>This can be used on days when there is no school for the whole week</value>
+  </data>
+  <data name="VegetarianOptional" xml:space="preserve">
+    <value>you can leave the Vegetarian menu empty if there is no vegetarian menu for the week.</value>
+  </data>
 </root>
