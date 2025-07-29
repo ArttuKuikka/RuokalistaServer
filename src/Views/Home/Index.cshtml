@@ -25,7 +25,7 @@
         }
         else
         {
-            ViewData["Title"] = string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId);
+            ViewData["Title"] = string.Format(Localizer["WeekMenu"].Value, Model.Ruokalista.WeekId);
         }
         
     }
@@ -43,11 +43,11 @@
         {
             if (Model.Printing && Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"], Model.Ruokalista.WeekId)</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if (Model.Printing)
             {
-                <div class="siteTitle">@string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId)</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekMenu"].Value, Model.Ruokalista.WeekId)</div>
             }
             else if (Model.ShowingCurrentWeeksMenu && Model.ShowingKasvisruokalista)
             {
@@ -69,11 +69,11 @@
             
             else if (Model.ShowingKasvisruokalista)
             {
-                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"], Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekVegetarianMenu"].Value, Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
             }
             else
             {
-                <div class="siteTitle">@string.Format(Localizer["WeekMenu"], Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
+                <div class="siteTitle">@string.Format(Localizer["WeekMenu"].Value, Model.Ruokalista.WeekId)/@Model.Ruokalista.Year</div>
             }
 
 
